@@ -1,0 +1,62 @@
+/** Canonical content — Breath of Innovation · July 8, 2026 */
+window.BOI = {
+  event: {
+    title: "Breath of Innovation",
+    date: "Tuesday, July 8, 2026",
+    location: "Norco, California",
+    arrival: "9:00 AM",
+    arrivalNote: "Conference room across from The Flavor Factory",
+    facility: "2058 Second Street, Norco, CA 92860",
+    phone: "(951) 273-9877",
+    web: "flavorfactory.net",
+  },
+  schedule: [
+    { time: "9:00 AM", end: "10:00", title: "Presentation", desc: "Four pillars — open conversation", accent: "#008fd3" },
+    { time: "10:00", end: "10:15", title: "Facility tour", desc: "Production, QC, TheraBreath room", accent: "#5fb832" },
+    { time: "10:15", end: "10:30", title: "Break", desc: "Reset before tasting", accent: "#5c6678" },
+    { time: "10:30", end: "11:15", title: "Tasting", desc: "Ten prototypes · blind then score", accent: "#f58220" },
+    { time: "11:30", end: "1:00", title: "Lunch off site", desc: "Your hosts take the group", accent: "#5b6b8a" },
+    { time: "1:00 PM+", end: "", title: "Open Q&A", desc: "Your topics · your pace", accent: "#006da3" },
+  ],
+  pillars: [
+    {
+      id: "resiliency",
+      num: 1,
+      title: "Resiliency",
+      tagline: "Protect the core as you grow.",
+      color: "#008fd3",
+      points: ["Capacity & growth scenarios", "SQF · GMP · FDA registered", "Alternate suppliers & continuity"],
+    },
+    {
+      id: "innovation",
+      num: 2,
+      title: "Innovation",
+      tagline: "Flavor work inside your products.",
+      color: "#5fb832",
+      points: ["Oral-care & chlorite chemistry", "Sensory science & prototypes", "Competitive & seasonal directions"],
+    },
+    {
+      id: "operations",
+      num: 3,
+      title: "Operations",
+      tagline: "One roof. Full visibility.",
+      color: "#f58220",
+      points: ["Norco dev + production + QC", "Batch release & traceability", "COAs & supplier documentation"],
+    },
+    {
+      id: "partnership",
+      num: 4,
+      title: "Partnership",
+      tagline: "Build together long term.",
+      color: "#0a1628",
+      points: ["Communication cadence", "Investment alignment", "Co-development roadmap"],
+    },
+  ],
+  chapters: [
+    { id: "welcome", label: "Welcome", slides: [0, 1, 2] },
+    { id: "day", label: "Your day", slides: [3] },
+    { id: "pillars", label: "Four pillars", slides: [4, 5, 6, 7, 8] },
+    { id: "depth", label: "Deep dives", slides: [9, 10, 11] },
+    { id: "close", label: "Close", slides: [12, 13] },
+  ],
+};
