@@ -8,6 +8,14 @@
   var index = 0;
   var hideTimer = null;
   var touchX = null;
+  var touchY = null;
+  var isTouch =
+    window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
+    window.matchMedia("(max-width: 768px)").matches;
+
+  if (isTouch) {
+    document.documentElement.classList.add("pres-touch");
+  }
 
   function esc(s) {
     return String(s)
@@ -234,14 +242,44 @@
     return slide && slide.classList.contains("revealed");
   }
 
+  function revealLabel(btn, slide, revealing) {
+    if (!btn) return;
+    var icon = slide.classList.contains("pres-slide-strategic") ? "?" : "✦";
+    var label = revealing
+      ? btn.dataset.hideLabel
+      : isTouch
+        ? "Tap to reveal points"
+        : btn.dataset.revealLabel || "Reveal points";
+    btn.setAttribute("aria-expanded", revealing ? "true" : "false");
+    btn.innerHTML =
+      '<span class="pres-reveal-icon" aria-hidden="true">' + icon + "</span> " + label;
+  }
+
+  function syncRevealHeight(slide) {
+    var answer = slide && slide.querySelector(".pres-qa-answer");
+    if (!answer) return;
+    if (slide.classList.contains("revealed")) {
+      answer.style.maxHeight = answer.scrollHeight + 32 + "px";
+    } else {
+      answer.style.maxHeight = "0px";
+    }
+  }
+
+  function refitAfterReveal(slide) {
+    syncRevealHeight(slide);
+    requestAnimationFrame(function () {
+      fitSlide();
+      requestAnimationFrame(fitSlide);
+    });
+    window.setTimeout(fitSlide, 580);
+  }
+
   function resetReveal(slide) {
     if (!slide) return;
     slide.classList.remove("revealed");
     var btn = slide.querySelector(".pres-reveal-btn");
-    if (!btn) return;
-    var icon = slide.classList.contains("pres-slide-strategic") ? "?" : "✦";
-    var label = btn.dataset.revealLabel || "Reveal points";
-    btn.innerHTML = '<span class="pres-reveal-icon" aria-hidden="true">' + icon + "</span> " + label;
+    syncRevealHeight(slide);
+    revealLabel(btn, slide, false);
   }
 
   function toggleReveal(slide) {
@@ -249,25 +287,40 @@
     var btn = slide.querySelector(".pres-reveal-btn");
     var revealing = !slide.classList.contains("revealed");
     slide.classList.toggle("revealed", revealing);
-    if (btn) {
-      var label = revealing ? btn.dataset.hideLabel : btn.dataset.revealLabel;
-      var icon = slide.classList.contains("pres-slide-strategic") ? "?" : "✦";
-      btn.innerHTML = '<span class="pres-reveal-icon" aria-hidden="true">' + icon + "</span> " + label;
+    revealLabel(btn, slide, revealing);
+    if (revealing) {
+      refitAfterReveal(slide);
+    } else {
+      syncRevealHeight(slide);
+      requestAnimationFrame(fitSlide);
     }
-    requestAnimationFrame(fitSlide);
+    updateMobileNextLabel();
     return revealing;
   }
 
   function bindRevealButtons() {
     slides.forEach(function (slide) {
       var btn = slide.querySelector(".pres-reveal-btn");
-      if (!btn || btn.dataset.bound) return;
-      btn.dataset.bound = "1";
-      btn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        toggleReveal(slide);
-        flashChrome();
-      });
+      var answer = slide.querySelector(".pres-qa-answer");
+      if (btn && !btn.dataset.bound) {
+        btn.dataset.bound = "1";
+        btn.setAttribute("aria-expanded", "false");
+        if (isTouch) {
+          btn.dataset.revealLabel = "Tap to reveal points";
+        }
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          toggleReveal(slide);
+          flashChrome();
+        });
+      }
+      if (answer && !answer.dataset.bound) {
+        answer.dataset.bound = "1";
+        answer.addEventListener("transitionend", function (e) {
+          if (e.propertyName !== "max-height") return;
+          if (slide === slides[index]) fitSlide();
+        });
+      }
     });
   }
 
@@ -279,14 +332,21 @@
     if (!inner) return;
 
     inner.style.transform = "none";
-    var availH = viewport.clientHeight - 8;
-    var availW = viewport.clientWidth - 8;
+    var availH = viewport.clientHeight - 12;
+    var availW = viewport.clientWidth - 12;
     var h = inner.offsetHeight;
     var w = inner.offsetWidth;
+    if (!h || !w) return;
     var scale = Math.min(1, availH / h, availW / w);
-    if (scale < 0.995) {
-      inner.style.transform = "scale(" + scale + ")";
-    }
+    inner.style.transform = scale < 0.995 ? "scale(" + scale + ")" : "none";
+  }
+
+  function updateMobileNextLabel() {
+    var nextBtn = document.getElementById("pres-next");
+    if (!nextBtn || !isTouch) return;
+    var slide = slides[index];
+    nextBtn.textContent =
+      isQaSlide(slide) && !isRevealed(slide) ? "Reveal" : "Next";
   }
 
   function show(i) {
@@ -306,6 +366,7 @@
     if (counterEl) counterEl.textContent = (index + 1) + " / " + slides.length;
     history.replaceState(null, "", "#" + (index + 1));
     updateChapters();
+    updateMobileNextLabel();
     requestAnimationFrame(fitSlide);
   }
 
@@ -422,15 +483,35 @@
   });
 
   viewport?.addEventListener("touchstart", function (e) {
+    if (e.target.closest(".pres-reveal-btn")) return;
     touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
   }, { passive: true });
 
   viewport?.addEventListener("touchend", function (e) {
-    if (touchX == null) return;
+    if (touchX == null || touchY == null) return;
+    if (e.target.closest(".pres-reveal-btn")) {
+      touchX = null;
+      touchY = null;
+      return;
+    }
     var dx = e.changedTouches[0].clientX - touchX;
+    var dy = e.changedTouches[0].clientY - touchY;
     touchX = null;
-    if (Math.abs(dx) < 40) return;
-    if (dx < 0) handleAdvance(); else prev();
+    touchY = null;
+    var slide = slides[index];
+
+    if (Math.abs(dx) < 36 && Math.abs(dy) < 36) {
+      if (isQaSlide(slide) && !isRevealed(slide)) {
+        toggleReveal(slide);
+        flashChrome();
+      }
+      return;
+    }
+
+    if (Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < -50) handleAdvance();
+    else if (dx > 50) prev();
     flashChrome();
   }, { passive: true });
 
