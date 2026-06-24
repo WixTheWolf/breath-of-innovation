@@ -4,6 +4,14 @@
 
   if (!window.BOI || !qaEl) return;
 
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
   BOI.qaSections.forEach(function (section) {
     var block = document.createElement("div");
     block.className = "pkt-pillar";
@@ -11,27 +19,16 @@
     var head = document.createElement("div");
     head.className = "pkt-pillar-head";
     head.style.background = section.color;
-    head.textContent = section.emoji + "  " + section.pillarShort + " · " + section.pillar;
+    head.textContent = section.pillarShort + " · " + section.pillar;
     block.appendChild(head);
 
     section.cards.forEach(function (card) {
-      var cues = card.hints
-        .map(function (h) {
-          return '<span class="pkt-cue">' + h + "</span>";
-        })
-        .join("");
-
       var item = document.createElement("article");
       item.className = "pkt-card";
       item.innerHTML =
-        '<div class="pkt-card-top">' +
-        '<img class="pkt-thumb" src="' + card.image + '" alt="" />' +
-        "<div>" +
-        '<p class="pkt-card-num">Card ' + card.num + " · Screen cue</p>" +
-        '<h3 class="pkt-card-q">' + card.emoji + " " + card.question + "</h3>" +
-        "</div></div>" +
-        '<div class="pkt-cues">' + cues + "</div>" +
-        '<p class="pkt-answer"><strong>Say:</strong> ' + card.fullAnswer + "</p>";
+        '<p class="pkt-card-num">Card ' + card.num + "</p>" +
+        '<h3 class="pkt-card-q">' + esc(card.question) + "</h3>" +
+        '<p class="pkt-answer">' + esc(card.answer) + "</p>";
       block.appendChild(item);
     });
 
@@ -43,8 +40,8 @@
     row.className = "pkt-strat-item";
     row.innerHTML =
       '<span class="pkt-strat-num">' + item.num + ".</span>" +
-      '<p class="pkt-strat-q">' + item.emoji + " " + item.question + "</p>" +
-      '<p class="pkt-strat-why"><strong>Why:</strong> ' + item.fullWhy + "</p>";
+      '<p class="pkt-strat-q">' + esc(item.question) + "</p>" +
+      '<p class="pkt-strat-why"><strong>Why it matters:</strong> ' + esc(item.why) + "</p>";
     stratEl.appendChild(row);
   });
 

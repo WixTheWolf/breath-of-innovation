@@ -133,22 +133,6 @@ body {
   page-break-inside: avoid;
 }
 
-.pkt-card-top {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  margin-bottom: 8px;
-}
-
-.pkt-thumb {
-  width: 52px;
-  height: 52px;
-  border-radius: 8px;
-  object-fit: cover;
-  flex-shrink: 0;
-  background: #f0f4f8;
-}
-
 .pkt-card-num {
   font-family: var(--font-display);
   font-size: 0.62rem;
@@ -166,25 +150,12 @@ body {
   line-height: 1.25;
 }
 
-.pkt-cues {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-
-.pkt-cue {
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: #f0f9fd;
-  border: 1px solid #c5e4f3;
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #006da3;
-}
-
 .pkt-answer {
-  margin: 0;
+  margin: 8px 0 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid var(--line);
   font-size: 0.82rem;
   line-height: 1.55;
   color: #344054;
