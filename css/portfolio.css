@@ -263,9 +263,8 @@ body.port-mode .boi-nav-links a.on {
 }
 
 .port-dock button[data-col="all"].active { background: var(--ink); }
-.port-dock button[data-col="heritage"].active { background: #e85d8a; }
-.port-dock button[data-col="mouthwash"].active { background: #008fd3; }
-.port-dock button[data-col="rinewash"].active { background: #2a9d8f; }
+.port-dock button[data-col="production"].active { background: #0d9488; }
+.port-dock button[data-col="presented"].active { background: #008fd3; }
 .port-dock button[data-col="pipeline"].active { background: #5fb832; }
 .port-dock button[data-col="genalpha"].active { background: #6c5ce7; }
 
@@ -383,6 +382,23 @@ body.port-mode .boi-nav-links a.on {
   transform: scale(1.03);
 }
 
+.port-card-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(13, 148, 136, 0.92);
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.35);
+}
+
 .port-card-cta-float {
   position: absolute;
   top: 14px;
@@ -498,6 +514,38 @@ body.port-mode .boi-nav-links a.on {
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--ink);
+}
+
+.port-modal-prod {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(13, 148, 136, 0.08);
+  border: 1px solid rgba(13, 148, 136, 0.18);
+}
+
+.port-modal-prod-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-size: 0.82rem;
+}
+
+.port-modal-prod-row span {
+  color: #5c6678;
+  font-weight: 500;
+}
+
+.port-modal-prod-row strong {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #0d9488;
+  text-align: right;
 }
 
 .port-modal-pos {

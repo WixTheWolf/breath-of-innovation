@@ -2,8 +2,8 @@
   var data = window.TFFPortfolio;
   if (!data) return;
 
-  var COL_ORDER = ["heritage", "mouthwash", "rinewash", "pipeline", "genalpha"];
-  var COL_NUM = { heritage: "01", mouthwash: "02", rinewash: "03", pipeline: "04", genalpha: "05" };
+  var COL_ORDER = ["production", "presented", "pipeline", "genalpha"];
+  var COL_NUM = { production: "01", presented: "02", pipeline: "03", genalpha: "04" };
 
   var mosaic = document.getElementById("port-mosaic");
   var chapters = document.getElementById("port-chapters");
@@ -41,10 +41,14 @@
     btn.dataset.slug = c.slug;
     btn.dataset.collection = c.collection;
     btn.setAttribute("aria-label", "View " + c.name);
+    var badge = c.status === "in_production"
+      ? '<span class="port-card-badge">On shelf</span>'
+      : "";
     btn.innerHTML =
       '<div class="port-card-img">' +
-        '<img src="' + data.imageUrl(c.slug) + '" alt="' + c.name + '" loading="lazy" decoding="async" />' +
-        '<span class="port-card-cta-float">Explore story →</span>' +
+        '<img src="' + data.imageUrl(c) + '" alt="' + c.name + '" loading="lazy" decoding="async" />' +
+        badge +
+        '<span class="port-card-cta-float">' + (c.status === "in_production" ? "View SKU →" : "Explore story →") + '</span>' +
       '</div>';
     btn.addEventListener("click", function () { openModal(c.slug); });
     return btn;
@@ -88,13 +92,26 @@
     var story = modal.querySelector(".port-modal-story");
     var note = modal.querySelector(".port-modal-note");
 
-    hero.src = data.imageUrl(slug);
+    hero.src = data.imageUrl(c);
     hero.alt = c.name;
     tag.textContent = c.tag;
     tag.style.background = colColor(c.collection);
     title.textContent = c.name;
     pos.textContent = c.positioning || "";
     pos.style.display = c.positioning ? "" : "none";
+
+    var prod = modal.querySelector(".port-modal-prod");
+    if (prod) {
+      if (c.tffCode) {
+        prod.style.display = "";
+        prod.innerHTML =
+          '<div class="port-modal-prod-row"><span>TFF flavor</span><strong>' + c.tffCode + "</strong></div>" +
+          (c.usage ? '<div class="port-modal-prod-row"><span>Usage level</span><strong>' + c.usage + "</strong></div>" : "");
+      } else {
+        prod.style.display = "none";
+        prod.innerHTML = "";
+      }
+    }
 
     if (c.feel) {
       feel.style.display = "";
