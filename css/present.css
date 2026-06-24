@@ -763,8 +763,14 @@ html.pres-mode body {
 .pres-fs .pres-chapters { display: none; }
 .pres-fs .pres-app { grid-template-columns: 1fr; }
 
-@media (max-width: 768px) {
-  .pres-chapters { display: none; }
+/* Phones & tablets — slides only, no QR or chapter rail */
+@media (hover: none) and (pointer: coarse),
+       (max-width: 768px) {
+  .pres-chapters,
+  .pres-qr-dock {
+    display: none !important;
+  }
+
   .pres-app { grid-template-columns: 1fr; }
 
   .pres-viewport {
@@ -772,17 +778,10 @@ html.pres-mode body {
     padding-top: max(10px, env(safe-area-inset-top));
   }
 
-  .pres-slide {
-    width: 100%;
-  }
+  .pres-slide { width: 100%; }
 
   .pres-slide-pad {
     padding: 20px 18px 18px;
-  }
-
-  /* QR codes are for in-room scanning — hide on phones so slides stay clear */
-  .pres-qr-dock {
-    display: none;
   }
 
   .pres-toolbar {
@@ -794,6 +793,7 @@ html.pres-mode body {
   }
 
   .pres-toolbar-hint-desktop { display: none; }
+
   .pres-toolbar-hint-mobile {
     display: block;
     order: 4;
@@ -841,7 +841,123 @@ html.pres-mode body {
   }
 }
 
-@media (max-width: 380px) {
+/* Landscape on touch devices — maximize slide area */
+@media (hover: none) and (pointer: coarse) and (orientation: landscape),
+       (max-height: 520px) and (orientation: landscape) {
+  .pres-chapters,
+  .pres-qr-dock {
+    display: none !important;
+  }
+
+  .pres-app { grid-template-columns: 1fr; }
+
+  .pres-viewport {
+    padding: 4px 10px;
+    padding-left: max(10px, env(safe-area-inset-left));
+    padding-right: max(10px, env(safe-area-inset-right));
+  }
+
+  .pres-slide {
+    width: min(100%, 920px);
+    max-height: 100%;
+  }
+
+  .pres-slide-pad {
+    padding: 12px 16px 10px;
+  }
+
+  .pres-slide.cover .pres-slide-pad {
+    min-height: 0;
+    padding: 16px 18px;
+  }
+
+  .pres-slide h1 {
+    font-size: clamp(1.05rem, 3.2vmin, 1.65rem);
+    margin-bottom: 0.45em;
+  }
+
+  .pres-slide.cover h1 {
+    font-size: clamp(1.35rem, 4vmin, 2.2rem);
+  }
+
+  .pres-lead,
+  .pres-body {
+    font-size: clamp(0.72rem, 1.8vmin, 0.88rem);
+  }
+
+  .pres-qa-stage {
+    min-height: 0;
+    gap: 0.4em;
+  }
+
+  .pres-qa-q {
+    font-size: clamp(0.95rem, 2.4vmin, 1.35rem);
+  }
+
+  .pres-reveal-btn {
+    min-height: 38px;
+    padding: 0.55em 1.1em;
+    font-size: clamp(0.65rem, 1.6vmin, 0.78rem);
+  }
+
+  .pres-toolbar {
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 6px 12px;
+    padding-bottom: max(6px, env(safe-area-inset-bottom));
+  }
+
+  .pres-toolbar-hint-mobile,
+  .pres-toolbar-hint-desktop {
+    display: none;
+  }
+
+  .pres-progress-track {
+    order: 0;
+    flex: 1 1 auto;
+    max-width: none;
+  }
+
+  #pres-counter {
+    order: 0;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .pres-toolbar-actions {
+    order: 0;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    gap: 5px;
+  }
+
+  .pres-toolbar-actions .pres-packet-link,
+  .pres-toolbar-actions a[href="/"] {
+    display: none;
+  }
+
+  .pres-toolbar-actions button,
+  .pres-toolbar-actions a {
+    min-height: 36px;
+    padding: 6px 11px;
+    font-size: 0.62rem;
+  }
+
+  .pres-agenda,
+  .pres-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .pres-grid-2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .pres-hitzone { width: 18%; }
+}
+
+@media (max-width: 380px) and (orientation: portrait) {
   .pres-toolbar-actions button,
   .pres-toolbar-actions a {
     padding: 8px 10px;

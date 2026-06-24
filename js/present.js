@@ -448,6 +448,9 @@
   });
 
   window.addEventListener("resize", function () { requestAnimationFrame(fitSlide); });
+  window.addEventListener("orientationchange", function () {
+    setTimeout(function () { requestAnimationFrame(fitSlide); }, 120);
+  });
   document.addEventListener("mousemove", flashChrome);
 
   buildDynamicSlides();
