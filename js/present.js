@@ -69,7 +69,7 @@
         "</div>" +
         '<button type="button" class="pres-reveal-btn" data-reveal-label="Show cues" data-hide-label="Hide cues">' +
         '<span class="pres-reveal-icon" aria-hidden="true">▶</span> Show cues</button>' +
-        '<p class="pres-cue-foot">Full answers in your packet · you deliver the story</p>' +
+        '<p class="pres-cue-foot">Full answers in <a href="/packet" target="_blank" rel="noopener">speaker packet</a></p>' +
         "</div></div>"
     );
   }

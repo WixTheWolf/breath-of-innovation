@@ -6,7 +6,8 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/mystery", "destination": "/map", "permanent": false },
-    { "source": "/presentation", "destination": "/present", "permanent": false }
+    { "source": "/presentation", "destination": "/present", "permanent": false },
+    { "source": "/speaker-packet", "destination": "/packet", "permanent": false }
   ],
   "headers": [
     {
