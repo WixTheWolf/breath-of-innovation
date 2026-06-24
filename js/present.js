@@ -24,15 +24,33 @@
     return el;
   }
 
+  function hintChips(hints) {
+    return hints
+      .map(function (h) {
+        return '<span class="pres-hint-chip">' + esc(h) + "</span>";
+      })
+      .join("");
+  }
+
+  function visualPanel(image, emoji, alt) {
+    return (
+      '<div class="pres-visual">' +
+      '<img src="' + esc(image) + '" alt="' + esc(alt || "") + '" loading="lazy" />' +
+      '<span class="pres-visual-emoji" aria-hidden="true">' + emoji + "</span>" +
+      "</div>"
+    );
+  }
+
   function pillarIntroSlide(section) {
     return makeSlide(
       "pres-slide-intro",
-      '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
-        '<div class="pres-slide-pad">' +
+      '<div class="pres-slide-inner pres-card-layout" style="--pillar-color:' + section.color + '">' +
+        visualPanel(section.image, section.emoji, section.pillar) +
+        '<div class="pres-card-copy">' +
         '<span class="pres-pillar-badge">' + esc(section.pillarShort) + "</span>" +
-        "<h1>" + esc(section.pillar) + "</h1>" +
+        '<h1><span class="pres-emoji-title">' + section.emoji + "</span> " + esc(section.pillar) + "</h1>" +
         '<p class="pres-lead">' + esc(section.intro) + "</p>" +
-        '<p class="pres-intro-hint">' + section.cards.length + " questions · tap to reveal answers</p>" +
+        '<p class="pres-cue-note">' + section.cards.length + " questions · you talk · screen shows cues</p>" +
         "</div></div>"
     );
   }
@@ -40,31 +58,32 @@
   function qaSlide(section, card) {
     return makeSlide(
       "pres-slide-qa",
-      '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
-        '<div class="pres-slide-pad">' +
-        '<p class="pres-tag">' + esc(section.pillarShort) + " · Card " + card.num + "</p>" +
-        '<div class="pres-qa-stage">' +
-        '<p class="pres-qa-label">Question</p>' +
+      '<div class="pres-slide-inner pres-card-layout" style="--pillar-color:' + section.color + '">' +
+        visualPanel(card.image, card.emoji, "Visual cue") +
+        '<div class="pres-card-copy">' +
+        '<p class="pres-tag">' + esc(section.pillarShort) + " · Q" + card.num + "</p>" +
         '<h2 class="pres-qa-q">' + esc(card.question) + "</h2>" +
         '<div class="pres-qa-reveal">' +
-        '<p class="pres-qa-label answer">Answer</p>' +
-        '<div class="pres-qa-answer"><p>' + esc(card.answer) + "</p></div>" +
+        '<p class="pres-qa-label">Talking points</p>' +
+        '<div class="pres-hint-row">' + hintChips(card.hints) + "</div>" +
         "</div>" +
-        '<button type="button" class="pres-reveal-btn" data-reveal-label="Reveal answer" data-hide-label="Hide answer">' +
-        '<span class="pres-reveal-icon" aria-hidden="true">✦</span> Reveal answer</button>' +
-        "</div></div></div>"
+        '<button type="button" class="pres-reveal-btn" data-reveal-label="Show cues" data-hide-label="Hide cues">' +
+        '<span class="pres-reveal-icon" aria-hidden="true">▶</span> Show cues</button>' +
+        '<p class="pres-cue-foot">Full answers in your packet · you deliver the story</p>' +
+        "</div></div>"
     );
   }
 
   function strategicIntroSlide() {
     return makeSlide(
       "pres-slide-intro pres-slide-strategic-intro",
-      '<div class="pres-slide-inner" style="--pillar-color:#6c5ce7">' +
-        '<div class="pres-slide-pad">' +
-        '<span class="pres-pillar-badge">Discussion</span>' +
-        "<h1>Top 10 strategic questions</h1>" +
-        '<p class="pres-lead">Questions for TheraBreath — move beyond supplier review toward long-term partnership.</p>' +
-        '<p class="pres-intro-hint">Reveal why each question matters before opening the floor.</p>' +
+      '<div class="pres-slide-inner pres-card-layout" style="--pillar-color:#6c5ce7">' +
+        visualPanel("/assets/companies/therabreath/complete-rinse.jpg", "🎤", "Discussion") +
+        '<div class="pres-card-copy">' +
+        '<span class="pres-pillar-badge">Your turn</span>' +
+        '<h1><span class="pres-emoji-title">🎤</span> Top 10 for TheraBreath</h1>' +
+        '<p class="pres-lead">Questions we want to ask you — partnership, not supplier review.</p>' +
+        '<p class="pres-cue-note">Tap for a one-line cue on why each matters</p>' +
         "</div></div>"
     );
   }
@@ -72,33 +91,30 @@
   function strategicSlide(item) {
     return makeSlide(
       "pres-slide-qa pres-slide-strategic",
-      '<div class="pres-slide-inner" style="--pillar-color:#6c5ce7">' +
-        '<div class="pres-slide-pad">' +
-        '<p class="pres-tag">Strategic discussion · ' + item.num + " of 10</p>" +
-        '<div class="pres-qa-stage">' +
-        '<p class="pres-qa-label">Ask TheraBreath</p>' +
+      '<div class="pres-slide-inner pres-card-layout" style="--pillar-color:#6c5ce7">' +
+        visualPanel(item.image, item.emoji, "Discussion cue") +
+        '<div class="pres-card-copy">' +
+        '<p class="pres-tag">Ask them · ' + item.num + "/10</p>" +
         '<h2 class="pres-qa-q">' + esc(item.question) + "</h2>" +
         '<div class="pres-qa-reveal">' +
-        '<p class="pres-qa-label answer">Why it matters</p>' +
-        '<div class="pres-qa-answer strategic"><p>' + esc(item.why) + "</p></div>" +
+        '<p class="pres-qa-label">Why ask this</p>' +
+        '<div class="pres-hint-row single"><span class="pres-hint-chip big">' + esc(item.hint) + "</span></div>" +
         "</div>" +
-        '<button type="button" class="pres-reveal-btn strategic" data-reveal-label="Why it matters" data-hide-label="Hide">' +
-        '<span class="pres-reveal-icon" aria-hidden="true">?</span> Why it matters</button>' +
-        "</div></div></div>"
+        '<button type="button" class="pres-reveal-btn strategic" data-reveal-label="Show cue" data-hide-label="Hide">' +
+        '<span class="pres-reveal-icon" aria-hidden="true">?</span> Show cue</button>' +
+        "</div></div>"
     );
   }
 
   function buildDynamicSlides() {
     if (!viewport || !window.BOI) return;
-    var anchor = viewport.querySelector('[data-i="9"]') || viewport.querySelector(".pres-slide:nth-child(6)");
     var staticSlides = Array.prototype.slice.call(
       viewport.querySelectorAll(".pres-slide:not(.pres-slide-dynamic)")
     );
-    var afterOverview = staticSlides[4];
-    if (!afterOverview) return;
+    var lakewood = staticSlides[3];
+    if (!lakewood) return;
 
     var frag = document.createDocumentFragment();
-    var slideIndices = [];
 
     BOI.qaSections.forEach(function (section) {
       var intro = pillarIntroSlide(section);
@@ -111,8 +127,9 @@
       });
     });
 
-    frag.appendChild(strategicIntroSlide());
-    frag.lastChild.classList.add("pres-slide-dynamic");
+    var stratIntro = strategicIntroSlide();
+    stratIntro.classList.add("pres-slide-dynamic");
+    frag.appendChild(stratIntro);
 
     BOI.strategicQuestions.forEach(function (item) {
       var slide = strategicSlide(item);
@@ -120,8 +137,7 @@
       frag.appendChild(slide);
     });
 
-    var lakewood = staticSlides[5];
-    if (lakewood) viewport.insertBefore(frag, lakewood);
+    viewport.insertBefore(frag, lakewood);
 
     slides = Array.prototype.slice.call(viewport.querySelectorAll(".pres-slide"));
     slides.forEach(function (s, i) {
@@ -134,13 +150,10 @@
   function buildChaptersFromSlides() {
     if (!window.BOI) return;
     var ch = [];
-    var i = 0;
+    var cursor = 0;
 
-    ch.push({ id: "welcome", label: "Welcome", slides: [0, 1, 2] });
-    ch.push({ id: "day", label: "Your day", slides: [3] });
-    ch.push({ id: "overview", label: "Overview", slides: [4] });
+    ch.push({ id: "start", label: "Start", slides: [0, 1, 2] });
 
-    var cursor = 5;
     BOI.qaSections.forEach(function (section) {
       var ids = [cursor];
       cursor += 1;
@@ -150,7 +163,7 @@
       });
       ch.push({
         id: "pillar-" + section.num,
-        label: section.pillarShort.replace("Pillar ", "P"),
+        label: section.emoji + " " + section.pillar.split(" ")[0],
         slides: ids,
       });
     });
@@ -160,16 +173,13 @@
     for (var s = 0; s < BOI.strategicQuestions.length; s++) {
       stratSlides.push(stratStart + 1 + s);
     }
-    ch.push({ id: "strategic", label: "Top 10", slides: stratSlides });
+    ch.push({ id: "strategic", label: "🎤 Top 10", slides: stratSlides });
     cursor = stratStart + 1 + BOI.strategicQuestions.length;
 
     var tail = [];
     for (var t = cursor; t < slides.length; t++) tail.push(t);
-    if (tail.length >= 3) {
-      ch.push({ id: "depth", label: "Deep dives", slides: tail.slice(0, 3) });
-      ch.push({ id: "close", label: "Close", slides: tail.slice(3) });
-    } else if (tail.length) {
-      ch.push({ id: "close", label: "Close", slides: tail });
+    if (tail.length > 1) {
+      ch.push({ id: "finish", label: "Finish", slides: tail });
     }
 
     BOI.chapters = ch;
@@ -177,15 +187,14 @@
 
   function chapterForSlide(i) {
     if (!window.BOI || !BOI.chapters) return null;
-    var ch = BOI.chapters;
-    for (var c = 0; c < ch.length; c++) {
-      if (ch[c].slides.indexOf(i) !== -1) return ch[c];
+    for (var c = 0; c < BOI.chapters.length; c++) {
+      if (BOI.chapters[c].slides.indexOf(i) !== -1) return BOI.chapters[c];
     }
     return null;
   }
 
   function buildChapters() {
-    if (!chaptersEl || !window.BOI || !BOI.chapters) return;
+    if (!chaptersEl || !BOI.chapters) return;
     chaptersEl.innerHTML = '<p class="pres-chapters-label">Chapters</p>';
     BOI.chapters.forEach(function (ch) {
       var btn = document.createElement("button");
@@ -226,8 +235,8 @@
     slide.classList.remove("revealed");
     var btn = slide.querySelector(".pres-reveal-btn");
     if (!btn) return;
-    var icon = slide.classList.contains("pres-slide-strategic") ? "?" : "✦";
-    var label = btn.dataset.revealLabel || "Reveal answer";
+    var icon = slide.classList.contains("pres-slide-strategic") ? "?" : "▶";
+    var label = btn.dataset.revealLabel || "Show cues";
     btn.innerHTML = '<span class="pres-reveal-icon" aria-hidden="true">' + icon + "</span> " + label;
   }
 
@@ -238,7 +247,7 @@
     slide.classList.toggle("revealed", revealing);
     if (btn) {
       var label = revealing ? btn.dataset.hideLabel : btn.dataset.revealLabel;
-      var icon = slide.classList.contains("pres-slide-strategic") ? "?" : "✦";
+      var icon = slide.classList.contains("pres-slide-strategic") ? "?" : revealing ? "▼" : "▶";
       btn.innerHTML = '<span class="pres-reveal-icon" aria-hidden="true">' + icon + "</span> " + label;
     }
     requestAnimationFrame(fitSlide);
@@ -264,23 +273,17 @@
     if (!slide) return;
     var inner = slide.querySelector(".pres-slide-inner");
     if (!inner) return;
-
     inner.style.transform = "none";
     var availH = viewport.clientHeight - 8;
     var availW = viewport.clientWidth - 8;
-    var h = inner.offsetHeight;
-    var w = inner.offsetWidth;
-    var scale = Math.min(1, availH / h, availW / w);
-    if (scale < 0.995) {
-      inner.style.transform = "scale(" + scale + ")";
-    }
+    var scale = Math.min(1, availH / inner.offsetHeight, availW / inner.offsetWidth);
+    if (scale < 0.995) inner.style.transform = "scale(" + scale + ")";
   }
 
   function show(i) {
     if (!slides.length) return;
     var prev = slides[index];
     if (prev && prev !== slides[i]) resetReveal(prev);
-
     index = Math.max(0, Math.min(slides.length - 1, i));
     slides.forEach(function (s, n) {
       s.classList.toggle("active", n === index);
@@ -296,13 +299,8 @@
     requestAnimationFrame(fitSlide);
   }
 
-  function next() {
-    show(index + 1);
-  }
-
-  function prev() {
-    show(index - 1);
-  }
+  function next() { show(index + 1); }
+  function prev() { show(index - 1); }
 
   function handleAdvance() {
     var slide = slides[index];
@@ -316,12 +314,8 @@
   }
 
   function toggleFullscreen() {
-    var root = document.documentElement;
-    if (!document.fullscreenElement) {
-      root.requestFullscreen().catch(function () {});
-    } else {
-      document.exitFullscreen();
-    }
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(function () {});
+    else document.exitFullscreen();
   }
 
   function flashChrome() {
@@ -338,21 +332,18 @@
     if (!canvas) return;
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
-
     var orbs = [
       { x: 0.2, y: 0.3, r: 0.35, c: "0,143,211", s: 0.00015 },
       { x: 0.8, y: 0.7, r: 0.3, c: "95,184,50", s: -0.00012 },
-      { x: 0.5, y: 0.85, r: 0.25, c: "245,130,32", s: 0.0001 },
+      { x: 0.5, y: 0.85, r: 0.25, c: "108,92,231", s: 0.0001 },
     ];
     var t = 0;
-
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = canvas.clientWidth * dpr;
       canvas.height = canvas.clientHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-
     function draw() {
       var w = canvas.clientWidth;
       var h = canvas.clientHeight;
@@ -363,7 +354,7 @@
         var oy = (o.y + Math.cos(t * o.s * 1000 + i * 2) * 0.06) * h;
         var rad = o.r * Math.min(w, h);
         var g = ctx.createRadialGradient(ox, oy, 0, ox, oy, rad);
-        g.addColorStop(0, "rgba(" + o.c + ",0.18)");
+        g.addColorStop(0, "rgba(" + o.c + ",0.2)");
         g.addColorStop(1, "rgba(" + o.c + ",0)");
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, w, h);
@@ -371,21 +362,19 @@
       t += 0.016;
       requestAnimationFrame(draw);
     }
-
     resize();
     draw();
     window.addEventListener("resize", resize);
   }
 
   document.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown" || e.key === "Enter") {
+    if (e.key === "ArrowRight" || e.key === "PageDown") {
       e.preventDefault();
-      if (e.key === "ArrowRight" || e.key === "PageDown") {
-        next();
-        flashChrome();
-      } else {
-        handleAdvance();
-      }
+      next();
+      flashChrome();
+    } else if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      handleAdvance();
     } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
       e.preventDefault();
       prev();
@@ -444,6 +433,5 @@
   var hash = (location.hash || "").match(/^#(\d+)$/);
   initCanvas();
   show(hash ? parseInt(hash[1], 10) - 1 : 0);
-
   if (document.fonts?.ready) document.fonts.ready.then(fitSlide);
 })();
