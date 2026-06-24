@@ -43,15 +43,8 @@
     btn.setAttribute("aria-label", "View " + c.name);
     btn.innerHTML =
       '<div class="port-card-img">' +
-        '<img src="' + data.imageUrl(c.slug) + '" alt="" loading="lazy" decoding="async" />' +
-      '</div>' +
-      '<div class="port-card-body">' +
-        '<span class="port-card-tag" style="background:' + colColor(c.collection) + '">' +
-          data.collections[c.collection].label +
-        '</span>' +
-        '<h3>' + c.name + '</h3>' +
-        '<p>' + teaser(c) + '</p>' +
-        '<span class="port-card-cta">Explore story →</span>' +
+        '<img src="' + data.imageUrl(c.slug) + '" alt="' + c.name + '" loading="lazy" decoding="async" />' +
+        '<span class="port-card-cta-float">Explore story →</span>' +
       '</div>';
     btn.addEventListener("click", function () { openModal(c.slug); });
     return btn;

@@ -359,101 +359,49 @@ body.port-mode .boi-nav-links a.on {
 }
 
 .port-card.wide { grid-column: span 6; }
-.port-card.tall .port-card-img { aspect-ratio: 3 / 4; }
+.port-card.tall .port-card-img { aspect-ratio: 4 / 3; }
 .port-card.hero-card { grid-column: span 8; }
-.port-card.hero-card .port-card-img { aspect-ratio: 21 / 9; }
+.port-card.hero-card .port-card-img { aspect-ratio: 4 / 3; }
 
 .port-card-img {
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: linear-gradient(135deg, #eef4f8, #e8edf5);
+  background: #0a1628;
 }
 
 .port-card-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center center;
   transition: transform 0.7s var(--ease);
+  background: #0a1628;
 }
 
 .port-card:hover .port-card-img img {
-  transform: scale(1.06);
+  transform: scale(1.03);
 }
 
-.port-card-img::after {
-  content: "";
+.port-card-cta-float {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(10, 22, 40, 0.55) 0%, transparent 55%);
-  opacity: 0.85;
-  transition: opacity 0.4s;
-}
-
-.port-card:hover .port-card-img::after {
-  opacity: 0.95;
-}
-
-.port-card-body {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 18px 20px 20px;
-  z-index: 1;
-}
-
-.port-card-tag {
-  display: inline-block;
-  margin-bottom: 8px;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-family: var(--font-display);
-  font-size: 0.52rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-}
-
-.port-card h3 {
-  margin: 0 0 4px;
-  font-family: var(--font-display);
-  font-size: clamp(0.95rem, 2vw, 1.15rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #fff;
-  line-height: 1.15;
-}
-
-.port-card p {
-  margin: 0;
-  font-size: 0.72rem;
-  line-height: 1.4;
-  color: rgba(255, 255, 255, 0.82);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.port-card-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
   font-family: var(--font-display);
   font-size: 0.62rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(-6px);
   transition: all 0.35s var(--ease);
+  box-shadow: 0 8px 24px rgba(10, 22, 40, 0.12);
 }
 
-.port-card:hover .port-card-cta {
+.port-card:hover .port-card-cta-float {
   opacity: 1;
   transform: translateY(0);
 }
@@ -503,7 +451,8 @@ body.port-mode .boi-nav-links a.on {
 .port-modal-hero img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #0a1628;
 }
 
 .port-modal-close {

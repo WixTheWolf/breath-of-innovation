@@ -1,4 +1,4 @@
-"""Add flavor name title overlay and export web-ready portfolio JPEG."""
+"""Compose 4:3 landscape portfolio JPEGs with a dedicated bottom title strip."""
 from PIL import Image, ImageDraw, ImageFont
 import json
 import os
@@ -9,12 +9,15 @@ MANIFEST = os.path.join(os.path.dirname(__file__), "portfolio-prompts.json")
 RAW = os.path.join(ROOT, "assets", "portfolio", "raw")
 OUT = os.path.join(ROOT, "assets", "portfolio")
 
+OUT_W, OUT_H = 1200, 900
+STRIP_H = 200
+
 COLORS = {
-    "Heritage Top 8": "#e85d8a",
-    "Mouthwash": "#008fd3",
-    "Rinse-Wash": "#2a9d8f",
-    "Pipeline": "#5fb832",
-    "Gen Alpha": "#6c5ce7",
+    "Heritage Top 8": (232, 93, 138),
+    "Mouthwash": (0, 143, 211),
+    "Rinse-Wash": (42, 157, 143),
+    "Pipeline": (95, 184, 50),
+    "Gen Alpha": (108, 92, 231),
 }
 
 FONT_CANDIDATES = [
@@ -47,45 +50,60 @@ def wrap_text(draw, text, font, max_width):
     return lines or [text]
 
 
-def finalize(src_path, name, collection, dest_path):
-    img = Image.open(src_path).convert("RGB")
-    w, h = img.size
-    if w > 1200:
-        nh = int(h * 1200 / w)
-        img = img.resize((1200, nh), Image.LANCZOS)
-        w, h = img.size
+def fit_photo_area(src):
+    """Fill the photo region (above title strip) using a center-weighted crop."""
+    area_w, area_h = OUT_W, OUT_H - STRIP_H
+    sw, sh = src.size
+    scale = max(area_w / sw, area_h / sh)
+    nw, nh = int(sw * scale), int(sh * scale)
+    resized = src.resize((nw, nh), Image.LANCZOS)
+    left = (nw - area_w) // 2
+    # Bias crop upward so bottom captions in source art are trimmed away
+    top = max(0, int((nh - area_h) * 0.35))
+    top = min(top, nh - area_h)
+    return resized.crop((left, top, left + area_w, top + area_h))
 
-    overlay = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+
+def draw_shadowed_text(draw, xy, text, font, fill, shadow=(0, 0, 0, 120)):
+    x, y = xy
+    for dx, dy in ((0, 2), (1, 1), (2, 0)):
+        draw.text((x + dx, y + dy), text, font=font, fill=shadow)
+    draw.text((x, y), text, font=font, fill=fill)
+
+
+def finalize(src_path, name, collection, dest_path):
+    src = Image.open(src_path).convert("RGB")
+    photo = fit_photo_area(src)
+
+    canvas = Image.new("RGB", (OUT_W, OUT_H), (10, 22, 40))
+    canvas.paste(photo, (0, 0))
+
+    overlay = Image.new("RGBA", (OUT_W, OUT_H), (0, 0, 0, 0))
     draw = ImageDraw.Draw(overlay)
 
-    band_h = int(h * 0.32)
-    for y in range(band_h):
-        alpha = int(220 * (y / band_h) ** 1.4)
-        draw.line([(0, h - band_h + y), (w, h - band_h + y)], fill=(10, 22, 40, alpha))
+    # Solid title strip — never fades, always readable
+    draw.rectangle([(0, OUT_H - STRIP_H), (OUT_W, OUT_H)], fill=(10, 22, 40, 245))
+    draw.line([(0, OUT_H - STRIP_H), (OUT_W, OUT_H - STRIP_H)], fill=(255, 255, 255, 30), width=1)
 
-    title_font = load_font(max(28, int(w * 0.052)))
-    sub_font = load_font(max(14, int(w * 0.022)))
-    pad = int(w * 0.06)
-    max_text_w = w - pad * 2
+    accent = COLORS.get(collection, (0, 143, 211))
+    pad = 36
+    sub_font = load_font(18)
+    title_font = load_font(42 if len(name) < 22 else 34)
 
-    lines = wrap_text(draw, name.upper(), title_font, max_text_w)
-    line_h = int(title_font.size * 1.15)
-    sub_h = int(sub_font.size * 1.5)
-    block_h = len(lines) * line_h + sub_h + int(w * 0.03)
-    y_start = h - pad - block_h
+    draw.rectangle([(pad, OUT_H - STRIP_H + 22), (pad + 44, OUT_H - STRIP_H + 26)], fill=accent + (255,))
+    draw.text((pad, OUT_H - STRIP_H + 34), collection.upper(), font=sub_font, fill=accent + (255,))
 
-    accent = COLORS.get(collection, "#008fd3")
-    draw.text((pad, y_start - sub_h - 8), collection.upper(), font=sub_font, fill=accent)
+    max_text_w = OUT_W - pad * 2
+    lines = wrap_text(draw, name, title_font, max_text_w)
+    line_h = int(title_font.size * 1.12)
+    y = OUT_H - STRIP_H + 68
+    for line in lines:
+        draw_shadowed_text(draw, (pad, y), line, title_font, (255, 255, 255, 255))
+        y += line_h
 
-    for i, line in enumerate(lines):
-        draw.text((pad, y_start + i * line_h), line, font=title_font, fill=(255, 255, 255, 255))
-
-    # subtle top brand line
-    draw.rectangle([(pad, h - pad - block_h - sub_h - 18), (pad + 48, h - pad - block_h - sub_h - 14)], fill=accent)
-
-    composed = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
-    composed.save(dest_path, "JPEG", quality=86, optimize=True)
-    print("OK", os.path.basename(dest_path), round(os.path.getsize(dest_path) / 1024), "KB")
+    composed = Image.alpha_composite(canvas.convert("RGBA"), overlay).convert("RGB")
+    composed.save(dest_path, "JPEG", quality=88, optimize=True)
+    print("OK", os.path.basename(dest_path), composed.size, round(os.path.getsize(dest_path) / 1024), "KB")
 
 
 def main():

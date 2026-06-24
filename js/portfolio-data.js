@@ -249,6 +249,6 @@
     seasons: SEASONS,
     bySlug: bySlug,
     byCollection: byCollection,
-    imageUrl: function (slug) { return "/assets/portfolio/" + slug + ".jpg"; }
+    imageUrl: function (slug) { return "/assets/portfolio/" + slug + ".jpg?v=3"; }
   };
 })(typeof window !== "undefined" ? window : global);
