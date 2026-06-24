@@ -44,8 +44,13 @@
     var badge = c.status === "in_production"
       ? '<span class="port-card-badge">On shelf</span>'
       : "";
+    var isBottle = c.collection === "production" && data.hasImage(c);
     var media;
-    if (data.hasImage(c)) {
+    if (isBottle) {
+      media =
+        '<img src="' + data.imageUrl(c) + '" alt="' + c.name + ' bottle" loading="lazy" decoding="async" />' +
+        '<span class="port-card-label">' + c.name + "</span>";
+    } else if (data.hasImage(c)) {
       media =
         '<img src="' + data.imageUrl(c) + '" alt="' + c.name + '" loading="lazy" decoding="async" />';
     } else {
@@ -56,8 +61,11 @@
           (c.usage ? '<span class="port-card-usage">' + c.usage + "</span>" : "") +
         "</div>";
     }
+    var imgClass = "port-card-img";
+    if (isBottle) imgClass += " port-card-img--bottle";
+    else if (!data.hasImage(c)) imgClass += " port-card-img--text";
     btn.innerHTML =
-      '<div class="port-card-img' + (data.hasImage(c) ? "" : " port-card-img--text") + '">' +
+      '<div class="' + imgClass + '">' +
         media +
         badge +
         '<span class="port-card-cta-float">' + (c.status === "in_production" ? "View SKU →" : "Explore story →") + '</span>' +
@@ -107,10 +115,12 @@
     var heroWrap = modal.querySelector(".port-modal-hero");
     if (data.hasImage(c)) {
       heroWrap.style.display = "";
+      heroWrap.classList.toggle("bottle-hero", c.collection === "production");
       hero.src = data.imageUrl(c);
-      hero.alt = c.name;
+      hero.alt = c.name + (c.collection === "production" ? " bottle" : "");
     } else {
       heroWrap.style.display = "none";
+      heroWrap.classList.remove("bottle-hero");
       hero.removeAttribute("src");
       hero.alt = "";
     }

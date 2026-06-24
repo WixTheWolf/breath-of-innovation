@@ -328,8 +328,27 @@
     return concepts.filter(function (c) { return c.collection === id; });
   }
 
+  /* Bottle photos sourced from therabreath.com (+ Walmart for Grapes Galore, not on TB site yet). */
+  var PRODUCTION_BOTTLES = {
+    "clean-mint": "clean-mint.jpg",
+    "invigorating-icy-mint": "invigorating-icy-mint.jpg",
+    "mild-mint": "mild-mint.jpg",
+    "rainforest-mint": "rainforest-mint.jpg",
+    "dazzling-mint": "dazzling-mint.jpg",
+    "tingling-mint": "tingling-mint.jpg",
+    "sparkle-mint": "sparkle-mint.jpg",
+    "total-care": "total-care.jpg",
+    "overnight-rinse": "overnight-rinse.png",
+    "grapes-galore": "grapes-galore.jpg",
+    "wacky-watermelon": "wacky-watermelon.png",
+    "strawberry-splash": "strawberry-splash.png",
+    "bubble-gum": "bubble-gum.jpg"
+  };
+
   function hasImage(c) {
-    return !!(c && c.collection !== "production");
+    if (!c) return false;
+    if (c.collection === "production") return !!PRODUCTION_BOTTLES[c.slug];
+    return true;
   }
 
   global.TFFPortfolio = {
@@ -342,6 +361,9 @@
     imageUrl: function (slugOrConcept) {
       var c = typeof slugOrConcept === "string" ? bySlug(slugOrConcept) : slugOrConcept;
       if (!c || !hasImage(c)) return null;
+      if (c.collection === "production") {
+        return "/assets/portfolio/production/" + PRODUCTION_BOTTLES[c.slug] + "?v=1";
+      }
       return "/assets/portfolio/" + c.slug + ".jpg?v=8";
     }
   };
