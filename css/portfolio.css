@@ -642,8 +642,23 @@ body.port-mode .boi-btn:hover {
   box-shadow: 0 16px 40px rgba(10, 22, 40, 0.1);
 }
 
+.port-close .boi-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
 body.port-mode .boi-btn.primary {
   color: #fff;
+  background: linear-gradient(135deg, var(--blue), #006aa6);
+  border-color: transparent;
+  box-shadow: 0 12px 32px rgba(0, 143, 211, 0.35);
+}
+
+body.port-mode .boi-btn.primary:hover {
+  background: linear-gradient(135deg, #009de8, #0077b8);
+  box-shadow: 0 20px 48px rgba(0, 143, 211, 0.45);
 }
 
 @media (max-width: 900px) {
