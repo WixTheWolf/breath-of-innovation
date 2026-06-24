@@ -390,6 +390,174 @@ html.pres-mode body {
   color: var(--muted);
 }
 
+/* Pillar intro */
+.pres-slide-intro .pres-slide-inner::before {
+  background: var(--pillar-color, var(--blue));
+}
+
+.pres-pillar-badge {
+  display: inline-block;
+  margin-bottom: 0.8em;
+  padding: 0.35em 0.9em;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pillar-color, var(--blue)) 14%, #fff);
+  color: var(--pillar-color, var(--blue));
+  font-family: var(--font-display);
+  font-size: clamp(0.62rem, 1.1vmin, 0.74rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.pres-intro-hint {
+  margin-top: 1.2em;
+  font-size: clamp(0.78rem, 1.35vmin, 0.92rem);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Interactive Q&A */
+.pres-slide-qa .pres-slide-inner::before {
+  background: var(--pillar-color, var(--blue));
+}
+
+.pres-qa-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  min-height: clamp(220px, 38vmin, 360px);
+}
+
+.pres-qa-label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(0.58rem, 1vmin, 0.68rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pillar-color, var(--blue));
+}
+
+.pres-qa-label.answer {
+  color: var(--green);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.45s, transform 0.45s;
+}
+
+.pres-qa-q {
+  margin: 0 0 0.2em;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.8vmin, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  color: var(--ink);
+}
+
+.pres-qa-reveal {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.pres-qa-answer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(16px) scale(0.98);
+  transition:
+    max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pres-qa-answer p {
+  margin: 0;
+  padding: 1em 1.2em;
+  border-radius: 14px;
+  border: 1px solid #d4e8f5;
+  background: linear-gradient(135deg, #f0f9fd 0%, #f8fffe 100%);
+  font-size: clamp(0.82rem, 1.55vmin, 1rem);
+  line-height: 1.55;
+  color: #344054;
+  box-shadow: 0 8px 24px rgba(0, 143, 211, 0.08);
+}
+
+.pres-qa-answer.strategic p {
+  border-color: #ddd6fe;
+  background: linear-gradient(135deg, #f5f3ff 0%, #faf8ff 100%);
+  box-shadow: 0 8px 24px rgba(108, 92, 231, 0.1);
+}
+
+.pres-slide-qa.revealed .pres-qa-answer {
+  max-height: 320px;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.pres-slide-qa.revealed .pres-qa-label.answer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pres-reveal-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0.4em;
+  padding: 0.75em 1.4em;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--pillar-color, var(--blue)), color-mix(in srgb, var(--pillar-color, var(--blue)) 70%, #000));
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(0.72rem, 1.25vmin, 0.86rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--pillar-color, var(--blue)) 35%, transparent);
+  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+}
+
+.pres-reveal-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+
+.pres-reveal-btn:active {
+  transform: translateY(0);
+}
+
+.pres-reveal-btn.strategic {
+  background: linear-gradient(135deg, #6c5ce7, #5b4cdb);
+  box-shadow: 0 12px 32px rgba(108, 92, 231, 0.35);
+}
+
+.pres-reveal-icon {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 0.75rem;
+}
+
+.pres-slide-qa.revealed .pres-reveal-btn {
+  background: #f0f4f8;
+  color: var(--ink);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e9ec;
+}
+
+.pres-slide-qa.revealed .pres-reveal-icon {
+  background: var(--pillar-color, var(--blue));
+  color: #fff;
+}
+
 .pres-close-card {
   display: inline-block;
   margin-top: 1.2em;

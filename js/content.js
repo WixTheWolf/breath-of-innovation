@@ -52,11 +52,175 @@ window.BOI = {
       points: ["Communication cadence", "Investment alignment", "Co-development roadmap"],
     },
   ],
-  chapters: [
-    { id: "welcome", label: "Welcome", slides: [0, 1, 2] },
-    { id: "day", label: "Your day", slides: [3] },
-    { id: "pillars", label: "Four pillars", slides: [4, 5, 6, 7, 8] },
-    { id: "depth", label: "Deep dives", slides: [9, 10, 11] },
-    { id: "close", label: "Close", slides: [12, 13] },
+  qaSections: [
+    {
+      pillar: "Resiliency & Business Continuity",
+      pillarShort: "Pillar 1",
+      num: 1,
+      color: "#008fd3",
+      intro: "Supply security, capacity, and continuity as TheraBreath grows.",
+      cards: [
+        {
+          num: 1,
+          question: "If TheraBreath doubles in volume over the next 3–5 years, how will TFF support that growth?",
+          answer: "We intentionally operate with room to grow. Our current infrastructure, staffing model, and production planning processes allow us to absorb significant growth. As demand increases, we can expand production schedules, add equipment, increase staffing, and continue investing in our facility to support TheraBreath's growth trajectory.",
+        },
+        {
+          num: 2,
+          question: "What happens if a key supplier becomes unavailable?",
+          answer: "We actively manage supplier relationships and pursue secondary sourcing opportunities whenever possible. We maintain inventory visibility on critical materials and learned valuable lessons from recent supply chain disruptions, including the propylene glycol shortage. Our goal is to minimize risk before it becomes a problem.",
+        },
+        {
+          num: 3,
+          question: "What happens if a key employee is unavailable?",
+          answer: "Cross-training is a major focus at The Flavor Factory. Multiple team members are trained across production, warehousing, shipping, receiving, and quality functions. This reduces dependence on any one individual and helps ensure operational continuity.",
+        },
+        {
+          num: 4,
+          question: "How do you maintain quality as volume grows?",
+          answer: "Every ingredient, batch, and shipment is fully traceable. We maintain documented procedures, batch records, specification management, supplier qualification programs, and quality review processes to ensure consistency regardless of production volume.",
+        },
+        {
+          num: 5,
+          question: "How would TFF respond to a major disruption or disaster?",
+          answer: "We maintain contingency plans, emergency manufacturing relationships, supplier redundancy efforts, and inventory controls designed to minimize business interruption and maintain continuity of supply whenever possible.",
+        },
+      ],
+    },
+    {
+      pillar: "Innovation & Technical Capabilities",
+      pillarShort: "Pillar 2",
+      num: 2,
+      color: "#5fb832",
+      intro: "Flavor development, sensory science, and what's next for oral care.",
+      cards: [
+        {
+          num: 6,
+          question: "How does TFF stay ahead of flavor trends?",
+          answer: "We continuously evaluate emerging flavor trends, ingredient technologies, consumer preferences, and supplier innovations. Our goal is to proactively bring ideas to TheraBreath rather than waiting to be asked.",
+        },
+        {
+          num: 7,
+          question: "Can TFF support products beyond today's mouthrinse portfolio?",
+          answer: "Yes. Our development capabilities extend beyond mouthrinses into children's products, gummies, powders, wellness products, seasonal programs, and future oral care adjacencies.",
+        },
+        {
+          num: 8,
+          question: "How does TFF approach innovation?",
+          answer: "We combine creative flavor development with practical manufacturing expertise. Our team rapidly develops prototypes, gathers feedback, refines concepts, and works collaboratively with customers to accelerate innovation.",
+        },
+        {
+          num: 9,
+          question: "How does TFF validate sensory performance?",
+          answer: "We are building structured sensory evaluation capabilities, including external triangle testing, consumer feedback collection, and university partnerships to better understand how consumers perceive product changes and innovations.",
+        },
+        {
+          num: 10,
+          question: "What innovation opportunities excite TFF most for TheraBreath?",
+          answer: "Next-generation cooling systems, natural sweetness enhancement, pediatric oral care, wellness-focused products, seasonal concepts, and long-lasting freshness technologies represent exciting opportunities for future growth.",
+        },
+      ],
+    },
+    {
+      pillar: "Operations",
+      pillarShort: "Pillar 3",
+      num: 3,
+      color: "#f58220",
+      intro: "Investments, service levels, and securing critical materials.",
+      cards: [
+        {
+          num: 11,
+          question: "What investments has TFF made to support TheraBreath?",
+          answer: "Recent investments include facility improvements, warehouse organization, dedicated TheraBreath production space, process improvements, inventory controls, and ongoing investments in quality and operational systems.",
+        },
+        {
+          num: 12,
+          question: "How does TFF maintain service levels and lead times?",
+          answer: "Through proactive production scheduling, inventory management, supplier communication, and close collaboration with customers. Our goal is to remain flexible while maintaining reliable service.",
+        },
+        {
+          num: 13,
+          question: "How does TFF secure critical raw materials?",
+          answer: "We actively manage supplier relationships, monitor inventory levels, evaluate alternative sourcing opportunities, and maintain visibility on critical ingredients to reduce supply risk.",
+        },
+      ],
+    },
+    {
+      pillar: "Partnership & Growth Vision",
+      pillarShort: "Pillar 4",
+      num: 4,
+      color: "#0a1628",
+      intro: "Why TFF is the right long-term partner — and what success looks like.",
+      cards: [
+        {
+          num: 14,
+          question: "Why is TFF the right long-term partner for TheraBreath?",
+          answer: "Because we combine responsiveness, flexibility, technical expertise, and personal commitment. We genuinely care about the success of the brands we support and are willing to invest alongside our customers.",
+        },
+        {
+          num: 15,
+          question: "What makes working with TFF different?",
+          answer: "Direct access to leadership, fast decision-making, transparency, and a collaborative problem-solving approach. We believe strong partnerships are built on communication and trust.",
+        },
+        {
+          num: 16,
+          question: "What does success look like over the next 5 years?",
+          answer: "A stronger, more resilient partnership that supports TheraBreath's continued growth through innovation, supply chain excellence, operational reliability, and shared long-term success.",
+        },
+      ],
+    },
   ],
+  strategicQuestions: [
+    {
+      num: 1,
+      question: "What does success look like for TheraBreath in 3–5 years?",
+      why: "Helps us align our investments and capabilities with the brand's future direction.",
+    },
+    {
+      num: 2,
+      question: "What are your biggest growth challenges?",
+      why: "Identifies obstacles where TFF can provide support or solutions.",
+    },
+    {
+      num: 3,
+      question: "What separates your best suppliers from everyone else?",
+      why: "Provides a roadmap for becoming a stronger strategic partner.",
+    },
+    {
+      num: 4,
+      question: "How can suppliers better support your resiliency goals?",
+      why: "Reveals expectations around continuity planning and supply security.",
+    },
+    {
+      num: 5,
+      question: "What innovation opportunities excite you most?",
+      why: "Focuses future development efforts on the highest-value opportunities.",
+    },
+    {
+      num: 6,
+      question: "What oral care trends are currently underappreciated?",
+      why: "Helps uncover emerging opportunities before competitors.",
+    },
+    {
+      num: 7,
+      question: "What sensory attributes matter most to consumers today?",
+      why: "Guides flavor development and product experience decisions.",
+    },
+    {
+      num: 8,
+      question: "What could The Flavor Factory do to become an even stronger partner?",
+      why: "Creates an opportunity for honest feedback and improvement.",
+    },
+    {
+      num: 9,
+      question: "How would you like sensory validation data presented?",
+      why: "Ensures our testing efforts provide useful and actionable information.",
+    },
+    {
+      num: 10,
+      question: "After today's visit, what would make you most confident in our ability to support future growth?",
+      why: "Reveals any remaining concerns and focuses attention on what matters most.",
+    },
+  ],
+  chapters: null,
 };

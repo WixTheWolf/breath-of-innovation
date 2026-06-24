@@ -1,16 +1,182 @@
 (function () {
-  var slides = Array.prototype.slice.call(document.querySelectorAll(".pres-slide"));
+  var viewport = document.getElementById("pres-viewport");
   var chaptersEl = document.getElementById("pres-chapters");
   var progressEl = document.getElementById("pres-progress-fill");
   var counterEl = document.getElementById("pres-counter");
   var app = document.getElementById("pres-app");
-  var viewport = document.getElementById("pres-viewport");
+  var slides = [];
   var index = 0;
   var hideTimer = null;
   var touchX = null;
 
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function makeSlide(className, html) {
+    var el = document.createElement("section");
+    el.className = "pres-slide" + (className ? " " + className : "");
+    el.innerHTML = html;
+    return el;
+  }
+
+  function pillarIntroSlide(section) {
+    return makeSlide(
+      "pres-slide-intro",
+      '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
+        '<div class="pres-slide-pad">' +
+        '<span class="pres-pillar-badge">' + esc(section.pillarShort) + "</span>" +
+        "<h1>" + esc(section.pillar) + "</h1>" +
+        '<p class="pres-lead">' + esc(section.intro) + "</p>" +
+        '<p class="pres-intro-hint">' + section.cards.length + " questions · tap to reveal answers</p>" +
+        "</div></div>"
+    );
+  }
+
+  function qaSlide(section, card) {
+    return makeSlide(
+      "pres-slide-qa",
+      '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
+        '<div class="pres-slide-pad">' +
+        '<p class="pres-tag">' + esc(section.pillarShort) + " · Card " + card.num + "</p>" +
+        '<div class="pres-qa-stage">' +
+        '<p class="pres-qa-label">Question</p>' +
+        '<h2 class="pres-qa-q">' + esc(card.question) + "</h2>" +
+        '<div class="pres-qa-reveal">' +
+        '<p class="pres-qa-label answer">Answer</p>' +
+        '<div class="pres-qa-answer"><p>' + esc(card.answer) + "</p></div>" +
+        "</div>" +
+        '<button type="button" class="pres-reveal-btn" data-reveal-label="Reveal answer" data-hide-label="Hide answer">' +
+        '<span class="pres-reveal-icon" aria-hidden="true">✦</span> Reveal answer</button>' +
+        "</div></div></div>"
+    );
+  }
+
+  function strategicIntroSlide() {
+    return makeSlide(
+      "pres-slide-intro pres-slide-strategic-intro",
+      '<div class="pres-slide-inner" style="--pillar-color:#6c5ce7">' +
+        '<div class="pres-slide-pad">' +
+        '<span class="pres-pillar-badge">Discussion</span>' +
+        "<h1>Top 10 strategic questions</h1>" +
+        '<p class="pres-lead">Questions for TheraBreath — move beyond supplier review toward long-term partnership.</p>' +
+        '<p class="pres-intro-hint">Reveal why each question matters before opening the floor.</p>' +
+        "</div></div>"
+    );
+  }
+
+  function strategicSlide(item) {
+    return makeSlide(
+      "pres-slide-qa pres-slide-strategic",
+      '<div class="pres-slide-inner" style="--pillar-color:#6c5ce7">' +
+        '<div class="pres-slide-pad">' +
+        '<p class="pres-tag">Strategic discussion · ' + item.num + " of 10</p>" +
+        '<div class="pres-qa-stage">' +
+        '<p class="pres-qa-label">Ask TheraBreath</p>' +
+        '<h2 class="pres-qa-q">' + esc(item.question) + "</h2>" +
+        '<div class="pres-qa-reveal">' +
+        '<p class="pres-qa-label answer">Why it matters</p>' +
+        '<div class="pres-qa-answer strategic"><p>' + esc(item.why) + "</p></div>" +
+        "</div>" +
+        '<button type="button" class="pres-reveal-btn strategic" data-reveal-label="Why it matters" data-hide-label="Hide">' +
+        '<span class="pres-reveal-icon" aria-hidden="true">?</span> Why it matters</button>' +
+        "</div></div></div>"
+    );
+  }
+
+  function buildDynamicSlides() {
+    if (!viewport || !window.BOI) return;
+    var anchor = viewport.querySelector('[data-i="9"]') || viewport.querySelector(".pres-slide:nth-child(6)");
+    var staticSlides = Array.prototype.slice.call(
+      viewport.querySelectorAll(".pres-slide:not(.pres-slide-dynamic)")
+    );
+    var afterOverview = staticSlides[4];
+    if (!afterOverview) return;
+
+    var frag = document.createDocumentFragment();
+    var slideIndices = [];
+
+    BOI.qaSections.forEach(function (section) {
+      var intro = pillarIntroSlide(section);
+      intro.classList.add("pres-slide-dynamic");
+      frag.appendChild(intro);
+      section.cards.forEach(function (card) {
+        var slide = qaSlide(section, card);
+        slide.classList.add("pres-slide-dynamic");
+        frag.appendChild(slide);
+      });
+    });
+
+    frag.appendChild(strategicIntroSlide());
+    frag.lastChild.classList.add("pres-slide-dynamic");
+
+    BOI.strategicQuestions.forEach(function (item) {
+      var slide = strategicSlide(item);
+      slide.classList.add("pres-slide-dynamic");
+      frag.appendChild(slide);
+    });
+
+    var lakewood = staticSlides[5];
+    if (lakewood) viewport.insertBefore(frag, lakewood);
+
+    slides = Array.prototype.slice.call(viewport.querySelectorAll(".pres-slide"));
+    slides.forEach(function (s, i) {
+      s.dataset.i = String(i);
+    });
+
+    buildChaptersFromSlides();
+  }
+
+  function buildChaptersFromSlides() {
+    if (!window.BOI) return;
+    var ch = [];
+    var i = 0;
+
+    ch.push({ id: "welcome", label: "Welcome", slides: [0, 1, 2] });
+    ch.push({ id: "day", label: "Your day", slides: [3] });
+    ch.push({ id: "overview", label: "Overview", slides: [4] });
+
+    var cursor = 5;
+    BOI.qaSections.forEach(function (section) {
+      var ids = [cursor];
+      cursor += 1;
+      section.cards.forEach(function () {
+        ids.push(cursor);
+        cursor += 1;
+      });
+      ch.push({
+        id: "pillar-" + section.num,
+        label: section.pillarShort.replace("Pillar ", "P"),
+        slides: ids,
+      });
+    });
+
+    var stratStart = cursor;
+    var stratSlides = [stratStart];
+    for (var s = 0; s < BOI.strategicQuestions.length; s++) {
+      stratSlides.push(stratStart + 1 + s);
+    }
+    ch.push({ id: "strategic", label: "Top 10", slides: stratSlides });
+    cursor = stratStart + 1 + BOI.strategicQuestions.length;
+
+    var tail = [];
+    for (var t = cursor; t < slides.length; t++) tail.push(t);
+    if (tail.length >= 3) {
+      ch.push({ id: "depth", label: "Deep dives", slides: tail.slice(0, 3) });
+      ch.push({ id: "close", label: "Close", slides: tail.slice(3) });
+    } else if (tail.length) {
+      ch.push({ id: "close", label: "Close", slides: tail });
+    }
+
+    BOI.chapters = ch;
+  }
+
   function chapterForSlide(i) {
-    if (!window.BOI) return null;
+    if (!window.BOI || !BOI.chapters) return null;
     var ch = BOI.chapters;
     for (var c = 0; c < ch.length; c++) {
       if (ch[c].slides.indexOf(i) !== -1) return ch[c];
@@ -19,7 +185,7 @@
   }
 
   function buildChapters() {
-    if (!chaptersEl || !window.BOI) return;
+    if (!chaptersEl || !window.BOI || !BOI.chapters) return;
     chaptersEl.innerHTML = '<p class="pres-chapters-label">Chapters</p>';
     BOI.chapters.forEach(function (ch) {
       var btn = document.createElement("button");
@@ -36,7 +202,7 @@
   }
 
   function updateChapters() {
-    if (!chaptersEl) return;
+    if (!chaptersEl || !BOI.chapters) return;
     var ch = chapterForSlide(index);
     Array.prototype.forEach.call(chaptersEl.querySelectorAll(".pres-chapter-btn"), function (btn) {
       var start = parseInt(btn.dataset.slide, 10);
@@ -44,6 +210,51 @@
         return c.id === ch.id && c.slides.indexOf(start) !== -1;
       });
       btn.classList.toggle("on", match && start === ch.slides[0]);
+    });
+  }
+
+  function isQaSlide(slide) {
+    return slide && slide.classList.contains("pres-slide-qa");
+  }
+
+  function isRevealed(slide) {
+    return slide && slide.classList.contains("revealed");
+  }
+
+  function resetReveal(slide) {
+    if (!slide) return;
+    slide.classList.remove("revealed");
+    var btn = slide.querySelector(".pres-reveal-btn");
+    if (!btn) return;
+    var icon = slide.classList.contains("pres-slide-strategic") ? "?" : "✦";
+    var label = btn.dataset.revealLabel || "Reveal answer";
+    btn.innerHTML = '<span class="pres-reveal-icon" aria-hidden="true">' + icon + "</span> " + label;
+  }
+
+  function toggleReveal(slide) {
+    if (!slide) return false;
+    var btn = slide.querySelector(".pres-reveal-btn");
+    var revealing = !slide.classList.contains("revealed");
+    slide.classList.toggle("revealed", revealing);
+    if (btn) {
+      var label = revealing ? btn.dataset.hideLabel : btn.dataset.revealLabel;
+      var icon = slide.classList.contains("pres-slide-strategic") ? "?" : "✦";
+      btn.innerHTML = '<span class="pres-reveal-icon" aria-hidden="true">' + icon + "</span> " + label;
+    }
+    requestAnimationFrame(fitSlide);
+    return revealing;
+  }
+
+  function bindRevealButtons() {
+    slides.forEach(function (slide) {
+      var btn = slide.querySelector(".pres-reveal-btn");
+      if (!btn || btn.dataset.bound) return;
+      btn.dataset.bound = "1";
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        toggleReveal(slide);
+        flashChrome();
+      });
     });
   }
 
@@ -67,6 +278,9 @@
 
   function show(i) {
     if (!slides.length) return;
+    var prev = slides[index];
+    if (prev && prev !== slides[i]) resetReveal(prev);
+
     index = Math.max(0, Math.min(slides.length - 1, i));
     slides.forEach(function (s, n) {
       s.classList.toggle("active", n === index);
@@ -82,8 +296,24 @@
     requestAnimationFrame(fitSlide);
   }
 
-  function next() { show(index + 1); }
-  function prev() { show(index - 1); }
+  function next() {
+    show(index + 1);
+  }
+
+  function prev() {
+    show(index - 1);
+  }
+
+  function handleAdvance() {
+    var slide = slides[index];
+    if (isQaSlide(slide) && !isRevealed(slide)) {
+      toggleReveal(slide);
+      flashChrome();
+      return;
+    }
+    next();
+    flashChrome();
+  }
 
   function toggleFullscreen() {
     var root = document.documentElement;
@@ -103,7 +333,6 @@
     }, 3200);
   }
 
-  /* Ambient canvas */
   function initCanvas() {
     var canvas = document.getElementById("pres-bg-canvas");
     if (!canvas) return;
@@ -116,7 +345,6 @@
       { x: 0.5, y: 0.85, r: 0.25, c: "245,130,32", s: 0.0001 },
     ];
     var t = 0;
-    var raf = 0;
 
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -141,7 +369,7 @@
         ctx.fillRect(0, 0, w, h);
       });
       t += 0.016;
-      raf = requestAnimationFrame(draw);
+      requestAnimationFrame(draw);
     }
 
     resize();
@@ -150,10 +378,14 @@
   }
 
   document.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+    if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown" || e.key === "Enter") {
       e.preventDefault();
-      next();
-      flashChrome();
+      if (e.key === "ArrowRight" || e.key === "PageDown") {
+        next();
+        flashChrome();
+      } else {
+        handleAdvance();
+      }
     } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
       e.preventDefault();
       prev();
@@ -169,6 +401,10 @@
     } else if (e.key === "f" || e.key === "F") {
       e.preventDefault();
       toggleFullscreen();
+    } else if (e.key === "r" || e.key === "R") {
+      e.preventDefault();
+      if (isQaSlide(slides[index])) toggleReveal(slides[index]);
+      flashChrome();
     }
   });
 
@@ -181,15 +417,15 @@
     var dx = e.changedTouches[0].clientX - touchX;
     touchX = null;
     if (Math.abs(dx) < 40) return;
-    if (dx < 0) next(); else prev();
+    if (dx < 0) handleAdvance(); else prev();
     flashChrome();
   }, { passive: true });
 
   document.getElementById("pres-prev")?.addEventListener("click", function () { prev(); flashChrome(); });
-  document.getElementById("pres-next")?.addEventListener("click", function () { next(); flashChrome(); });
+  document.getElementById("pres-next")?.addEventListener("click", function () { handleAdvance(); flashChrome(); });
   document.getElementById("pres-fs")?.addEventListener("click", toggleFullscreen);
   document.querySelector(".pres-hitzone.prev")?.addEventListener("click", function () { prev(); flashChrome(); });
-  document.querySelector(".pres-hitzone.next")?.addEventListener("click", function () { next(); flashChrome(); });
+  document.querySelector(".pres-hitzone.next")?.addEventListener("click", function () { handleAdvance(); flashChrome(); });
 
   document.addEventListener("fullscreenchange", function () {
     document.documentElement.classList.toggle("pres-fs", !!document.fullscreenElement);
@@ -201,8 +437,11 @@
   window.addEventListener("resize", function () { requestAnimationFrame(fitSlide); });
   document.addEventListener("mousemove", flashChrome);
 
-  var hash = (location.hash || "").match(/^#(\d+)$/);
+  buildDynamicSlides();
+  bindRevealButtons();
   buildChapters();
+
+  var hash = (location.hash || "").match(/^#(\d+)$/);
   initCanvas();
   show(hash ? parseInt(hash[1], 10) - 1 : 0);
 
