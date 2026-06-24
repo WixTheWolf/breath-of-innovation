@@ -37,16 +37,28 @@
     var size = cardSize(index, total);
     var btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "port-card " + size;
+    btn.className = "port-card " + size + (data.hasImage(c) ? "" : " port-card--sku");
     btn.dataset.slug = c.slug;
     btn.dataset.collection = c.collection;
     btn.setAttribute("aria-label", "View " + c.name);
     var badge = c.status === "in_production"
       ? '<span class="port-card-badge">On shelf</span>'
       : "";
+    var media;
+    if (data.hasImage(c)) {
+      media =
+        '<img src="' + data.imageUrl(c) + '" alt="' + c.name + '" loading="lazy" decoding="async" />';
+    } else {
+      media =
+        '<div class="port-card-sku">' +
+          '<span class="port-card-name">' + c.name + "</span>" +
+          (c.tffCode ? '<span class="port-card-code">' + c.tffCode + "</span>" : "") +
+          (c.usage ? '<span class="port-card-usage">' + c.usage + "</span>" : "") +
+        "</div>";
+    }
     btn.innerHTML =
-      '<div class="port-card-img">' +
-        '<img src="' + data.imageUrl(c) + '" alt="' + c.name + '" loading="lazy" decoding="async" />' +
+      '<div class="port-card-img' + (data.hasImage(c) ? "" : " port-card-img--text") + '">' +
+        media +
         badge +
         '<span class="port-card-cta-float">' + (c.status === "in_production" ? "View SKU →" : "Explore story →") + '</span>' +
       '</div>';
@@ -92,8 +104,16 @@
     var story = modal.querySelector(".port-modal-story");
     var note = modal.querySelector(".port-modal-note");
 
-    hero.src = data.imageUrl(c);
-    hero.alt = c.name;
+    var heroWrap = modal.querySelector(".port-modal-hero");
+    if (data.hasImage(c)) {
+      heroWrap.style.display = "";
+      hero.src = data.imageUrl(c);
+      hero.alt = c.name;
+    } else {
+      heroWrap.style.display = "none";
+      hero.removeAttribute("src");
+      hero.alt = "";
+    }
     tag.textContent = c.tag;
     tag.style.background = colColor(c.collection);
     title.textContent = c.name;
