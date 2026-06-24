@@ -24,6 +24,19 @@
     return el;
   }
 
+  function bulletList(items) {
+    if (!items || !items.length) return "";
+    return (
+      '<ul class="pres-qa-bullets">' +
+      items
+        .map(function (item) {
+          return "<li>" + esc(item) + "</li>";
+        })
+        .join("") +
+      "</ul>"
+    );
+  }
+
   function pillarIntroSlide(section) {
     return makeSlide(
       "pres-slide-intro",
@@ -32,7 +45,7 @@
         '<span class="pres-pillar-badge">' + esc(section.pillarShort) + "</span>" +
         "<h1>" + esc(section.pillar) + "</h1>" +
         '<p class="pres-lead">' + esc(section.intro) + "</p>" +
-        '<p class="pres-intro-hint">' + section.cards.length + " questions · tap to reveal answers</p>" +
+        '<p class="pres-intro-hint">' + section.cards.length + " questions · tap to reveal key points</p>" +
         "</div></div>"
     );
   }
@@ -47,11 +60,11 @@
         '<p class="pres-qa-label">Question</p>' +
         '<h2 class="pres-qa-q">' + esc(card.question) + "</h2>" +
         '<div class="pres-qa-reveal">' +
-        '<p class="pres-qa-label answer">Answer</p>' +
-        '<div class="pres-qa-answer"><p>' + esc(card.answer) + "</p></div>" +
+        '<p class="pres-qa-label answer">Key points</p>' +
+        '<div class="pres-qa-answer">' + bulletList(card.points) + "</div>" +
         "</div>" +
-        '<button type="button" class="pres-reveal-btn" data-reveal-label="Reveal answer" data-hide-label="Hide answer">' +
-        '<span class="pres-reveal-icon" aria-hidden="true">✦</span> Reveal answer</button>' +
+        '<button type="button" class="pres-reveal-btn" data-reveal-label="Reveal points" data-hide-label="Hide points">' +
+        '<span class="pres-reveal-icon" aria-hidden="true">✦</span> Reveal points</button>' +
         "</div></div></div>"
     );
   }
@@ -64,7 +77,7 @@
         '<span class="pres-pillar-badge">Discussion</span>' +
         "<h1>Top 10 strategic questions</h1>" +
         '<p class="pres-lead">Questions for TheraBreath — move beyond supplier review toward long-term partnership.</p>' +
-        '<p class="pres-intro-hint">Reveal why each question matters before opening the floor.</p>' +
+        '<p class="pres-intro-hint">Reveal talking points before opening the floor.</p>' +
         "</div></div>"
     );
   }
@@ -80,10 +93,10 @@
         '<h2 class="pres-qa-q">' + esc(item.question) + "</h2>" +
         '<div class="pres-qa-reveal">' +
         '<p class="pres-qa-label answer">Why it matters</p>' +
-        '<div class="pres-qa-answer strategic"><p>' + esc(item.why) + "</p></div>" +
+        '<div class="pres-qa-answer strategic">' + bulletList(item.points) + "</div>" +
         "</div>" +
-        '<button type="button" class="pres-reveal-btn strategic" data-reveal-label="Why it matters" data-hide-label="Hide">' +
-        '<span class="pres-reveal-icon" aria-hidden="true">?</span> Why it matters</button>' +
+        '<button type="button" class="pres-reveal-btn strategic" data-reveal-label="Reveal points" data-hide-label="Hide">' +
+        '<span class="pres-reveal-icon" aria-hidden="true">?</span> Reveal points</button>' +
         "</div></div></div>"
     );
   }
@@ -227,7 +240,7 @@
     var btn = slide.querySelector(".pres-reveal-btn");
     if (!btn) return;
     var icon = slide.classList.contains("pres-slide-strategic") ? "?" : "✦";
-    var label = btn.dataset.revealLabel || "Reveal answer";
+    var label = btn.dataset.revealLabel || "Reveal points";
     btn.innerHTML = '<span class="pres-reveal-icon" aria-hidden="true">' + icon + "</span> " + label;
   }
 
