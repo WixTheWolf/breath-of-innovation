@@ -2,124 +2,108 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Breath of Innovation — July 8, 2026 capabilities workshop for the TheraBreath team at The Flavor Factory, Norco." />
-    <meta name="theme-color" content="#0a1628" />
-    <title>Breath of Innovation · TFF × TheraBreath</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Breath of Innovation — July 8, 2026 workshop hub for the TheraBreath team at The Flavor Factory." />
+    <meta name="theme-color" content="#f7f9fc" />
+    <title>Breath of Innovation · Workshop Hub</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/site.css" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/hub.css" />
   </head>
-  <body>
-    <canvas class="boi-canvas" id="boi-canvas" aria-hidden="true"></canvas>
-
-    <nav class="boi-nav">
-      <a class="boi-brand" href="/"><span class="boi-mark">TFF</span> Breath of Innovation</a>
-      <div class="boi-nav-links">
-        <a href="/visit">Your day</a>
-        <a href="/portfolio">Portfolio</a>
-        <a href="/taste">Tasting</a>
-        <a class="cta" href="/present">Start presentation</a>
-      </div>
-    </nav>
-
-    <div class="boi-wrap">
-      <header class="boi-hero">
-        <p class="boi-kicker"><i aria-hidden="true"></i> July 8, 2026 · Norco, California</p>
-        <h1>Breath of Innovation</h1>
-        <p class="boi-hero-lead">
-          A capabilities workshop for the TheraBreath team — resiliency, innovation, operations, and partnership.
-          Working session, not a sales pitch.
-        </p>
-        <div class="boi-hero-actions">
-          <a class="boi-btn primary" href="/present">Launch presentation</a>
-          <a class="boi-btn" href="/visit">View schedule</a>
-          <a class="boi-btn" href="/taste">Tasting tools</a>
-        </div>
-      </header>
-
-      <section class="boi-section" aria-label="Four pillars">
-        <div class="boi-section-head">
-          <h2>What we'll discuss</h2>
-          <p>Four areas your team asked about — click to explore.</p>
-        </div>
-        <div class="boi-pillars" id="boi-pillars">
-          <button type="button" class="boi-pillar" data-pillar="resiliency" style="--pillar-color:#008fd3">
-            <span class="boi-pillar-num" style="background:#008fd3">1</span>
-            <h4>Resiliency</h4>
-            <span>Supply as you grow</span>
-          </button>
-          <button type="button" class="boi-pillar" data-pillar="innovation" style="--pillar-color:#5fb832">
-            <span class="boi-pillar-num" style="background:#5fb832">2</span>
-            <h4>Innovation</h4>
-            <span>Flavor in your products</span>
-          </button>
-          <button type="button" class="boi-pillar" data-pillar="operations" style="--pillar-color:#f58220">
-            <span class="boi-pillar-num" style="background:#f58220">3</span>
-            <h4>Operations</h4>
-            <span>One roof · full visibility</span>
-          </button>
-          <button type="button" class="boi-pillar" data-pillar="partnership">
-            <span class="boi-pillar-num" style="background:#0a1628">4</span>
-            <h4>Partnership</h4>
-            <span>Build together</span>
-          </button>
-        </div>
-        <div class="boi-pillar-detail" id="pillar-detail" aria-live="polite"></div>
-      </section>
-
-      <section class="boi-section">
-        <div class="boi-section-head">
-          <h2>Everything in one place</h2>
-          <p>Built for July 8 — presentation, schedule, and tasting.</p>
-        </div>
-        <div class="boi-grid-3">
-          <article class="boi-card" style="--card-accent:#6c5ce7">
-            <h3>Flavor portfolio</h3>
-            <p>42 unique concepts · immersive gallery · heritage to Gen Alpha futures.</p>
-            <span class="arrow">Open /portfolio →</span>
-            <a class="stretch" href="/portfolio" aria-label="Open flavor portfolio"></a>
-          </article>
-          <article class="boi-card" style="--card-accent:#008fd3">
-            <h3>Live presentation</h3>
-            <p>Interactive Q&amp;A slides · reveal bullet points on screen · full answers in packet.</p>
-            <span class="arrow">Open /present →</span>
-            <a class="stretch" href="/present" aria-label="Open presentation"></a>
-          </article>
-          <article class="boi-card" style="--card-accent:#0a1628">
-            <h3>Speaker packet</h3>
-            <p>Printable reference with every question and full answer for presenters.</p>
-            <span class="arrow">Open /packet →</span>
-            <a class="stretch" href="/packet" aria-label="Open speaker packet"></a>
-          </article>
-          <article class="boi-card" style="--card-accent:#5fb832">
-            <h3>Your day</h3>
-            <p>Suggested schedule, arrival, and what to expect before you land.</p>
-            <span class="arrow">Open /visit →</span>
-            <a class="stretch" href="/visit" aria-label="View visit guide"></a>
-          </article>
-          <article class="boi-card" style="--card-accent:#f58220">
-            <h3>Tasting · 10:30 AM</h3>
-            <p>Blind flavor mapping and prototype scorecard on your phone.</p>
-            <span class="arrow">Open /taste →</span>
-            <a class="stretch" href="/taste" aria-label="Open tasting tools"></a>
-          </article>
-        </div>
-      </section>
-
-      <section class="boi-section">
-        <div class="boi-info">
-          <strong>Suggested arrival: 9:00 AM</strong> — conference room across from The Flavor Factory.<br />
-          Questions before July 8? The Flavor Factory team · (951) 273-9877 · flavorfactory.net
-        </div>
-      </section>
-
-      <footer class="boi-foot">The Flavor Factory × TheraBreath · Confidential · July 2026</footer>
+  <body class="hub">
+    <div class="hub-lab" aria-hidden="true">
+      <div class="hub-lab-grid"></div>
+      <canvas class="hub-glow" id="hub-glow"></canvas>
     </div>
 
+    <header class="hub-nav">
+      <a class="hub-brand" href="/">
+        <span class="hub-mark">TFF</span>
+        <span class="hub-brand-text">Breath of Innovation</span>
+      </a>
+      <p class="hub-nav-meta">July 8, 2026 · Norco</p>
+    </header>
+
+    <main class="hub-main">
+      <section class="hub-hero" id="top">
+        <p class="hub-eyebrow">
+          <span class="hub-live" aria-hidden="true"></span>
+          The Flavor Factory × TheraBreath
+        </p>
+        <h1 class="hub-title">
+          <span class="hub-title-line">Breath of</span>
+          <span class="hub-title-line hub-title-accent">Innovation</span>
+        </h1>
+        <p class="hub-lead">Capabilities workshop — resiliency, innovation, operations, partnership. Everything for your day, one tap away.</p>
+        <a class="hub-cta" href="/present">
+          <span>Start presentation</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </section>
+
+      <section class="hub-destinations" aria-labelledby="hub-workshop-label">
+        <div class="hub-section-head">
+          <h2 id="hub-workshop-label" class="hub-section-label">Workshop</h2>
+          <p class="hub-section-sub">Five destinations. Nothing extra.</p>
+        </div>
+
+        <div class="hub-bento">
+          <a class="hub-tile hub-tile-feature" href="/present" data-tile="present">
+            <span class="hub-tile-tag">9:00 AM</span>
+            <h3>Presentation</h3>
+            <p>Interactive Q&amp;A slides with reveal points. Four pillars, Top 10 strategic questions, deep dives.</p>
+            <span class="hub-tile-go">Open slides</span>
+            <div class="hub-tile-shine" aria-hidden="true"></div>
+          </a>
+
+          <a class="hub-tile" href="/visit" data-tile="visit">
+            <span class="hub-tile-tag">Schedule</span>
+            <h3>Your day</h3>
+            <p>Arrival, tour, tasting, lunch, open Q&amp;A.</p>
+            <span class="hub-tile-go">View schedule</span>
+          </a>
+
+          <a class="hub-tile" href="/portfolio" data-tile="portfolio">
+            <span class="hub-tile-tag">Gallery</span>
+            <h3>Flavor portfolio</h3>
+            <p>42 concepts — heritage, pipeline, Gen Alpha futures.</p>
+            <span class="hub-tile-go">Explore flavors</span>
+          </a>
+
+          <a class="hub-tile hub-tile-taste" href="/taste" data-tile="taste">
+            <span class="hub-tile-tag">10:30 AM</span>
+            <h3>Tasting</h3>
+            <p>Blind mapping and prototype scorecard on your phone.</p>
+            <span class="hub-tile-go">Open tasting</span>
+          </a>
+
+          <a class="hub-tile hub-tile-packet" href="/packet" data-tile="packet">
+            <span class="hub-tile-tag">Presenters</span>
+            <h3>Speaker packet</h3>
+            <p>Full answers and print-ready script for the room.</p>
+            <span class="hub-tile-go">Open packet</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="hub-schedule" aria-labelledby="hub-today-label">
+        <div class="hub-section-head">
+          <h2 id="hub-today-label" class="hub-section-label">Today</h2>
+          <p class="hub-section-sub">Suggested flow — we adapt in the room.</p>
+        </div>
+        <div class="hub-schedule-track" id="hub-schedule" role="list"></div>
+      </section>
+
+      <footer class="hub-foot">
+        <p><strong>Arrive 9:00 AM</strong> · conference room across from TFF</p>
+        <p class="hub-foot-quiet">2058 Second Street, Norco, CA · (951) 273-9877 · flavorfactory.net</p>
+        <p class="hub-foot-quiet">Confidential · The Flavor Factory × TheraBreath</p>
+      </footer>
+    </main>
+
     <script src="/js/content.js"></script>
-    <script src="/js/site.js"></script>
+    <script src="/js/hub.js"></script>
   </body>
 </html>
