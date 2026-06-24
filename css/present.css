@@ -47,7 +47,7 @@ html.pres-mode body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-.pres-qr-item span {
+.pres-qr-label {
   font-family: var(--font-display);
   font-size: 0.58rem;
   font-weight: 700;
@@ -56,7 +56,18 @@ html.pres-mode body {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.pres-qr-item:hover span {
+.pres-qr-url {
+  display: none;
+  max-width: 9em;
+  font-size: 0.5rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.38);
+  word-break: break-all;
+}
+
+.pres-qr-item:hover .pres-qr-label {
   color: #fff;
 }
 
@@ -590,6 +601,7 @@ html.pres-mode body {
   align-items: center;
   gap: 8px;
   margin-top: 0.4em;
+  min-height: 44px;
   padding: 0.75em 1.4em;
   border: none;
   border-radius: 999px;
@@ -666,10 +678,14 @@ html.pres-mode body {
   z-index: 20;
 }
 
-.pres-toolbar span {
+.pres-toolbar-hint {
   font-size: 0.7rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.5);
+}
+
+.pres-toolbar-hint-mobile {
+  display: none;
 }
 
 .pres-toolbar kbd {
@@ -702,6 +718,7 @@ html.pres-mode body {
 
 .pres-toolbar-actions button,
 .pres-toolbar-actions a {
+  min-height: 40px;
   padding: 7px 14px;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -748,17 +765,113 @@ html.pres-mode body {
 
 @media (max-width: 768px) {
   .pres-chapters { display: none; }
-  .pres-qr-dock {
-    left: 10px;
-    bottom: 64px;
-    padding: 8px 10px;
-  }
-  .pres-qr-item img {
-    width: 56px;
-    height: 56px;
-  }
   .pres-app { grid-template-columns: 1fr; }
+
+  .pres-viewport {
+    padding: 10px 8px;
+    padding-top: max(10px, env(safe-area-inset-top));
+  }
+
+  .pres-slide {
+    width: 100%;
+  }
+
+  .pres-slide-pad {
+    padding: 20px 18px 18px;
+  }
+
+  .pres-qr-dock {
+    top: max(10px, env(safe-area-inset-top));
+    right: 10px;
+    left: auto;
+    bottom: auto;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .pres-qr-item img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .pres-qr-url {
+    display: block;
+  }
+
+  .pres-toolbar {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+
+  .pres-toolbar-hint-desktop { display: none; }
+  .pres-toolbar-hint-mobile {
+    display: block;
+    order: 4;
+    width: 100%;
+    font-size: 0.62rem;
+    text-align: center;
+  }
+
+  .pres-progress-track {
+    order: 1;
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  #pres-counter {
+    order: 2;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .pres-toolbar-actions {
+    order: 3;
+    flex: 1;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pres-toolbar-actions button,
+  .pres-toolbar-actions a {
+    min-height: 44px;
+    padding: 8px 12px;
+    font-size: 0.64rem;
+  }
+
+  .pres-hitzone { width: 22%; }
+
+  .pres-qa-stage {
+    min-height: clamp(180px, 32vmin, 280px);
+  }
+
   .pres-grid-2, .pres-grid-3, .pres-grid-4, .pres-steps, .pres-agenda {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .pres-qr-dock {
+    flex-direction: row;
+    top: auto;
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    right: 8px;
+    left: 8px;
+    justify-content: center;
+  }
+
+  .pres-qr-item {
+    flex: 1;
+    max-width: 120px;
+  }
+
+  .pres-toolbar-actions .pres-packet-link {
+    display: none;
   }
 }

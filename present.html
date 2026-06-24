@@ -2,7 +2,7 @@
 <html lang="en" class="pres-mode">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#060d18" />
     <title>Presentation · Breath of Innovation</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
@@ -15,13 +15,15 @@
   <body>
     <div class="pres-app" id="pres-app">
       <aside class="pres-qr-dock" aria-label="Scan to open on your phone">
-        <a class="pres-qr-item" href="/present" title="Open presentation">
-          <img src="/assets/qr/present-sm.png" alt="" width="72" height="72" />
-          <span>Slides</span>
+        <a class="pres-qr-item" href="https://breath-of-innovation.vercel.app/present" title="Open presentation">
+          <img src="/assets/qr/present-sm.png" alt="QR code — open presentation" width="72" height="72" />
+          <span class="pres-qr-label">Slides</span>
+          <span class="pres-qr-url">breath-of-innovation.vercel.app/present</span>
         </a>
-        <a class="pres-qr-item" href="/packet" title="Open speaker packet">
-          <img src="/assets/qr/packet-sm.png" alt="" width="72" height="72" />
-          <span>Packet</span>
+        <a class="pres-qr-item" href="https://breath-of-innovation.vercel.app/packet" title="Open speaker packet">
+          <img src="/assets/qr/packet-sm.png" alt="QR code — open speaker packet" width="72" height="72" />
+          <span class="pres-qr-label">Packet</span>
+          <span class="pres-qr-url">breath-of-innovation.vercel.app/packet</span>
         </a>
       </aside>
 
@@ -199,15 +201,16 @@
         </div>
 
         <footer class="pres-toolbar">
-          <span><kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>Space</kbd> reveal points · <kbd>R</kbd> toggle · <kbd>F</kbd> fullscreen</span>
+          <span class="pres-toolbar-hint pres-toolbar-hint-desktop"><kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>Space</kbd> reveal points · <kbd>R</kbd> toggle · <kbd>F</kbd> fullscreen</span>
+          <span class="pres-toolbar-hint pres-toolbar-hint-mobile">Tap sides or swipe · tap Reveal for points</span>
           <div class="pres-progress-track"><div class="pres-progress-fill" id="pres-progress-fill" style="width:7%"></div></div>
           <span id="pres-counter">1 / 41</span>
           <div class="pres-toolbar-actions">
-            <a href="/packet" class="pres-packet-link">Speaker packet</a>
+            <a href="/packet" class="pres-packet-link">Packet</a>
             <a href="/">Exit</a>
-            <button type="button" id="pres-prev">Prev</button>
-            <button type="button" id="pres-next">Next</button>
-            <button type="button" class="primary" id="pres-fs">Fullscreen</button>
+            <button type="button" id="pres-prev" aria-label="Previous slide">Prev</button>
+            <button type="button" id="pres-next" aria-label="Next slide or reveal">Next</button>
+            <button type="button" class="primary" id="pres-fs" aria-label="Fullscreen">Full</button>
           </div>
         </footer>
       </div>
