@@ -780,24 +780,9 @@ html.pres-mode body {
     padding: 20px 18px 18px;
   }
 
+  /* QR codes are for in-room scanning — hide on phones so slides stay clear */
   .pres-qr-dock {
-    top: max(10px, env(safe-area-inset-top));
-    right: 10px;
-    left: auto;
-    bottom: auto;
-    flex-direction: column;
-    gap: 8px;
-    padding: 8px;
-    max-width: calc(100vw - 20px);
-  }
-
-  .pres-qr-item img {
-    width: 52px;
-    height: 52px;
-  }
-
-  .pres-qr-url {
-    display: block;
+    display: none;
   }
 
   .pres-toolbar {
@@ -857,21 +842,9 @@ html.pres-mode body {
 }
 
 @media (max-width: 380px) {
-  .pres-qr-dock {
-    flex-direction: row;
-    top: auto;
-    bottom: calc(64px + env(safe-area-inset-bottom));
-    right: 8px;
-    left: 8px;
-    justify-content: center;
-  }
-
-  .pres-qr-item {
-    flex: 1;
-    max-width: 120px;
-  }
-
-  .pres-toolbar-actions .pres-packet-link {
-    display: none;
+  .pres-toolbar-actions button,
+  .pres-toolbar-actions a {
+    padding: 8px 10px;
+    font-size: 0.6rem;
   }
 }

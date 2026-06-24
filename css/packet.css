@@ -417,19 +417,12 @@ body {
 
   .pkt-cover-qr {
     width: 100%;
-    justify-content: center;
-    gap: 20px;
+    justify-content: flex-start;
+    gap: 14px;
   }
 
-  .pkt-qr-item {
-    flex: 1;
-    max-width: 148px;
-    min-width: 0;
-  }
-
-  .pkt-qr-item img {
-    width: 80px;
-    height: 80px;
+  .pkt-qr-url {
+    display: none;
   }
 
   .pkt-cover h1 {
