@@ -55,7 +55,7 @@
       '<span class="pkt-strat-num">' + item.num + ".</span>" +
       '<p class="pkt-strat-q">' + esc(item.question) + "</p>" +
       (stratBullets ? '<ul class="pkt-strat-points">' + stratBullets + "</ul>" : "") +
-      '<p class="pkt-strat-why"><strong>Why it matters:</strong> ' + esc(item.why) + "</p>";
+      '<p class="pkt-strat-why">' + esc(item.why) + "</p>";
     stratEl.appendChild(row);
   });
 

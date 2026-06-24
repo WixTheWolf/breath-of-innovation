@@ -15,6 +15,57 @@ html.pres-mode body {
   z-index: 1;
 }
 
+.pres-qr-dock {
+  position: fixed;
+  left: 16px;
+  bottom: 72px;
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(6, 13, 24, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  z-index: 25;
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.pres-qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+}
+
+.pres-qr-item img {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  background: #fff;
+  padding: 5px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.pres-qr-item span {
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pres-qr-item:hover span {
+  color: #fff;
+}
+
+.pres-app.fs-chrome-hidden .pres-qr-dock {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
 .pres-app.fs-chrome-hidden .pres-chapters {
   transform: translateX(-100%);
   opacity: 0;
@@ -697,6 +748,15 @@ html.pres-mode body {
 
 @media (max-width: 768px) {
   .pres-chapters { display: none; }
+  .pres-qr-dock {
+    left: 10px;
+    bottom: 64px;
+    padding: 8px 10px;
+  }
+  .pres-qr-item img {
+    width: 56px;
+    height: 56px;
+  }
   .pres-app { grid-template-columns: 1fr; }
   .pres-grid-2, .pres-grid-3, .pres-grid-4, .pres-steps, .pres-agenda {
     grid-template-columns: 1fr;
