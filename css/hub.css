@@ -2,15 +2,15 @@
 
 /* Workshop hub — clean, Apple-like welcome */
 :root {
-  --hub-bg: #f5f5f7;
+  --hub-bg: #ffffff;
   --hub-surface: #ffffff;
-  --hub-ink: #1d1d1f;
-  --hub-muted: #6e6e73;
-  --hub-line: rgba(0, 0, 0, 0.08);
-  --hub-line-soft: #e8e8ed;
-  --hub-blue: #0071e3;
-  --hub-green: #34c759;
-  --hub-orange: #ff9500;
+  --hub-ink: #000000;
+  --hub-muted: #3a3a3c;
+  --hub-line: rgba(0, 0, 0, 0.14);
+  --hub-line-soft: #e5e5ea;
+  --hub-blue: #0066cc;
+  --hub-green: #248a3d;
+  --hub-orange: #c93400;
   --hub-radius: 20px;
   --hub-radius-sm: 14px;
   --hub-font: "Sora", system-ui, sans-serif;
@@ -78,9 +78,8 @@ body.hub {
   gap: 16px;
   padding: 14px clamp(20px, 4vw, 40px);
   padding-top: max(14px, env(safe-area-inset-top));
-  background: rgba(247, 249, 252, 0.72);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-  backdrop-filter: blur(20px) saturate(1.4);
+  background: #ffffff;
+  border-bottom: 1px solid var(--hub-line);
 }
 
 .hub-brand {
@@ -212,10 +211,7 @@ body.hub {
 }
 
 .hub-title-accent {
-  background: linear-gradient(135deg, var(--hub-blue) 0%, #006da3 55%, var(--hub-green) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--hub-blue);
 }
 
 .hub-lead {
