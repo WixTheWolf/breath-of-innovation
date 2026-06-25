@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Find anything on the Breath of Innovation hub — plus the full TheraBreath visit site directory." />
+    <title>Find Anything · Breath of Innovation</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/directory.css" />
+  </head>
+  <body class="dir-page">
+    <header class="dir-hero">
+      <div class="dir-hero-in">
+        <p class="dir-hero-kicker">Site directory</p>
+        <h1>Find anything</h1>
+        <p>Workshop pages on this hub — plus a direct link to the full visit-site directory (Lakewood, print, team tools, talk tracks).</p>
+      </div>
+    </header>
+
+    <div class="dir-layout">
+      <aside class="dir-search-col">
+        <div class="dir-search" id="dir-search-wrap">
+          <input type="search" id="dir-search" placeholder="Search — presentation, tasting, Lakewood…" autocomplete="off" aria-label="Search" />
+          <div class="dir-search-results" id="dir-search-results"></div>
+        </div>
+        <p class="dir-jump-label">Jump to topic</p>
+        <nav class="dir-jump" id="dir-jump"></nav>
+        <p class="dir-team-note">
+          <a href="https://therabreath-visit-site.vercel.app/find" target="_blank" rel="noopener">Open full site directory →</a> for Lakewood, chlorite, run-of-show, and meeting search with talk tracks.
+        </p>
+      </aside>
+      <main id="dir-clusters"></main>
+    </div>
+
+    <p style="text-align:center;padding:0 24px 48px;font-size:0.8rem;color:#5c6678">
+      <a href="/" style="color:#008fd3;font-weight:700">← Workshop hub</a>
+    </p>
+
+    <script src="/js/site-directory.js"></script>
+    <script src="/js/directory-ui.js"></script>
+    <script>
+      DirectoryUI.renderJumpNav("dir-jump", { showInternal: true });
+      DirectoryUI.renderClusters("dir-clusters", { showInternal: true });
+      DirectoryUI.initSearch("dir-search", "dir-search-results", { showInternal: true });
+    </script>
+  </body>
+</html>

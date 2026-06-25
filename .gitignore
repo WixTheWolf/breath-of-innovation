@@ -1,5 +1,6 @@
 .vercel
 node_modules
+documents/
 assets/portfolio/raw/
 .DS_Store
 Thumbs.db

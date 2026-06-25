@@ -7,7 +7,8 @@
   "redirects": [
     { "source": "/mystery", "destination": "/map", "permanent": false },
     { "source": "/presentation", "destination": "/present", "permanent": false },
-    { "source": "/speaker-packet", "destination": "/packet", "permanent": false }
+    { "source": "/speaker-packet", "destination": "/packet", "permanent": false },
+    { "source": "/team", "destination": "/gate", "permanent": false }
   ],
   "headers": [
     {

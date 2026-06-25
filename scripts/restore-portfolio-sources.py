@@ -26,8 +26,8 @@ def main():
     with open(MANIFEST, encoding="utf-8") as f:
         sources = json.load(f)
     for slug, path in sources.items():
-        if not path or not os.path.exists(path):
-            print("MISSING", slug, path)
+        if not path or not isinstance(path, str) or not os.path.isfile(path):
+            print("SKIP", slug)
             continue
         to_jpg(path, os.path.join(RAW, slug + ".jpg"))
 

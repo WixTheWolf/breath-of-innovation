@@ -1,14 +1,16 @@
-/* Workshop hub — laboratory clean room */
+@import url("/css/tff-warm.css");
+
+/* Workshop hub — clean, Apple-like welcome */
 :root {
-  --hub-bg: #f7f9fc;
+  --hub-bg: #f5f5f7;
   --hub-surface: #ffffff;
-  --hub-ink: #0a1628;
-  --hub-muted: #64748b;
-  --hub-line: #e2e8f0;
-  --hub-line-soft: #eef2f6;
-  --hub-blue: #008fd3;
-  --hub-green: #5fb832;
-  --hub-orange: #f58220;
+  --hub-ink: #1d1d1f;
+  --hub-muted: #6e6e73;
+  --hub-line: rgba(0, 0, 0, 0.08);
+  --hub-line-soft: #e8e8ed;
+  --hub-blue: #0071e3;
+  --hub-green: #34c759;
+  --hub-orange: #ff9500;
   --hub-radius: 20px;
   --hub-radius-sm: 14px;
   --hub-font: "Sora", system-ui, sans-serif;
@@ -110,6 +112,25 @@ body.hub {
   letter-spacing: -0.02em;
 }
 
+.hub-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.hub-nav-links a {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-family: var(--hub-font);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--hub-ink);
+  border: 1px solid var(--hub-line);
+  background: var(--hub-surface);
+}
+.hub-nav-links a:hover {
+  border-color: rgba(0, 143, 211, 0.35);
+}
 .hub-nav-meta {
   margin: 0;
   font-size: 0.72rem;
@@ -117,6 +138,21 @@ body.hub {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--hub-muted);
+}
+.hub-hero-search {
+  width: min(480px, 100%);
+  margin: 0 auto 20px;
+}
+.hub-hero-search .dir-search {
+  margin-bottom: 8px;
+}
+.hub-find-link {
+  display: inline-block;
+  font-family: var(--hub-font);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--hub-blue);
+  text-decoration: none;
 }
 
 /* Main */

@@ -127,4 +127,9 @@
   document.getElementById("pkt-print")?.addEventListener("click", function () {
     window.print();
   });
+
+  document.getElementById("pkt-lock")?.addEventListener("click", function () {
+    if (typeof TFF !== "undefined" && TFF.logout) TFF.logout();
+    else location.href = "/gate";
+  });
 })();

@@ -11,8 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/hub.css" />
+    <link rel="stylesheet" href="/css/directory.css" />
   </head>
-  <body class="hub">
+  <body class="hub tff-warm">
     <div class="hub-lab" aria-hidden="true">
       <div class="hub-lab-grid"></div>
       <canvas class="hub-glow" id="hub-glow"></canvas>
@@ -23,6 +24,11 @@
         <span class="hub-mark">TFF</span>
         <span class="hub-brand-text">Breath of Innovation</span>
       </a>
+      <nav class="hub-nav-links">
+        <a href="/find">Find</a>
+        <a href="/visit">Your day</a>
+        <a href="/present">Presentation</a>
+      </nav>
       <p class="hub-nav-meta">July 8, 2026 · Norco</p>
     </header>
 
@@ -36,7 +42,24 @@
           <span class="hub-title-line">Breath of</span>
           <span class="hub-title-line hub-title-accent">Innovation</span>
         </h1>
-        <p class="hub-lead">Capabilities workshop — resiliency, innovation, operations, partnership. Everything for your day, one tap away.</p>
+        <p class="hub-lead">9:00 AM tour · 9:30 presentation · 10:15 break · 10:30 tasting · 11:30 lunch · open Q&amp;A after 1:00 PM.</p>
+        <div class="guest-hero-media" style="max-width:min(640px,100%);margin:0 auto 18px">
+          <figure class="guest-lineup">
+            <img src="/assets/visit/therabreath-lineup.jpg" alt="TheraBreath rinse lineup" width="640" height="360" loading="eager" decoding="async" />
+            <figcaption>TFF flavors on shelf</figcaption>
+          </figure>
+          <figure class="guest-facility">
+            <img src="/assets/companies/tff/therabreath-production-room.jpg" alt="Blue TheraBreath production room with stainless mixing tank" width="640" height="480" loading="lazy" decoding="async" />
+            <figcaption>Blue production room · dedicated TheraBreath manufacturing</figcaption>
+          </figure>
+        </div>
+        <div class="hub-hero-search">
+          <div class="dir-search">
+            <input type="search" id="hub-search" placeholder="Find anything — presentation, tasting, Lakewood…" autocomplete="off" aria-label="Search" />
+            <div class="dir-search-results" id="hub-search-results"></div>
+          </div>
+          <a class="hub-find-link" href="/find">Workshop directory →</a>
+        </div>
         <a class="hub-cta" href="/present">
           <span>Start presentation</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -46,14 +69,14 @@
       <section class="hub-destinations" aria-labelledby="hub-workshop-label">
         <div class="hub-section-head">
           <h2 id="hub-workshop-label" class="hub-section-label">Workshop</h2>
-          <p class="hub-section-sub">Five destinations. Nothing extra.</p>
+          <p class="hub-section-sub">Core destinations on this hub.</p>
         </div>
 
         <div class="hub-bento">
           <a class="hub-tile hub-tile-feature" href="/present" data-tile="present">
-            <span class="hub-tile-tag">9:00 AM</span>
+            <span class="hub-tile-tag">9:30 AM</span>
             <h3>Presentation</h3>
-            <p>Interactive Q&amp;A slides with reveal points. Four pillars, Top 10 strategic questions, deep dives.</p>
+            <p>Four pillars · Top 10 questions · reveal points.</p>
             <span class="hub-tile-go">Open slides</span>
             <div class="hub-tile-shine" aria-hidden="true"></div>
           </a>
@@ -61,29 +84,36 @@
           <a class="hub-tile" href="/visit" data-tile="visit">
             <span class="hub-tile-tag">Schedule</span>
             <h3>Your day</h3>
-            <p>Arrival, tour, tasting, lunch, open Q&amp;A.</p>
+            <p>Tour · tasting · lunch · open Q&amp;A.</p>
             <span class="hub-tile-go">View schedule</span>
+          </a>
+
+          <a class="hub-tile" href="/taste" data-tile="taste">
+            <span class="hub-tile-tag">10:30 AM</span>
+            <h3>Tasting</h3>
+            <p>Blind mapping · scorecard.</p>
+            <span class="hub-tile-go">Open tasting</span>
           </a>
 
           <a class="hub-tile" href="/portfolio" data-tile="portfolio">
             <span class="hub-tile-tag">Gallery</span>
             <h3>Flavor portfolio</h3>
-            <p>On-shelf SKUs, presented concepts, pipeline, and Gen Alpha.</p>
+            <p>SKUs · pipeline · Gen Alpha.</p>
             <span class="hub-tile-go">Explore flavors</span>
           </a>
 
-          <a class="hub-tile hub-tile-taste" href="/taste" data-tile="taste">
-            <span class="hub-tile-tag">10:30 AM</span>
-            <h3>Tasting</h3>
-            <p>Blind mapping and prototype scorecard on your phone.</p>
-            <span class="hub-tile-go">Open tasting</span>
+          <a class="hub-tile" href="/find" data-tile="find">
+            <span class="hub-tile-tag">Directory</span>
+            <h3>Find anything</h3>
+            <p>Search this hub · jump to full visit-site map.</p>
+            <span class="hub-tile-go">Open directory</span>
           </a>
 
           <a class="hub-tile hub-tile-packet" href="/packet" data-tile="packet">
-            <span class="hub-tile-tag">Presenters</span>
+            <span class="hub-tile-tag">TFF team</span>
             <h3>Speaker packet</h3>
-            <p>Full answers and print-ready script for the room.</p>
-            <span class="hub-tile-go">Open packet</span>
+            <p>Full script · password required.</p>
+            <span class="hub-tile-go">Unlock packet</span>
           </a>
         </div>
       </section>
@@ -97,13 +127,20 @@
       </section>
 
       <footer class="hub-foot">
-        <p><strong>Arrive 9:00 AM</strong> · conference room across from TFF</p>
-        <p class="hub-foot-quiet">2058 Second Street, Norco, CA · (951) 273-9877 · flavorfactory.net</p>
+        <p><strong>Arrive 9:00 AM</strong> · facility tour · presentation 9:30 · lunch 11:30–1:00 · Q&amp;A after 1:00 PM</p>
+        <p class="hub-foot-quiet"><a href="https://therabreath-visit-site.vercel.app/find" target="_blank" rel="noopener">Full site directory &amp; search →</a></p>
+        <p class="hub-foot-quiet">2058 Second Street, Norco, CA · (951) 273-9877</p>
         <p class="hub-foot-quiet">Confidential · The Flavor Factory × TheraBreath</p>
       </footer>
     </main>
 
     <script src="/js/content.js"></script>
+    <script src="/js/site-directory.js"></script>
+    <script src="/js/directory-ui.js"></script>
+    <script src="/js/tff-decor.js" defer></script>
     <script src="/js/hub.js"></script>
+    <script>
+      DirectoryUI.initSearch("hub-search", "hub-search-results", { showInternal: true });
+    </script>
   </body>
 </html>

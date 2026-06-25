@@ -84,4 +84,11 @@
     var href = a.getAttribute("href");
     if (href === path || (path === "/index.html" && href === "/")) a.classList.add("on");
   });
+
+  if (!document.querySelector('script[src*="tff-decor.js"]')) {
+    var decor = document.createElement("script");
+    decor.src = "/js/tff-decor.js";
+    decor.defer = true;
+    document.body.appendChild(decor);
+  }
 })();

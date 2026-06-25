@@ -51,17 +51,15 @@ def wrap_text(draw, text, font, max_width):
 
 
 def fit_photo_area(src):
-    """Fill the photo region (above title strip) using a center-weighted crop."""
+    """Fit full artwork in photo region — preserve C&D concept art, no aggressive crop."""
     area_w, area_h = OUT_W, OUT_H - STRIP_H
     sw, sh = src.size
-    scale = max(area_w / sw, area_h / sh)
-    nw, nh = int(sw * scale), int(sh * scale)
+    scale = min(area_w / sw, area_h / sh)
+    nw, nh = max(1, int(sw * scale)), max(1, int(sh * scale))
     resized = src.resize((nw, nh), Image.LANCZOS)
-    left = (nw - area_w) // 2
-    # Bias crop upward so bottom captions in source art are trimmed away
-    top = max(0, int((nh - area_h) * 0.35))
-    top = min(top, nh - area_h)
-    return resized.crop((left, top, left + area_w, top + area_h))
+    canvas = Image.new("RGB", (area_w, area_h), (10, 22, 40))
+    canvas.paste(resized, ((area_w - nw) // 2, (area_h - nh) // 2))
+    return canvas
 
 
 def draw_shadowed_text(draw, xy, text, font, fill, shadow=(0, 0, 0, 120)):

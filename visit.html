@@ -15,27 +15,29 @@
   <body>
     <canvas class="boi-canvas" id="boi-canvas" aria-hidden="true"></canvas>
 
-    <nav class="boi-nav">
-      <a class="boi-brand" href="/"><span class="boi-mark">TFF</span> Breath of Innovation</a>
-      <div class="boi-nav-links">
-        <a href="/visit" class="on">Your day</a>
-        <a href="/portfolio">Portfolio</a>
-        <a href="/taste">Tasting</a>
-        <a class="cta" href="/present">Presentation</a>
-      </div>
-    </nav>
+    <nav class="boi-nav" id="boi-nav"></nav>
 
     <div class="boi-wrap">
       <header class="boi-hero" style="padding-bottom:32px">
         <p class="boi-kicker"><i aria-hidden="true"></i> Tuesday, July 8, 2026</p>
         <h1 style="font-size:clamp(1.8rem,5vw,2.8rem)">Your day in Norco</h1>
         <p class="boi-hero-lead">All times are suggested. We'll adjust in the room to match your team's pace.</p>
+        <div class="guest-hero-media" style="max-width:640px;margin:18px auto 0">
+          <figure class="guest-lineup">
+            <img src="/assets/visit/therabreath-lineup.jpg" alt="TheraBreath rinse lineup" width="640" height="360" loading="lazy" decoding="async" />
+            <figcaption>TFF flavors on shelf</figcaption>
+          </figure>
+          <figure class="guest-facility">
+            <img src="/assets/companies/tff/therabreath-production-room.jpg" alt="Blue TheraBreath production room with stainless mixing tank" width="640" height="480" loading="lazy" decoding="async" />
+            <figcaption>Blue production room · dedicated TheraBreath manufacturing</figcaption>
+          </figure>
+        </div>
       </header>
 
       <section class="boi-section">
         <div class="boi-info" style="margin-bottom:28px">
-          <strong>Arrive 9:00 AM</strong> — conference room across from The Flavor Factory<br />
-          <strong>10:00 AM onward</strong> — 2058 Second Street, Norco, CA 92860<br />
+          <strong>Arrive 9:00 AM</strong> — 2058 Second Street, Norco, CA 92860 · facility tour first<br />
+          <strong>9:30 AM</strong> — presentation in conference room across from The Flavor Factory<br />
           Casual business attire · closed-toe shoes for the tour · phone charged for tasting
         </div>
         <ul class="boi-timeline" id="boi-timeline"></ul>
@@ -64,6 +66,8 @@
     </div>
 
     <script src="/js/content.js"></script>
+    <script src="/js/boi-nav.js"></script>
     <script src="/js/site.js"></script>
+    <script src="/js/tff-decor.js" defer></script>
   </body>
 </html>

@@ -16,7 +16,7 @@ BOTTLES = {
     "dazzling-mint": "https://www.therabreath.com/cdn/shop/files/30697029200200_Mobile_Hero_Image_-_Text_17.jpg?v=1729002664",
     "tingling-mint": "https://www.therabreath.com/cdn/shop/files/697029383414_Mobile_Hero_Image_-_Text_19.jpg?v=1728999961",
     "sparkle-mint": "https://www.therabreath.com/cdn/shop/files/00697029388167_Mobile_Hero_Image_-_Text_18.jpg?v=1728588613",
-    "total-care": "https://www.therabreath.com/cdn/shop/files/THB-137_CompleteRinse_Hero-Text.jpg?v=1758891434",
+    "revitalizing-mint": "https://www.therabreath.com/cdn/shop/files/THB-137_CompleteRinse_Hero-Text.jpg?v=1758891434",
     "overnight-rinse": "https://www.therabreath.com/cdn/shop/files/Therabreath_ATF_Overnight_20-February-2024.png?v=1729186538",
     "grapes-galore": "https://i5.walmartimages.com/seo/TheraBreath-Kids-Mouthwash-with-Fluoride-Organic-Grapes-Galore-Anticavity-10-fl-oz_e2ea4715-dc14-4437-83a7-a9d77ed8498e.40815db360ac0d21ac398b6a013b6b9e.jpeg",
     "wacky-watermelon": "https://www.therabreath.com/cdn/shop/files/Medium_PNG-TheraBreath_Kids_Watermelon_10oz_Label.png?v=1761598889",
