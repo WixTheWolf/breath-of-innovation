@@ -14,7 +14,7 @@ window.BOI = {
     { time: "9:00 AM", end: "10:00", title: "Presentation", desc: "Four pillars — open conversation", accent: "#008fd3" },
     { time: "10:00", end: "10:15", title: "Facility tour", desc: "Production, QC, TheraBreath room", accent: "#5fb832" },
     { time: "10:15", end: "10:30", title: "Break", desc: "Reset before tasting", accent: "#5c6678" },
-    { time: "10:30", end: "11:15", title: "Tasting", desc: "Ten prototypes · blind then score", accent: "#f58220" },
+    { time: "10:30", end: "11:15", title: "Tasting", desc: "Five prototypes · blind then score", accent: "#f58220" },
     { time: "11:30", end: "1:00", title: "Lunch off site", desc: "Your hosts take the group", accent: "#5b6b8a" },
     { time: "1:00 PM+", end: "", title: "Open Q&A", desc: "Your topics · your pace", accent: "#006da3" },
   ],

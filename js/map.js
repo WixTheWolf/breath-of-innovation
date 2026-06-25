@@ -1,5 +1,5 @@
 (function () {
-  var STORAGE_KEY = "tff-mystery-v3";
+  var STORAGE_KEY = "tff-mystery-v4";
   var concepts = TFFConcepts.activeList();
   var ciphers = TFFConcepts.cipherDisplayList();
   var tags = TFFConcepts.sensoryTags;
