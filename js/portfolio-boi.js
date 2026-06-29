@@ -5,10 +5,10 @@
   var COL_ORDER = ["production", "presented", "pipeline", "genalpha"];
   var COL_NUM = { production: "01", presented: "02", pipeline: "03", genalpha: "04" };
   var COL_GRID = {
-    production: "port-mosaic--4",
-    presented: "port-mosaic--3",
-    pipeline: "port-mosaic--4 port-mosaic--pipeline",
-    genalpha: "port-mosaic--4"
+    production: "port-mosaic--3",
+    presented: "port-mosaic--2",
+    pipeline: "port-mosaic--3 port-mosaic--pipeline",
+    genalpha: "port-mosaic--3"
   };
 
   var chapters = document.getElementById("port-chapters");
@@ -135,10 +135,11 @@
 
     var isBottle = c.collection === "production" && data.hasImage(c);
     var media;
+    var gridSrc = data.cardImageUrl ? data.cardImageUrl(c) : data.imageUrl(c);
     if (isBottle) {
-      media = '<img src="' + data.imageUrl(c) + '" alt="" loading="lazy" decoding="async" />';
+      media = '<img src="' + gridSrc + '" alt="" loading="lazy" decoding="async" />';
     } else if (data.hasImage(c)) {
-      media = '<img src="' + data.imageUrl(c) + '" alt="" loading="lazy" decoding="async" />';
+      media = '<img src="' + gridSrc + '" alt="" loading="lazy" decoding="async" />';
     } else {
       media =
         '<div class="port-card-sku">' +
@@ -158,10 +159,10 @@
         badge +
         '<div class="port-card-shine" aria-hidden="true"></div>' +
       '</div>' +
-      '<div class="port-card-foot">' +
+      '<div class="port-card-foot" style="--foot-accent:' + colColor(c.collection) + '">' +
         '<span class="port-card-foot-tag">' + shortTag(c) + "</span>" +
-        "<strong>" + c.name + "</strong>" +
-        "<span>" + cardFootSub(c) + "</span>" +
+        '<strong class="port-card-title">' + c.name + "</strong>" +
+        '<span class="port-card-desc">' + cardFootSub(c) + "</span>" +
       "</div>";
 
     btn.addEventListener("click", function () { openModal(c.slug); });

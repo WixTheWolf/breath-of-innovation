@@ -349,7 +349,15 @@
       if (c.collection === "production") {
         return "/assets/portfolio/production/" + PRODUCTION_BOTTLES[c.slug] + "?v=2";
       }
-      return "/assets/portfolio/" + c.slug + ".jpg?v=9";
+      return "/assets/portfolio/" + c.slug + ".jpg?v=10";
+    },
+    cardImageUrl: function (slugOrConcept) {
+      var c = typeof slugOrConcept === "string" ? bySlug(slugOrConcept) : slugOrConcept;
+      if (!c || !hasImage(c)) return null;
+      if (c.collection === "production") {
+        return "/assets/portfolio/production/" + PRODUCTION_BOTTLES[c.slug] + "?v=2";
+      }
+      return "/assets/portfolio/cards/" + c.slug + ".jpg?v=1";
     }
   };
 })(typeof window !== "undefined" ? window : global);
