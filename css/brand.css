@@ -245,14 +245,75 @@ html.pres-mode body { background: #eef3f8; }
   background: #f4f7fa;
 }
 
-/* Slide sheet — crisp white card on the light stage */
+/* Full-bleed slides — each slide fills the whole stage */
+.pres-app { grid-template-columns: 1fr; }
+
+/* Chapter rail becomes a hover-reveal overlay so slides get full width */
+.pres-chapters {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 64px;
+  z-index: 30;
+  width: 210px;
+  transform: translateX(calc(-100% + 16px));
+  box-shadow: 0 8px 40px rgba(10, 22, 40, 0.14);
+}
+
+.pres-chapters::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  width: 4px;
+  height: 44px;
+  margin-top: -22px;
+  border-radius: 999px;
+  background: rgba(10, 22, 40, 0.25);
+}
+
+.pres-chapters:hover,
+.pres-chapters:focus-within {
+  transform: translateX(0);
+}
+
+.pres-app.fs-chrome-hidden .pres-chapters {
+  transform: translateX(-100%);
+}
+
+.pres-viewport { padding: 0; }
+
+.pres-slide {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  inset: 0;
+}
+
+/* Slide sheet — white full-screen sheet, content vertically centered */
 .pres-slide-inner {
   background: #ffffff;
-  box-shadow:
-    0 0 0 1px rgba(10, 22, 40, 0.06),
-    0 24px 64px rgba(10, 22, 40, 0.14),
-    0 2px 8px rgba(10, 22, 40, 0.06);
+  height: 100%;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-shadow: none;
 }
+
+.pres-slide-inner::before { flex-shrink: 0; }
+
+.pres-slide-pad {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.pres-slide.cover .pres-slide-pad { min-height: 0; }
 
 .pres-slide.cover .pres-slide-inner {
   background:
@@ -260,9 +321,6 @@ html.pres-mode body { background: #eef3f8; }
     radial-gradient(circle at 82% 80%, rgba(95, 184, 50, 0.06), transparent 40%),
     #ffffff;
 }
-
-/* Round the brand accent bar to hug the card's top corners */
-.pres-slide-inner::before { border-radius: 20px 20px 0 0; }
 
 /* Editorial serif headings */
 .pres-slide h1 {
