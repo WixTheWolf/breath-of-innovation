@@ -48,7 +48,7 @@ window.BOI = {
       num: 4,
       title: "Partnership",
       tagline: "Build together long term.",
-      color: "#0a1628",
+      color: "#8fb4e3",
       points: ["Communication cadence", "Investment alignment", "Co-development roadmap"],
     },
   ],
@@ -162,7 +162,7 @@ window.BOI = {
       pillar: "Partnership & Growth Vision",
       pillarShort: "Pillar 4",
       num: 4,
-      color: "#0a1628",
+      color: "#8fb4e3",
       intro: "Why TFF is the right long-term partner — and what success looks like.",
       cards: [
         {

@@ -430,7 +430,7 @@
     function draw() {
       var w = canvas.clientWidth;
       var h = canvas.clientHeight;
-      ctx.fillStyle = "#060d18";
+      ctx.fillStyle = "#010208";
       ctx.fillRect(0, 0, w, h);
       orbs.forEach(function (o, i) {
         var ox = (o.x + Math.sin(t * o.s * 1000 + i) * 0.08) * w;
