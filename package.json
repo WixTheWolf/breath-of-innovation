@@ -3,5 +3,8 @@
   "private": true,
   "dependencies": {
     "@vercel/kv": "^3.0.0"
+  },
+  "scripts": {
+    "test": "for f in js/*.js; do node --check \"$f\" || exit 1; done && echo 'all scripts parse'"
   }
 }

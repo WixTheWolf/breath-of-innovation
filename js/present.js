@@ -46,6 +46,14 @@
   }
 
   function pillarIntroSlide(section) {
+    var pillar = (window.BOI.pillars || []).filter(function (p) {
+      return p.num === section.num;
+    })[0];
+    var pills = pillar
+      ? '<div class="pres-pills pres-pills-left">' +
+        pillar.points.map(function (pt) { return "<span>" + esc(pt) + "</span>"; }).join("") +
+        "</div>"
+      : "";
     return makeSlide(
       "pres-slide-intro",
       '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
@@ -53,17 +61,18 @@
         '<span class="pres-pillar-badge">' + esc(section.pillarShort) + "</span>" +
         "<h1>" + esc(section.pillar) + "</h1>" +
         '<p class="pres-lead">' + esc(section.intro) + "</p>" +
+        pills +
         '<p class="pres-intro-hint">' + section.cards.length + " questions · tap to reveal key points</p>" +
         "</div></div>"
     );
   }
 
-  function qaSlide(section, card) {
+  function qaSlide(section, card, pos, total) {
     return makeSlide(
       "pres-slide-qa",
       '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
         '<div class="pres-slide-pad">' +
-        '<p class="pres-tag">' + esc(section.pillarShort) + " · Card " + card.num + "</p>" +
+        '<p class="pres-tag">' + esc(section.pillarShort) + " · Question " + pos + " of " + total + "</p>" +
         '<div class="pres-qa-stage">' +
         '<p class="pres-qa-label">Question</p>' +
         '<h2 class="pres-qa-q">' + esc(card.question) + "</h2>" +
@@ -77,72 +86,28 @@
     );
   }
 
-  function strategicIntroSlide() {
-    return makeSlide(
-      "pres-slide-intro pres-slide-strategic-intro",
-      '<div class="pres-slide-inner" style="--pillar-color:#6c5ce7">' +
-        '<div class="pres-slide-pad">' +
-        '<span class="pres-pillar-badge">Discussion</span>' +
-        "<h1>Top 10 strategic questions</h1>" +
-        '<p class="pres-lead">Questions for TheraBreath — move beyond supplier review toward long-term partnership.</p>' +
-        '<p class="pres-intro-hint">Reveal talking points before opening the floor.</p>' +
-        "</div></div>"
-    );
-  }
-
-  function strategicSlide(item) {
-    return makeSlide(
-      "pres-slide-qa pres-slide-strategic",
-      '<div class="pres-slide-inner" style="--pillar-color:#6c5ce7">' +
-        '<div class="pres-slide-pad">' +
-        '<p class="pres-tag">Strategic discussion · ' + item.num + " of 10</p>" +
-        '<div class="pres-qa-stage">' +
-        '<p class="pres-qa-label">Ask TheraBreath</p>' +
-        '<h2 class="pres-qa-q">' + esc(item.question) + "</h2>" +
-        '<div class="pres-qa-reveal">' +
-        '<p class="pres-qa-label answer">Why it matters</p>' +
-        '<div class="pres-qa-answer strategic">' + bulletList(item.points) + "</div>" +
-        "</div>" +
-        '<button type="button" class="pres-reveal-btn strategic" data-reveal-label="Reveal points" data-hide-label="Hide">' +
-        '<span class="pres-reveal-icon" aria-hidden="true">?</span> Reveal points</button>' +
-        "</div></div></div>"
-    );
-  }
-
   function buildDynamicSlides() {
     if (!viewport || !window.BOI) return;
-    var anchor = viewport.querySelector('[data-i="9"]') || viewport.querySelector(".pres-slide:nth-child(6)");
     var staticSlides = Array.prototype.slice.call(
       viewport.querySelectorAll(".pres-slide:not(.pres-slide-dynamic)")
     );
-    var afterOverview = staticSlides[4];
-    if (!afterOverview) return;
+    var closeSlide = staticSlides[3];
+    if (!closeSlide) return;
 
     var frag = document.createDocumentFragment();
-    var slideIndices = [];
 
     BOI.qaSections.forEach(function (section) {
       var intro = pillarIntroSlide(section);
       intro.classList.add("pres-slide-dynamic");
       frag.appendChild(intro);
-      section.cards.forEach(function (card) {
-        var slide = qaSlide(section, card);
+      section.cards.forEach(function (card, c) {
+        var slide = qaSlide(section, card, c + 1, section.cards.length);
         slide.classList.add("pres-slide-dynamic");
         frag.appendChild(slide);
       });
     });
 
-    frag.appendChild(strategicIntroSlide());
-    frag.lastChild.classList.add("pres-slide-dynamic");
-
-    BOI.strategicQuestions.forEach(function (item) {
-      var slide = strategicSlide(item);
-      slide.classList.add("pres-slide-dynamic");
-      frag.appendChild(slide);
-    });
-
-    var lakewood = staticSlides[5];
-    if (lakewood) viewport.insertBefore(frag, lakewood);
+    viewport.insertBefore(frag, closeSlide);
 
     slides = Array.prototype.slice.call(viewport.querySelectorAll(".pres-slide"));
     slides.forEach(function (s, i) {
@@ -155,13 +120,11 @@
   function buildChaptersFromSlides() {
     if (!window.BOI) return;
     var ch = [];
-    var i = 0;
 
-    ch.push({ id: "welcome", label: "Welcome", slides: [0, 1, 2] });
-    ch.push({ id: "day", label: "Your day", slides: [3] });
-    ch.push({ id: "overview", label: "Overview", slides: [4] });
+    ch.push({ id: "welcome", label: "Welcome", slides: [0, 1] });
+    ch.push({ id: "overview", label: "Overview", slides: [2] });
 
-    var cursor = 5;
+    var cursor = 3;
     BOI.qaSections.forEach(function (section) {
       var ids = [cursor];
       cursor += 1;
@@ -176,22 +139,9 @@
       });
     });
 
-    var stratStart = cursor;
-    var stratSlides = [stratStart];
-    for (var s = 0; s < BOI.strategicQuestions.length; s++) {
-      stratSlides.push(stratStart + 1 + s);
-    }
-    ch.push({ id: "strategic", label: "Top 10", slides: stratSlides });
-    cursor = stratStart + 1 + BOI.strategicQuestions.length;
-
     var tail = [];
     for (var t = cursor; t < slides.length; t++) tail.push(t);
-    if (tail.length >= 3) {
-      ch.push({ id: "depth", label: "Deep dives", slides: tail.slice(0, 3) });
-      ch.push({ id: "close", label: "Close", slides: tail.slice(3) });
-    } else if (tail.length) {
-      ch.push({ id: "close", label: "Close", slides: tail });
-    }
+    if (tail.length) ch.push({ id: "close", label: "Close", slides: tail });
 
     BOI.chapters = ch;
   }
@@ -430,7 +380,7 @@
     function draw() {
       var w = canvas.clientWidth;
       var h = canvas.clientHeight;
-      ctx.fillStyle = "#060d18";
+      ctx.fillStyle = "#eef3f8";
       ctx.fillRect(0, 0, w, h);
       orbs.forEach(function (o, i) {
         var ox = (o.x + Math.sin(t * o.s * 1000 + i) * 0.08) * w;

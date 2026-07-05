@@ -21,7 +21,7 @@
       var slot = document.createElement("span");
       slot.className = "guest-hero-bottle";
       var img = document.createElement("img");
-      img.src = "/assets/bottles/" + slug + ".png?v=5";
+      img.src = "/assets/bottles/" + slug + ".png?v=6";
       img.alt = "";
       img.loading = "eager";
       img.decoding = "async";

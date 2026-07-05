@@ -9,11 +9,12 @@
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/hub.css" />
     <link rel="stylesheet" href="/css/directory.css" />
+    <link rel="stylesheet" href="/css/brand.css" />
   </head>
-  <body class="hub tff-warm">
+  <body class="hub">
     <div class="hub-lab" aria-hidden="true">
       <div class="hub-lab-grid"></div>
       <canvas class="hub-glow" id="hub-glow"></canvas>
@@ -45,7 +46,7 @@
         <p class="hub-lead">9:00 AM tour · 9:30 presentation · 10:15 break · 10:30 tasting · 11:30 lunch · open Q&amp;A after 1:00 PM.</p>
         <section class="guest-hero-stage hub-hero-stage" aria-hidden="true">
           <figure class="guest-hero-tank">
-            <img src="/assets/companies/tff/therabreath-production-room.jpg" alt="" width="384" height="512" loading="eager" decoding="async" />
+            <img src="/assets/companies/tff/facility.jpg" alt="" width="1200" height="900" loading="eager" decoding="async" />
           </figure>
         </section>
         <div class="hub-hero-search">
@@ -71,7 +72,7 @@
           <a class="hub-tile hub-tile-feature" href="/present" data-tile="present">
             <span class="hub-tile-tag">9:30 AM</span>
             <h3>Presentation</h3>
-            <p>Four pillars · Top 10 questions · reveal points.</p>
+            <p>Four pillars · honest answers · key-point reveals.</p>
             <span class="hub-tile-go">Open slides</span>
             <div class="hub-tile-shine" aria-hidden="true"></div>
           </a>
@@ -133,7 +134,6 @@
     <script src="/js/content.js"></script>
     <script src="/js/site-directory.js"></script>
     <script src="/js/directory-ui.js"></script>
-    <script src="/js/tff-decor.js" defer></script>
     <script src="/js/hub.js"></script>
     <script>
       DirectoryUI.initSearch("hub-search", "hub-search-results", { showInternal: true });

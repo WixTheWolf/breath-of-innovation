@@ -21,7 +21,7 @@ window.SiteDirectory = {
       desc: "Live slides, print deck, speaker notes",
       accent: "#006da3",
       items: [
-        { href: "/present", title: "Live presentation", desc: "9:30 AM · four pillars · Top 10 Q&A · reveal points", path: "/present", keywords: "slides projector qa pillars", hot: true },
+        { href: "/present", title: "Live presentation", desc: "9:30 AM · four pillars · Q&A · reveal points", path: "/present", keywords: "slides projector qa pillars", hot: true },
         { href: "/slides", title: "Print slide deck", desc: "20-slide room backup + scoring sheet", path: "/slides", keywords: "print paper deck" },
         { href: "/workshop", title: "Full workshop page", desc: "Long-form capabilities overview", path: "/workshop", keywords: "workshop experience" },
         { href: "/packet", title: "Speaker packet", desc: "Full talk tracks · TFF presenters only", path: "/packet", keywords: "speaker script password", internal: true }

@@ -1,0 +1,398 @@
+/* ─────────────────────────────────────────────────────────────
+   Brand skin · TheraBreath × The Flavor Factory
+   Light theme in true brand colors, loaded after the base
+   sheets. Blue #008fd3 · Green #5fb832 · Orange #f58220 ·
+   Navy #0a1628, with Instrument Serif display headings.
+   ───────────────────────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
+
+:root {
+  --brand-blue: #008fd3;
+  --brand-blue-deep: #006aa6;
+  --brand-green: #5fb832;
+  --brand-orange: #f58220;
+  --brand-navy: #0a1628;
+  --brand-serif: "Instrument Serif", Georgia, serif;
+  --brand-line: #e2e9ec;
+  --brand-slate: #475467;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HUB (index)
+   ═══════════════════════════════════════════════════════════ */
+body.hub {
+  background:
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(0, 143, 211, 0.07) 0%, transparent 70%),
+    #ffffff;
+}
+
+/* Floating light navbar pill */
+.hub-nav {
+  position: sticky;
+  top: 12px;
+  width: min(1020px, calc(100vw - 28px));
+  margin: 12px auto 0;
+  padding: 10px 12px 10px 20px;
+  border-radius: 999px;
+  border-bottom: none;
+  border: 1px solid rgba(10, 22, 40, 0.08);
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  box-shadow: 0 8px 32px rgba(10, 22, 40, 0.08);
+}
+
+.hub-mark {
+  background: linear-gradient(135deg, var(--brand-blue), var(--brand-green));
+  color: #fff;
+  border-radius: 999px;
+}
+
+.hub-nav-links a {
+  border: none;
+  background: transparent;
+  color: var(--brand-slate);
+  transition: color 0.25s, background 0.25s;
+}
+
+.hub-nav-links a:hover {
+  color: var(--brand-navy);
+  background: rgba(0, 143, 211, 0.09);
+}
+
+@media (max-width: 640px) {
+  .hub-nav { border-radius: 24px; flex-wrap: wrap; }
+}
+
+/* Hero */
+.hub-eyebrow { color: var(--brand-blue); }
+
+.hub-title {
+  font-family: var(--brand-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+  margin-bottom: 24px;
+}
+
+.hub-title-line {
+  font-size: clamp(3.4rem, 12vw, 7rem);
+  color: var(--brand-navy);
+}
+
+.hub-title-accent {
+  font-style: italic;
+  background: linear-gradient(100deg, var(--brand-blue) 20%, var(--brand-green) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.08em; /* keep the italic f from clipping */
+}
+
+/* Production-room image — wide brand-framed crop */
+.hub-hero-stage.guest-hero-stage { max-width: 720px; }
+
+.guest-hero-tank {
+  width: min(560px, 90vw);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+body.hub .guest-hero-tank {
+  box-shadow:
+    0 24px 64px rgba(10, 22, 40, 0.16),
+    0 0 0 1px rgba(10, 22, 40, 0.06);
+}
+
+.guest-hero-tank img {
+  aspect-ratio: 16 / 9;
+  object-position: center 62%;
+}
+
+/* Search pill */
+.hub-hero-search .dir-search input {
+  border-radius: 999px;
+  padding: 14px 22px;
+}
+
+.dir-search-results { border-radius: 20px; }
+
+/* CTA — brand blue pill */
+.hub-cta {
+  background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-deep));
+  box-shadow: 0 12px 36px rgba(0, 143, 211, 0.35);
+}
+
+.hub-cta:hover { box-shadow: 0 18px 44px rgba(0, 143, 211, 0.42); }
+
+/* Tiles — white cards, brand-coded tags */
+.hub-tile h3 {
+  font-family: var(--brand-serif);
+  font-weight: 400;
+  font-size: 1.45rem;
+  letter-spacing: -0.01em;
+}
+
+.hub-tile-feature h3 { font-size: 1.9rem; }
+
+.hub-tile[data-tile="present"] .hub-tile-tag,
+.hub-tile[data-tile="present"] .hub-tile-go { color: var(--brand-blue); }
+.hub-tile[data-tile="visit"] .hub-tile-tag,
+.hub-tile[data-tile="visit"] .hub-tile-go { color: var(--brand-green); }
+.hub-tile[data-tile="taste"] .hub-tile-tag,
+.hub-tile[data-tile="taste"] .hub-tile-go { color: var(--brand-orange); }
+.hub-tile[data-tile="portfolio"] .hub-tile-tag,
+.hub-tile[data-tile="portfolio"] .hub-tile-go { color: #6c5ce7; }
+
+.hub-tile-feature {
+  background: linear-gradient(145deg, #ffffff 0%, #f2f9fd 100%);
+}
+
+/* Speaker-packet tile — base sheet gives it no span; full-width banner */
+.hub-bento .hub-tile:nth-child(6) {
+  grid-column: span 12;
+  min-height: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 18px;
+}
+
+.hub-bento .hub-tile:nth-child(6) .hub-tile-tag { margin-bottom: 0; }
+.hub-bento .hub-tile:nth-child(6) p { flex: 1 1 auto; }
+.hub-bento .hub-tile:nth-child(6) .hub-tile-go { margin-top: 0; }
+
+@media (max-width: 860px) {
+  .hub-bento .hub-tile:nth-child(6) {
+    grid-column: span 1;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRESENTATION — professional light slideshow
+   ═══════════════════════════════════════════════════════════ */
+html.pres-mode,
+html.pres-mode body { background: #eef3f8; }
+
+/* Chapter rail */
+.pres-chapters {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-right: 1px solid var(--brand-line);
+}
+
+.pres-chapters-label { color: #98a2b3; }
+
+.pres-chapter-btn { color: var(--brand-slate); }
+.pres-chapter-btn:hover { background: rgba(10, 22, 40, 0.05); color: var(--brand-navy); }
+.pres-chapter-btn.on { background: rgba(0, 143, 211, 0.12); color: var(--brand-navy); }
+
+/* QR dock */
+.pres-qr-dock {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--brand-line);
+  box-shadow: 0 12px 32px rgba(10, 22, 40, 0.1);
+}
+
+.pres-qr-item img { box-shadow: 0 4px 12px rgba(10, 22, 40, 0.12); }
+.pres-qr-label { color: #98a2b3; }
+.pres-qr-item:hover .pres-qr-label { color: var(--brand-navy); }
+
+/* Toolbar */
+.pres-toolbar {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--brand-line);
+}
+
+.pres-toolbar-hint { color: #98a2b3; }
+
+.pres-toolbar kbd {
+  background: #eef2f6;
+  color: var(--brand-slate);
+}
+
+.pres-progress-track { background: rgba(10, 22, 40, 0.08); }
+
+#pres-counter { color: var(--brand-slate); }
+
+.pres-toolbar-actions button,
+.pres-toolbar-actions a {
+  border: 1px solid #d0d7de;
+  background: #fff;
+  color: var(--brand-navy);
+}
+
+.pres-toolbar-actions .primary {
+  background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-deep));
+  border-color: var(--brand-blue);
+  color: #fff;
+}
+
+.pres-toolbar-actions .pres-packet-link {
+  border-color: var(--brand-line);
+  color: #98a2b3;
+}
+
+.pres-toolbar-actions .pres-packet-link:hover {
+  color: var(--brand-navy);
+  background: #f4f7fa;
+}
+
+/* Full-bleed slides — each slide fills the whole stage */
+.pres-app { grid-template-columns: 1fr; }
+
+/* Chapter rail becomes a hover-reveal overlay so slides get full width */
+.pres-chapters {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 64px;
+  z-index: 30;
+  width: 210px;
+  transform: translateX(calc(-100% + 16px));
+  box-shadow: 0 8px 40px rgba(10, 22, 40, 0.14);
+}
+
+.pres-chapters::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  width: 4px;
+  height: 44px;
+  margin-top: -22px;
+  border-radius: 999px;
+  background: rgba(10, 22, 40, 0.25);
+}
+
+.pres-chapters:hover,
+.pres-chapters:focus-within {
+  transform: translateX(0);
+}
+
+.pres-app.fs-chrome-hidden .pres-chapters {
+  transform: translateX(-100%);
+}
+
+.pres-viewport { padding: 0; }
+
+.pres-slide {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  inset: 0;
+}
+
+/* Slide sheet — white full-screen sheet, content vertically centered */
+.pres-slide-inner {
+  background: #ffffff;
+  height: 100%;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-shadow: none;
+}
+
+.pres-slide-inner::before { flex-shrink: 0; }
+
+.pres-slide-pad {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.pres-slide.cover .pres-slide-pad { min-height: 0; }
+
+/* Don't let inline chips stretch in the flex-column pad */
+.pres-pillar-badge { align-self: flex-start; }
+
+.pres-slide.cover .pres-slide-inner {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(0, 143, 211, 0.07), transparent 45%),
+    radial-gradient(circle at 82% 80%, rgba(95, 184, 50, 0.06), transparent 40%),
+    #ffffff;
+}
+
+/* Editorial serif headings */
+.pres-slide h1 {
+  font-family: var(--brand-serif);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  font-size: clamp(1.7rem, 4.6vmin, 3rem);
+}
+
+.pres-slide.cover h1 {
+  font-size: clamp(2.4rem, 6.5vmin, 4.2rem);
+}
+
+.pres-qa-q {
+  font-family: var(--brand-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-size: clamp(1.3rem, 3.3vmin, 2.2rem);
+}
+
+.pres-quote {
+  font-family: var(--brand-serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1rem, 1.9vmin, 1.25rem);
+}
+
+/* Pillar-intro capability pills — left-aligned under the lead */
+.pres-pills-left {
+  justify-content: flex-start;
+  margin-top: 1em;
+}
+
+/* Bottle showcase — staggered floating lineup on cover & close */
+.pres-bottle-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(10px, 2.4vmin, 26px);
+  margin-top: clamp(24px, 5vmin, 52px);
+}
+
+.pres-bottle-row img {
+  height: clamp(64px, 12vmin, 128px);
+  width: auto;
+  filter: drop-shadow(0 14px 22px rgba(10, 22, 40, 0.2));
+  animation: pres-bottle-float 5.5s ease-in-out infinite;
+}
+
+.pres-bottle-row img:nth-child(1) { rotate: -3deg; animation-delay: 0s; }
+.pres-bottle-row img:nth-child(2) { rotate: 2deg; animation-delay: 0.7s; }
+.pres-bottle-row img:nth-child(3) { scale: 1.12; animation-delay: 1.4s; }
+.pres-bottle-row img:nth-child(4) { rotate: -2deg; animation-delay: 2.1s; }
+.pres-bottle-row img:nth-child(5) { rotate: 3deg; animation-delay: 2.8s; }
+
+@keyframes pres-bottle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pres-bottle-row img { animation: none; }
+}
+
+/* Formulation "Avoid" tile (was inline styles) */
+.pres-tile.warn { background: #fff8f6; border-color: #f4d7c8; }
+.pres-tile.warn h3 { color: #b54708; }
+
+/* Softer counter/hints on mobile toolbar (base sets white) */
+@media (hover: none) and (pointer: coarse), (max-width: 768px) {
+  #pres-counter { color: var(--brand-slate); }
+}
