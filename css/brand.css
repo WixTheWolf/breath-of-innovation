@@ -89,6 +89,20 @@ body.hub {
   padding-right: 0.08em; /* keep the italic f from clipping */
 }
 
+/* Product family lineup above the facility photo */
+.hub-lineup {
+  margin: 0 auto clamp(20px, 3vw, 36px);
+  padding: 0;
+}
+
+.hub-lineup img {
+  display: block;
+  width: min(560px, 88vw);
+  height: auto;
+  margin: 0 auto;
+  mix-blend-mode: multiply;
+}
+
 /* Production-room image — wide brand-framed crop */
 .hub-hero-stage.guest-hero-stage { max-width: 720px; }
 
@@ -146,28 +160,6 @@ body.hub .guest-hero-tank {
 
 .hub-tile-feature {
   background: linear-gradient(145deg, #ffffff 0%, #f2f9fd 100%);
-}
-
-/* Speaker-packet tile — base sheet gives it no span; full-width banner */
-.hub-bento .hub-tile:nth-child(6) {
-  grid-column: span 12;
-  min-height: 0;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 18px;
-}
-
-.hub-bento .hub-tile:nth-child(6) .hub-tile-tag { margin-bottom: 0; }
-.hub-bento .hub-tile:nth-child(6) p { flex: 1 1 auto; }
-.hub-bento .hub-tile:nth-child(6) .hub-tile-go { margin-top: 0; }
-
-@media (max-width: 860px) {
-  .hub-bento .hub-tile:nth-child(6) {
-    grid-column: span 1;
-    flex-direction: column;
-    align-items: stretch;
-  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -375,35 +367,19 @@ html.pres-mode body { background: #eef3f8; }
   margin-top: 1em;
 }
 
-/* Bottle showcase — staggered floating lineup on cover & close */
+/* Product family — the professional lineup shot, seamless on white */
 .pres-bottle-row {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  gap: clamp(10px, 2.4vmin, 26px);
-  margin-top: clamp(24px, 5vmin, 52px);
+  margin-top: clamp(20px, 4.5vmin, 44px);
 }
 
-.pres-bottle-row img {
-  height: clamp(64px, 12vmin, 128px);
+.pres-lineup {
+  height: clamp(140px, 26vmin, 260px);
   width: auto;
-  filter: drop-shadow(0 14px 22px rgba(10, 22, 40, 0.2));
-  animation: pres-bottle-float 5.5s ease-in-out infinite;
-}
-
-.pres-bottle-row img:nth-child(1) { rotate: -3deg; animation-delay: 0s; }
-.pres-bottle-row img:nth-child(2) { rotate: 2deg; animation-delay: 0.7s; }
-.pres-bottle-row img:nth-child(3) { scale: 1.12; animation-delay: 1.4s; }
-.pres-bottle-row img:nth-child(4) { rotate: -2deg; animation-delay: 2.1s; }
-.pres-bottle-row img:nth-child(5) { rotate: 3deg; animation-delay: 2.8s; }
-
-@keyframes pres-bottle-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pres-bottle-row img { animation: none; }
+  max-width: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 /* Formulation "Avoid" tile (was inline styles) */
