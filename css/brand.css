@@ -105,8 +105,8 @@ body.hub .guest-hero-tank {
 }
 
 .guest-hero-tank img {
-  aspect-ratio: 16 / 10;
-  object-position: center 30%;
+  aspect-ratio: 16 / 9;
+  object-position: center 62%;
 }
 
 /* Search pill */
@@ -346,6 +346,37 @@ html.pres-mode body { background: #eef3f8; }
   font-weight: 400;
   font-style: italic;
   font-size: clamp(1rem, 1.9vmin, 1.25rem);
+}
+
+/* Bottle showcase — staggered floating lineup on cover & close */
+.pres-bottle-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(10px, 2.4vmin, 26px);
+  margin-top: clamp(24px, 5vmin, 52px);
+}
+
+.pres-bottle-row img {
+  height: clamp(64px, 12vmin, 128px);
+  width: auto;
+  filter: drop-shadow(0 14px 22px rgba(10, 22, 40, 0.2));
+  animation: pres-bottle-float 5.5s ease-in-out infinite;
+}
+
+.pres-bottle-row img:nth-child(1) { rotate: -3deg; animation-delay: 0s; }
+.pres-bottle-row img:nth-child(2) { rotate: 2deg; animation-delay: 0.7s; }
+.pres-bottle-row img:nth-child(3) { scale: 1.12; animation-delay: 1.4s; }
+.pres-bottle-row img:nth-child(4) { rotate: -2deg; animation-delay: 2.1s; }
+.pres-bottle-row img:nth-child(5) { rotate: 3deg; animation-delay: 2.8s; }
+
+@keyframes pres-bottle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pres-bottle-row img { animation: none; }
 }
 
 /* Formulation "Avoid" tile (was inline styles) */
