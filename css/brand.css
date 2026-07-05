@@ -315,6 +315,9 @@ html.pres-mode body { background: #eef3f8; }
 
 .pres-slide.cover .pres-slide-pad { min-height: 0; }
 
+/* Don't let inline chips stretch in the flex-column pad */
+.pres-pillar-badge { align-self: flex-start; }
+
 .pres-slide.cover .pres-slide-inner {
   background:
     radial-gradient(circle at 18% 20%, rgba(0, 143, 211, 0.07), transparent 45%),
@@ -346,6 +349,12 @@ html.pres-mode body { background: #eef3f8; }
   font-weight: 400;
   font-style: italic;
   font-size: clamp(1rem, 1.9vmin, 1.25rem);
+}
+
+/* Pillar-intro capability pills — left-aligned under the lead */
+.pres-pills-left {
+  justify-content: flex-start;
+  margin-top: 1em;
 }
 
 /* Bottle showcase — staggered floating lineup on cover & close */
