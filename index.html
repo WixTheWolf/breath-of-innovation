@@ -3,18 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="Breath of Innovation — July 8, 2026 workshop hub for the TheraBreath team at The Flavor Factory." />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="Breath of Innovation. July 8, 2026 workshop hub for the TheraBreath team at The Flavor Factory." />
+    <meta name="theme-color" content="#f7fafc" />
     <title>Breath of Innovation · Workshop Hub</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..600,0..100,0..1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/hub.css" />
     <link rel="stylesheet" href="/css/directory.css" />
     <link rel="stylesheet" href="/css/brand.css" />
+    <link rel="stylesheet" href="/css/system.css" />
   </head>
-  <body class="hub">
+  <body class="hub sys">
     <div class="hub-lab" aria-hidden="true">
       <div class="hub-lab-grid"></div>
       <canvas class="hub-glow" id="hub-glow"></canvas>
@@ -35,26 +36,27 @@
 
     <main class="hub-main">
       <section class="hub-hero" id="top">
-        <p class="hub-eyebrow">
-          <span class="hub-live" aria-hidden="true"></span>
-          The Flavor Factory × TheraBreath
-        </p>
+        <div class="breath-orb" aria-hidden="true"></div>
+        <p class="hub-eyebrow">The Flavor Factory · TheraBreath</p>
+        <div id="hub-live"></div>
         <h1 class="hub-title">
           <span class="hub-title-line">Breath of</span>
           <span class="hub-title-line hub-title-accent">Innovation</span>
         </h1>
         <p class="hub-lead">9:00 AM tour · 9:30 presentation · 10:15 break · 10:30 tasting · 11:30 lunch · open Q&amp;A after 1:00 PM.</p>
-        <section class="guest-hero-stage hub-hero-stage" aria-hidden="true">
-          <figure class="hub-lineup">
-            <img src="/assets/companies/therabreath/oxyd8-hero.jpg" alt="" width="600" height="600" loading="eager" decoding="async" />
+        <section class="hero-diptych" aria-hidden="true">
+          <figure class="dip">
+            <div class="media"><img src="/assets/companies/therabreath/oxyd8-hero.jpg" alt="" width="600" height="600" loading="eager" decoding="async" /></div>
+            <figcaption class="mono">TheraBreath · Oxyd8</figcaption>
           </figure>
-          <figure class="guest-hero-tank">
-            <img src="/assets/companies/tff/facility.jpg" alt="" width="1200" height="900" loading="eager" decoding="async" />
+          <figure class="dip">
+            <div class="media"><img src="/assets/companies/tff/facility.jpg" alt="" width="1200" height="900" loading="eager" decoding="async" /></div>
+            <figcaption class="mono">The Flavor Factory · Norco</figcaption>
           </figure>
         </section>
         <div class="hub-hero-search">
           <div class="dir-search">
-            <input type="search" id="hub-search" placeholder="Find anything — presentation, tasting, Lakewood…" autocomplete="off" aria-label="Search" />
+            <input type="search" id="hub-search" placeholder="Find anything. Presentation, tasting, portfolio." autocomplete="off" aria-label="Search" />
             <div class="dir-search-results" id="hub-search-results"></div>
           </div>
           <a class="hub-find-link" href="/find">Workshop directory →</a>
@@ -114,16 +116,20 @@
       <section class="hub-schedule" aria-labelledby="hub-today-label">
         <div class="hub-section-head">
           <h2 id="hub-today-label" class="hub-section-label">Today</h2>
-          <p class="hub-section-sub">Suggested flow — we adapt in the room.</p>
+          <p class="hub-section-sub">Suggested flow. We adapt in the room.</p>
         </div>
-        <div class="hub-schedule-track" id="hub-schedule" role="list"></div>
+        <div class="hub-timeline" id="hub-schedule" role="list"></div>
       </section>
 
       <footer class="hub-foot">
-        <p><strong>Arrive 9:00 AM</strong> · facility tour · presentation 9:30 · lunch 11:30–1:00 · Q&amp;A after 1:00 PM</p>
+        <div class="hub-foot-qr">
+          <figure><img src="/assets/qr/present-sm.png" alt="QR code to open the presentation" width="92" height="92" /><figcaption>Slides</figcaption></figure>
+          <figure><img src="/assets/qr/packet-sm.png" alt="QR code to open the speaker packet" width="92" height="92" /><figcaption>Packet</figcaption></figure>
+        </div>
+        <p><strong>Arrive 9:00 AM</strong> · facility tour · presentation 9:30 · lunch 11:30 to 1:00 · Q&amp;A after 1:00 PM</p>
         <p class="hub-foot-quiet"><a href="/find">Full site directory &amp; search →</a></p>
         <p class="hub-foot-quiet">2058 Second Street, Norco, CA · (951) 273-9877</p>
-        <p class="hub-foot-quiet">Confidential · The Flavor Factory × TheraBreath</p>
+        <p class="hub-foot-quiet">Confidential · The Flavor Factory · TheraBreath</p>
       </footer>
     </main>
 

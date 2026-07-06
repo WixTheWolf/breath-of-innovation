@@ -1,107 +1,99 @@
 (function () {
-  var canvas = document.getElementById("hub-glow");
   var scheduleEl = document.getElementById("hub-schedule");
+  var liveEl = document.getElementById("hub-live");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* Soft lab light field */
-  if (canvas && !reduceMotion) {
-    var ctx = canvas.getContext("2d");
-    var orbs = [
-      { x: 0.25, y: 0.15, r: 0.28, c: [0, 143, 211], s: 0.00008 },
-      { x: 0.78, y: 0.35, r: 0.22, c: [95, 184, 50], s: -0.00006 },
-      { x: 0.55, y: 0.72, r: 0.2, c: [245, 130, 32], s: 0.00005 },
-    ];
-    var t = 0;
+  /* Canonical day. Times in minutes from midnight, local. */
+  var blocks = [
+    { t: "9:00", label: "Facility tour", desc: "Production, QC", start: 540, end: 565, href: "/visit" },
+    { t: "9:30", label: "Presentation", desc: "Four pillars", start: 570, end: 615, href: "/present" },
+    { t: "10:15", label: "Break", desc: "Reset", start: 615, end: 630, href: "/visit" },
+    { t: "10:30", label: "Tasting", desc: "Blind map, score", start: 630, end: 675, href: "/taste" },
+    { t: "11:30", label: "Lunch", desc: "Off site", start: 690, end: 780, href: "/visit" },
+    { t: "1:00", label: "Open Q&A", desc: "Your pace", start: 780, end: 840, href: "/visit" }
+  ];
 
-    function resize() {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  /* Live day. Real clock on July 8, 2026, or ?now=MIN to preview. */
+  function liveState() {
+    var override = new URLSearchParams(location.search).get("now");
+    var now = new Date();
+    var isDay =
+      override !== null ||
+      (now.getFullYear() === 2026 && now.getMonth() === 6 && now.getDate() === 8);
+    if (!isDay) return null;
+    var mins = override !== null ? parseInt(override, 10) : now.getHours() * 60 + now.getMinutes();
+    if (mins < blocks[0].start) {
+      return { pre: true, wait: blocks[0].start - mins };
     }
-
-    function draw() {
-      var w = window.innerWidth;
-      var h = window.innerHeight;
-      ctx.clearRect(0, 0, w, h);
-      orbs.forEach(function (o, i) {
-        var ox = (o.x + Math.sin(t * o.s * 1200 + i) * 0.06) * w;
-        var oy = (o.y + Math.cos(t * o.s * 1200 + i * 1.5) * 0.05) * h;
-        var rad = o.r * Math.min(w, h);
-        var g = ctx.createRadialGradient(ox, oy, 0, ox, oy, rad);
-        g.addColorStop(0, "rgba(" + o.c.join(",") + ",0.09)");
-        g.addColorStop(1, "rgba(" + o.c.join(",") + ",0)");
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, w, h);
-      });
-      t += 0.016;
-      requestAnimationFrame(draw);
+    var active = null;
+    for (var i = 0; i < blocks.length; i++) {
+      if (mins < blocks[i].end) { active = { index: i, block: blocks[i], inside: mins >= blocks[i].start }; break; }
     }
-
-    resize();
-    draw();
-    window.addEventListener("resize", resize);
+    if (!active) active = { index: blocks.length - 1, block: blocks[blocks.length - 1], inside: true };
+    return active;
   }
 
-  /* Schedule from canonical content */
-  if (scheduleEl && window.BOI && BOI.schedule) {
-    scheduleEl.innerHTML = BOI.schedule
-      .map(function (item, i) {
-        var time =
-          item.time + (item.end && item.time.indexOf("–") === -1 ? "–" + item.end : "");
+  /* Horizontal timeline */
+  if (scheduleEl) {
+    scheduleEl.innerHTML = blocks
+      .map(function (b) {
         return (
-          '<article class="hub-slot hub-reveal" role="listitem" style="--slot-accent:' +
-          item.accent +
-          ";transition-delay:" +
-          i * 0.06 +
-          's" data-index="' +
-          i +
-          '">' +
-          '<span class="hub-slot-time"><span class="hub-slot-dot" aria-hidden="true"></span>' +
-          time +
-          "</span>" +
-          "<h4>" +
-          item.title +
-          "</h4>" +
-          "<p>" +
-          item.desc +
-          "</p></article>"
+          '<div class="tl-stop" role="listitem" data-href="' + b.href + '">' +
+          '<span class="tl-time mono">' + b.t + "</span>" +
+          '<span class="tl-node" aria-hidden="true"></span>' +
+          '<span class="tl-label">' + b.label + "</span>" +
+          '<span class="tl-desc">' + b.desc + "</span>" +
+          "</div>"
         );
       })
       .join("");
 
-    highlightNow();
-  }
-
-  function highlightNow() {
-    if (!scheduleEl || !window.BOI) return;
-    var slots = scheduleEl.querySelectorAll(".hub-slot");
-    slots.forEach(function (s) {
-      s.classList.remove("is-now");
+    Array.prototype.forEach.call(scheduleEl.querySelectorAll(".tl-stop"), function (stop) {
+      stop.addEventListener("click", function () {
+        var href = stop.getAttribute("data-href");
+        if (href) location.href = href;
+      });
     });
-    /* Workshop day: soft highlight first item before 10am local */
-    var now = new Date();
-    var isWorkshopDay =
-      now.getFullYear() === 2026 && now.getMonth() === 6 && now.getDate() === 8;
-    if (!isWorkshopDay) return;
-    var hour = now.getHours();
-    var min = now.getMinutes();
-    var idx = 0;
-    if (hour >= 13) idx = 5;
-    else if (hour > 11 || (hour === 11 && min >= 30)) idx = 4;
-    else if (hour > 10 || (hour === 10 && min >= 30)) idx = 3;
-    else if (hour === 10 && min >= 15) idx = 2;
-    else if (hour >= 10) idx = 1;
-    else if (hour >= 9) idx = 0;
-    if (slots[idx]) slots[idx].classList.add("is-now");
   }
 
-  /* Reveal on scroll */
-  var revealEls = document.querySelectorAll(".hub-tile, .hub-slot");
+  function paintLive() {
+    var state = liveState();
+    var stops = scheduleEl ? scheduleEl.querySelectorAll(".tl-stop") : [];
+    Array.prototype.forEach.call(stops, function (s) { s.classList.remove("is-now"); });
+
+    if (!state) {
+      if (liveEl) liveEl.innerHTML = "";
+      if (stops[0]) stops[0].classList.remove("is-now");
+      return;
+    }
+
+    if (state.pre) {
+      if (liveEl) {
+        liveEl.innerHTML =
+          '<a class="live-badge" href="/visit"><span class="breath-dot" aria-hidden="true"></span>' +
+          "<b>Starts in " + state.wait + " min</b></a>";
+      }
+      if (stops[0]) stops[0].classList.add("is-now");
+      return;
+    }
+
+    var b = state.block;
+    var when = state.inside ? "Now, " + b.t + " AM" : "Next, " + b.t + " AM";
+    if (liveEl) {
+      liveEl.innerHTML =
+        '<a class="live-badge" href="' + b.href + '"><span class="breath-dot" aria-hidden="true"></span>' +
+        "<b>" + when + '</b> <span class="live-sep">·</span> ' + b.label + "</a>";
+    }
+    if (stops[state.index]) stops[state.index].classList.add("is-now");
+  }
+
+  paintLive();
+  setInterval(paintLive, 30000);
+
+  /* Reveal destination cards once, on first view */
+  var revealEls = document.querySelectorAll(".hub-tile");
   if (revealEls.length && "IntersectionObserver" in window) {
-    revealEls.forEach(function (el) {
-      el.classList.add("hub-reveal");
-    });
+    revealEls.forEach(function (el) { el.classList.add("hub-reveal"); });
     var io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
@@ -113,38 +105,18 @@
       },
       { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
-    revealEls.forEach(function (el) {
-      io.observe(el);
-    });
+    revealEls.forEach(function (el) { io.observe(el); });
   } else {
-    revealEls.forEach(function (el) {
-      el.classList.add("is-visible");
-    });
+    revealEls.forEach(function (el) { el.classList.add("is-visible"); });
   }
 
-  /* Feature tile cursor shine */
+  /* Feature tile cursor shine, pointer devices only */
   var feature = document.querySelector(".hub-tile-feature");
-  if (feature && !reduceMotion) {
+  if (feature && !reduceMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     feature.addEventListener("pointermove", function (e) {
       var r = feature.getBoundingClientRect();
-      var x = ((e.clientX - r.left) / r.width) * 100;
-      var y = ((e.clientY - r.top) / r.height) * 100;
-      feature.style.setProperty("--mx", x + "%");
-      feature.style.setProperty("--my", y + "%");
+      feature.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
+      feature.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
     });
-  }
-
-  /* Subtle hero parallax (desktop) */
-  var hero = document.querySelector(".hub-hero");
-  if (hero && window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduceMotion) {
-    window.addEventListener(
-      "mousemove",
-      function (e) {
-        var cx = (e.clientX / window.innerWidth - 0.5) * 8;
-        var cy = (e.clientY / window.innerHeight - 0.5) * 6;
-        hero.style.transform = "translate(" + cx + "px," + cy + "px)";
-      },
-      { passive: true }
-    );
   }
 })();
