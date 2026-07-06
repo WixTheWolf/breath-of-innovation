@@ -73,7 +73,7 @@
           "</span>" +
           '<span class="pkt-pillar-range">Cards ' +
           cards[0].num +
-          "–" +
+          " to " +
           section.cards[section.cards.length - 1].num +
           "</span>";
       } else {
@@ -83,7 +83,7 @@
           " · continued</span>" +
           '<span class="pkt-pillar-range">Cards ' +
           cards[0].num +
-          "–" +
+          " to " +
           cards[cards.length - 1].num +
           "</span>";
       }

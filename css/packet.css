@@ -524,7 +524,7 @@ body {
 
   .pkt-guide li { margin-bottom: 0.4em; }
 
-  /* Pillar sheets — max 3 cards per page for legibility */
+  /* Pillar sheets, max 3 cards per page for legibility */
   .pkt-pillar { margin-bottom: 0; }
 
   .pkt-pillar-sheet {
@@ -610,7 +610,7 @@ body {
     color: #101828;
   }
 
-  /* Top 10 — single readable page */
+  /* Top 10, single readable page */
   .pkt-strategic {
     page-break-before: always;
     page-break-inside: avoid;

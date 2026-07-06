@@ -800,7 +800,7 @@ html.pres-touch .pres-slide-qa.revealed .pres-reveal-btn {
 .pres-fs .pres-chapters { display: none; }
 .pres-fs .pres-app { grid-template-columns: 1fr; }
 
-/* Phones & tablets — slides only, no QR or chapter rail */
+/* Phones & tablets, slides only, no QR or chapter rail */
 @media (hover: none) and (pointer: coarse),
        (max-width: 768px) {
   .pres-chapters,
@@ -885,7 +885,7 @@ html.pres-touch .pres-slide-qa.revealed .pres-reveal-btn {
   }
 }
 
-/* Landscape on touch devices — maximize slide area */
+/* Landscape on touch devices, maximize slide area */
 @media (hover: none) and (pointer: coarse) and (orientation: landscape),
        (max-height: 520px) and (orientation: landscape) {
   .pres-chapters,

@@ -140,7 +140,7 @@
     if (!dossier) return;
 
     if (!entries.length) {
-      dossier.innerHTML = '<div class="boi-empty">No entries yet — taste a cup, then record your match.</div>';
+      dossier.innerHTML = '<div class="boi-empty">No entries yet, taste a cup, then record your match.</div>';
       return;
     }
 

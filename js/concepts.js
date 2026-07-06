@@ -1,5 +1,5 @@
 /**
- * Workshop prototype concepts — stability tiers + blind mapping metadata.
+ * Workshop prototype concepts, stability tiers + blind mapping metadata.
  */
 (function (global) {
   var SET_META = {
@@ -38,35 +38,35 @@
       id: 1, code: "M1", name: "Fresh Herbal Mint",
       sub: "Black tea · lavender · lemon · eucalyptus · spearmint · peppermint · ginger",
       station: 2, stability: "watch",
-      qcNote: "Tea-herbal layering with lemon and ginger — workshop pour for directional feedback in chlorite.",
+      qcNote: "Tea-herbal layering with lemon and ginger, workshop pour for directional feedback in chlorite.",
       hostNotes: ["Black Tea", "Lavender", "Lemon", "Eucalyptus", "Spearmint", "Peppermint", "Ginger"]
     },
     {
       id: 2, code: "M2", name: "Grove Mint",
       sub: "Rosemary · ylang ylang · palmarosa · eucalyptus · spearmint · peppermint",
       station: 2, stability: "watch",
-      qcNote: "Woody-herbal grove character with floral lift — retain study in progress.",
+      qcNote: "Woody-herbal grove character with floral lift, retain study in progress.",
       hostNotes: ["Rosemary", "Ylang Ylang", "Palmarosa", "Eucalyptus", "Spearmint", "Peppermint"]
     },
     {
       id: 3, code: "M3", name: "Botanical Mint",
       sub: "Wintergreen · tea tree · rosewood · lavender · eucalyptus · lemongrass · peppermint",
       station: 2, stability: "watch",
-      qcNote: "Botanical clinical-fresh profile — wintergreen and tea tree under retain review.",
+      qcNote: "Botanical clinical-fresh profile, wintergreen and tea tree under retain review.",
       hostNotes: ["Wintergreen", "Tea Tree", "Rosewood", "Lavender", "Eucalyptus", "Lemongrass", "Peppermint"]
     },
     {
       id: 4, code: "M4", name: "Immunity Mint",
       sub: "Lemon · ginger · peppermint",
       station: 2, stability: "watch",
-      qcNote: "Bright lemon-ginger lift over peppermint — wellness cue, retain study in progress.",
+      qcNote: "Bright lemon-ginger lift over peppermint, wellness cue, retain study in progress.",
       hostNotes: ["Lemon", "Ginger", "Peppermint"]
     },
     {
       id: 5, code: "M5", name: "Garden Mint",
       sub: "Lavender · citronellal · spearmint · peppermint",
       station: 2, stability: "watch",
-      qcNote: "Floral-garden calm with citronellal freshness — lavender retain review in chlorite.",
+      qcNote: "Floral-garden calm with citronellal freshness, lavender retain review in chlorite.",
       hostNotes: ["Lavender", "Citronellal", "Spearmint", "Peppermint"]
     }
   ];

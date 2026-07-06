@@ -1,4 +1,4 @@
-/* Hero showcase — uniform bottle lineup + production room */
+/* Hero showcase, uniform bottle lineup + production room */
 
 .guest-hero-stage {
   width: 100%;
@@ -19,7 +19,7 @@
   padding: clamp(12px, 2.5vw, 24px) clamp(4px, 1.5vw, 12px) clamp(20px, 3vw, 32px);
 }
 
-/* Soft shelf glow — bottles share one baseline */
+/* Soft shelf glow, bottles share one baseline */
 .guest-hero-bottles::before {
   content: "";
   position: absolute;
@@ -75,7 +75,7 @@
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.42));
 }
 
-/* Gentle arc — center highest, edges slightly lower */
+/* Gentle arc, center highest, edges slightly lower */
 .guest-hero-bottle:nth-child(1)  { --drop: 10px; --rot: -3deg;  --delay: 0.04s; }
 .guest-hero-bottle:nth-child(2)  { --drop: 6px;  --rot: -2deg;  --delay: 0.08s; }
 .guest-hero-bottle:nth-child(3)  { --drop: 3px;  --rot: -1deg;  --delay: 0.12s; }
@@ -147,7 +147,7 @@ body.tff-warm .guest-hero-tank {
     0 0 0 1px rgba(0, 0, 0, 0.06);
 }
 
-/* Dark BOI visit — wider production room, bottles float above */
+/* Dark BOI visit, wider production room, bottles float above */
 .boi-hero .guest-hero-stage {
   max-width: min(920px, 100%);
 }

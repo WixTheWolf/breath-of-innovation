@@ -3,18 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Your July 8 schedule — Breath of Innovation at The Flavor Factory, Norco." />
-    <meta name="theme-color" content="#0a1628" />
+    <meta name="description" content="Your July 8 schedule. Breath of Innovation at The Flavor Factory, Norco." />
+    <meta name="theme-color" content="#f7fafc" />
     <title>Your Day · Breath of Innovation</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..600,0..100,0..1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/site.css" />
+    <link rel="stylesheet" href="/css/system.css" />
+    <meta property="og:title" content="Breath of Innovation" />
+    <meta property="og:description" content="July 8, 2026 capabilities workshop. The Flavor Factory and TheraBreath, Norco CA." />
+    <meta property="og:image" content="https://breath-of-innovation.vercel.app/assets/og.png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
-  <body>
-    <canvas class="boi-canvas" id="boi-canvas" aria-hidden="true"></canvas>
-
+  <body class="visit-page sys">
     <nav class="boi-nav" id="boi-nav"></nav>
 
     <div class="boi-wrap">
@@ -22,17 +26,16 @@
         <p class="boi-kicker"><i aria-hidden="true"></i> Tuesday, July 8, 2026</p>
         <h1 style="font-size:clamp(1.8rem,5vw,2.8rem)">Your day in Norco</h1>
         <p class="boi-hero-lead">All times are suggested. We'll adjust in the room to match your team's pace.</p>
-        <section class="guest-hero-stage" aria-hidden="true">
-          <figure class="guest-hero-tank">
-            <img src="/assets/companies/tff/therabreath-production-room.jpg" alt="" width="384" height="512" loading="eager" decoding="async" />
-          </figure>
-        </section>
+        <figure class="visit-photo">
+          <div class="media"><img src="/assets/companies/tff/therabreath-production-room.jpg" alt="" width="384" height="512" loading="eager" decoding="async" /></div>
+          <figcaption class="mono">The Flavor Factory · production room</figcaption>
+        </figure>
       </header>
 
       <section class="boi-section">
-        <div class="boi-info" style="margin-bottom:28px">
-          <strong>Arrive 9:00 AM</strong> — 2058 Second Street, Norco, CA 92860 · facility tour first<br />
-          <strong>9:30 AM</strong> — presentation in conference room across from The Flavor Factory<br />
+        <div class="boi-info visit-info">
+          <strong>Arrive 9:00 AM</strong> · <a href="https://maps.google.com/?q=2058+Second+Street,+Norco,+CA+92860">2058 Second Street, Norco, CA 92860</a> · facility tour first<br />
+          <strong>9:30 AM</strong> · presentation in conference room across from The Flavor Factory<br />
           Casual business attire · closed-toe shoes for the tour · phone charged for tasting
         </div>
         <ul class="boi-timeline" id="boi-timeline"></ul>
@@ -43,11 +46,11 @@
         <div class="boi-grid-2">
           <div class="boi-card" style="--card-accent:#008fd3">
             <h3>Capabilities review</h3>
-            <p>See how we develop, produce, and support your flavors — with honest answers on all four pillars.</p>
+            <p>See how we develop, produce, and support your flavors, with honest answers on all four pillars.</p>
           </div>
           <div class="boi-card" style="--card-accent:#f58220">
             <h3>Directional tasting</h3>
-            <p>Five workshop prototypes at 10:30 AM. Blind mapping first, then scorecard — feedback only, not a launch decision.</p>
+            <p>Five workshop prototypes at 10:30 AM. Blind mapping first, then scorecard. Feedback only, not a launch decision.</p>
           </div>
         </div>
       </section>
@@ -57,13 +60,35 @@
         <a class="boi-btn" href="/taste">Tasting tools</a>
       </div>
 
-      <footer class="boi-foot">Questions? (951) 273-9877 · flavorfactory.net</footer>
+      <footer class="boi-foot">Questions? <a href="tel:+19512739877">(951) 273-9877</a> · flavorfactory.net</footer>
     </div>
 
-    <script src="/js/hero-showcase.js" defer></script>
     <script src="/js/content.js"></script>
     <script src="/js/boi-nav.js"></script>
     <script src="/js/site.js"></script>
-    <script src="/js/tff-decor.js" defer></script>
+    <script>
+      /* Live day indicator on the vertical timeline. Same windows as home. */
+      (function () {
+        var ends = [565, 615, 630, 675, 780, 1440];
+        var starts = [540, 570, 615, 630, 690, 780];
+        function paint() {
+          var override = new URLSearchParams(location.search).get("now");
+          var now = new Date();
+          var isDay = override !== null ||
+            (now.getFullYear() === 2026 && now.getMonth() === 6 && now.getDate() === 8);
+          var items = document.querySelectorAll("#boi-timeline li");
+          items.forEach(function (li) { li.classList.remove("is-now"); });
+          if (!isDay || !items.length) return;
+          var mins = override !== null ? parseInt(override, 10) : now.getHours() * 60 + now.getMinutes();
+          if (mins < starts[0]) { items[0].classList.add("is-now"); return; }
+          for (var i = 0; i < ends.length; i++) {
+            if (mins < ends[i]) { items[i].classList.add("is-now"); return; }
+          }
+          items[items.length - 1].classList.add("is-now");
+        }
+        paint();
+        setInterval(paint, 30000);
+      })();
+    </script>
   </body>
 </html>

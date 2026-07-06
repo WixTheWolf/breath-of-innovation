@@ -103,7 +103,7 @@ body.hub {
   mix-blend-mode: multiply;
 }
 
-/* Production-room image — wide brand-framed crop */
+/* Production-room image, wide brand-framed crop */
 .hub-hero-stage.guest-hero-stage { max-width: 720px; }
 
 .guest-hero-tank {
@@ -131,7 +131,7 @@ body.hub .guest-hero-tank {
 
 .dir-search-results { border-radius: 20px; }
 
-/* CTA — brand blue pill */
+/* CTA, brand blue pill */
 .hub-cta {
   background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-deep));
   box-shadow: 0 12px 36px rgba(0, 143, 211, 0.35);
@@ -139,7 +139,7 @@ body.hub .guest-hero-tank {
 
 .hub-cta:hover { box-shadow: 0 18px 44px rgba(0, 143, 211, 0.42); }
 
-/* Tiles — white cards, brand-coded tags */
+/* Tiles, white cards, brand-coded tags */
 .hub-tile h3 {
   font-family: var(--brand-serif);
   font-weight: 400;
@@ -163,7 +163,7 @@ body.hub .guest-hero-tank {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PRESENTATION — professional light slideshow
+   PRESENTATION, professional light slideshow
    ═══════════════════════════════════════════════════════════ */
 html.pres-mode,
 html.pres-mode body { background: #eef3f8; }
@@ -237,7 +237,7 @@ html.pres-mode body { background: #eef3f8; }
   background: #f4f7fa;
 }
 
-/* Full-bleed slides — each slide fills the whole stage */
+/* Full-bleed slides, each slide fills the whole stage */
 .pres-app { grid-template-columns: 1fr; }
 
 /* Chapter rail becomes a hover-reveal overlay so slides get full width */
@@ -282,7 +282,7 @@ html.pres-mode body { background: #eef3f8; }
   inset: 0;
 }
 
-/* Slide sheet — white full-screen sheet, content vertically centered */
+/* Slide sheet, white full-screen sheet, content vertically centered */
 .pres-slide-inner {
   background: #ffffff;
   height: 100%;
@@ -317,7 +317,7 @@ html.pres-mode body { background: #eef3f8; }
     #ffffff;
 }
 
-/* ── Presentation type scale — bold sans, sized for the room ── */
+/* ── Presentation type scale, bold sans, sized for the room ── */
 .pres-slide h1 {
   font-family: var(--font-display);
   font-weight: 700;
@@ -361,13 +361,13 @@ html.pres-mode body { background: #eef3f8; }
 .pres-agenda span { font-size: clamp(0.85rem, 1.4vmin, 1rem); }
 .pres-close-card { font-size: clamp(1rem, 1.8vmin, 1.25rem); }
 
-/* Pillar-intro capability pills — left-aligned under the lead */
+/* Pillar-intro capability pills, left-aligned under the lead */
 .pres-pills-left {
   justify-content: flex-start;
   margin-top: 1em;
 }
 
-/* Product family — the professional lineup shot, seamless on white */
+/* Product family, the professional lineup shot, seamless on white */
 .pres-bottle-row {
   display: flex;
   justify-content: center;
@@ -392,7 +392,7 @@ html.pres-mode body { background: #eef3f8; }
 }
 
 /* ═══════════════════════════════════════════════════════════
-   DIRECTORY (/find) — brand skin over directory.css
+   DIRECTORY (/find), brand skin over directory.css
    ═══════════════════════════════════════════════════════════ */
 body.dir-page {
   font-family: var(--brand-body, "DM Sans", system-ui, sans-serif);
@@ -401,7 +401,7 @@ body.dir-page {
     #ffffff;
 }
 
-/* Light hero with serif headline — matches the hub */
+/* Light hero with serif headline, matches the hub */
 body.dir-page .dir-hero {
   background: transparent;
   color: var(--brand-navy);
@@ -442,7 +442,7 @@ body.dir-page .dir-hero p {
   font-size: clamp(0.95rem, 2vw, 1.1rem);
 }
 
-/* Search — brand pill */
+/* Search, brand pill */
 body.dir-page .dir-search input {
   border-radius: 999px;
   padding: 14px 22px;

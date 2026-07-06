@@ -1,6 +1,6 @@
 @import url("/css/hero-showcase.css");
 
-/* TFF × TheraBreath — high-contrast clean theme (light pages only) */
+/* TFF × TheraBreath, high-contrast clean theme (light pages only) */
 
 :root {
   --clean-bg: #ffffff;
@@ -115,7 +115,7 @@ body.tff-warm .hub-lab {
   display: none;
 }
 
-/* Floating bottle decor — skip when hero showcase is present */
+/* Floating bottle decor, skip when hero showcase is present */
 .tff-decor {
   position: fixed;
   inset: 0;

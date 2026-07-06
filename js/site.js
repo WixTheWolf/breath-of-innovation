@@ -73,8 +73,8 @@
   var timeline = document.getElementById("boi-timeline");
   if (timeline && window.BOI) {
     timeline.innerHTML = BOI.schedule.map(function (item) {
-      var range = item.end ? item.time + (item.time.indexOf("–") === -1 && item.end ? "–" + item.end : "") : item.time;
-      return "<li style=\"--item-accent:" + item.accent + "\"><time>" + range + "</time><div><b>" + item.title + "</b><span>" + item.desc + "</span></div><span class=\"dot\" aria-hidden=\"true\"></span></li>";
+      var range = item.end ? item.time + " to " + item.end : item.time;
+      return "<li style=\"--item-accent:" + item.accent + "\"><time class=\"mono\">" + range + "</time><div><b>" + item.title + "</b><span>" + item.desc + "</span></div><span class=\"dot\" aria-hidden=\"true\"></span></li>";
     }).join("");
   }
 
@@ -85,10 +85,4 @@
     if (href === path || (path === "/index.html" && href === "/")) a.classList.add("on");
   });
 
-  if (!document.querySelector('script[src*="tff-decor.js"]')) {
-    var decor = document.createElement("script");
-    decor.src = "/js/tff-decor.js";
-    decor.defer = true;
-    document.body.appendChild(decor);
-  }
 })();

@@ -36,8 +36,8 @@
     setSyncStatus("pending", "Syncing…");
     TFFScoreSync.push(activeScores(data), data.activeRater, concepts.length, function (res, status) {
       if (res && res.ok) setSyncStatus("ok", "Live · " + (res.rated || 0) + " concepts synced");
-      else if (status === 503) setSyncStatus("err", "Live storage offline — saved locally");
-      else setSyncStatus("err", "Sync failed — saved locally");
+      else if (status === 503) setSyncStatus("err", "Live storage offline, saved locally");
+      else setSyncStatus("err", "Sync failed, saved locally");
     });
   }
 
@@ -62,7 +62,7 @@
     }).join("");
     document.getElementById("rater-name").value = data.activeRater || "";
     document.getElementById("rater-summary").textContent =
-      names.length ? names.length + " rater(s) on this device: " + names.join(", ") : "No raters yet — enter your name.";
+      names.length ? names.length + " rater(s) on this device: " + names.join(", ") : "No raters yet, enter your name.";
   }
 
   function slider(key, label, val, id) {
@@ -136,13 +136,13 @@
 
     document.getElementById("room-rows").innerHTML = rows.map(function (r, i) {
       var pct = r.count ? (r.liking / 9) * 100 : 0;
-      var val = r.count ? r.liking.toFixed(1) : "—";
+      var val = r.count ? r.liking.toFixed(1) : ", ";
       return '<div class="boi-lb-row"><span><b>#' + (i + 1) + "</b> " + r.name + "</span><span>" + val + "/9</span></div>" +
         (r.count ? '<div class="boi-bar"><i style="width:' + pct + '%"></i></div>' : "");
     }).join("");
 
     var meta = document.getElementById("room-meta");
-    if (!count) meta.textContent = "No room scores yet — be the first rater.";
+    if (!count) meta.textContent = "No room scores yet, be the first rater.";
     else meta.textContent = count + " rater(s) in the room" +
       (updatedAt ? " · updated " + new Date(updatedAt).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "");
   }
@@ -163,7 +163,7 @@
 
     document.getElementById("board-rows").innerHTML = rows.map(function (r, i) {
       var pct = (r.liking / 9) * 100;
-      var val = r.count ? r.liking.toFixed(1) : "—";
+      var val = r.count ? r.liking.toFixed(1) : ", ";
       return '<div class="boi-lb-row"><span><b>#' + (i + 1) + "</b> " + r.name + "</span><span>" + val + "/9</span></div>" +
         (r.count ? '<div class="boi-bar"><i style="width:' + pct + '%"></i></div>' : "");
     }).join("");
@@ -177,7 +177,7 @@
       lines.push("=== " + name + " ===");
       concepts.forEach(function (c) {
         var s = (data.raters[name] || {})[c.id] || {};
-        lines.push(c.id + ". " + c.name + " — L:" + (s.liking || "-") + " U:" + (s.unique || "-") + " I:" + (s.intent || "-"));
+        lines.push(c.id + ". " + c.name + ", L:" + (s.liking || "-") + " U:" + (s.unique || "-") + " I:" + (s.intent || "-"));
       });
       lines.push("");
     });
@@ -185,7 +185,7 @@
     var agg = aggregateScores(data);
     concepts.forEach(function (c) {
       var s = agg[c.id];
-      lines.push(c.id + ". " + c.name + " — L:" + (s.count ? s.liking.toFixed(1) : "-"));
+      lines.push(c.id + ". " + c.name + ", L:" + (s.count ? s.liking.toFixed(1) : "-"));
     });
     navigator.clipboard.writeText(lines.join("\n")).then(function () { alert("All rater scores copied"); });
   };
