@@ -335,4 +335,4 @@
     initSearch: initSearch,
     flattenItems: flattenItems
   };
-})();
+})(window);

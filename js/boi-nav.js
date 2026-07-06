@@ -12,8 +12,8 @@
   if (tb) {
     var isExternal = /^https?:\/\//i.test(tb);
     var attrs = isExternal ? ' target="_blank" rel="noopener"' : "";
-    var title = isExternal ? "Open TheraBreath visit site" : "July 8 visit guide";
-    var label = isExternal ? "Visit site →" : "Visit guide →";
+    var title = isExternal ? "Open TheraBreath visit site" : "Find anything on this hub";
+    var label = isExternal ? "Visit site →" : "Directory →";
     ext = '<a class="boi-nav-ext" href="' + tb + '"' + attrs + ' title="' + title + '">' + label + "</a>";
   }
 

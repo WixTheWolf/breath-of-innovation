@@ -250,7 +250,7 @@ window.BOI = {
   ],
   chapters: null,
   links: {
-    therabreath: "https://therabreath-visit-site.vercel.app/find",
+    therabreath: "/find",
     flavorFactory: "https://www.flavorfactory.net/",
   },
   nav: [
