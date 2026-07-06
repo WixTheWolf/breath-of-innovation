@@ -17,7 +17,7 @@
   --ink-55: color-mix(in srgb, var(--ink) 55%, transparent);
 
   /* Type families */
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
 
@@ -42,14 +42,13 @@
   --stagger: 70ms;
 }
 
-/* Display face warmth via SOFT and WONK, kept low */
+/* Display face. Source Serif 4 for clean, readable editorial headlines */
 .font-display,
 .sys h1,
 .sys h2,
 .sys .display {
   font-family: var(--font-display);
   font-optical-sizing: auto;
-  font-variation-settings: "SOFT" 40, "WONK" 0;
   letter-spacing: -0.01em;
   line-height: 1.05;
 }
@@ -189,7 +188,7 @@ body.hub .hub-nav {
   border: 1px solid var(--line);
 }
 body.hub .hub-mark { background: var(--ink); color: var(--paper); }
-body.hub .hub-brand-text { font-family: var(--font-display); font-variation-settings: "SOFT" 40; letter-spacing: -0.01em; }
+body.hub .hub-brand-text { font-family: var(--font-display); letter-spacing: -0.01em; }
 body.hub .hub-nav-links a { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-70); }
 body.hub .hub-nav-links a:hover { color: var(--ink); background: color-mix(in srgb, var(--breath) 16%, transparent); }
 body.hub .hub-nav-meta { font-family: var(--font-mono); color: var(--ink-55); letter-spacing: 0.08em; }
@@ -214,7 +213,6 @@ body.hub .hub-eyebrow {
 
 body.hub .hub-title {
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 40, "WONK" 0;
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.02;
@@ -314,7 +312,7 @@ body.hub .hub-tile:hover {
 }
 body.hub .hub-tile:active { transform: scale(0.98); }
 body.hub .hub-tile-tag { font-family: var(--font-mono); color: var(--ink-70) !important; letter-spacing: 0.1em; }
-body.hub .hub-tile h3 { font-family: var(--font-display); font-variation-settings: "SOFT" 40; font-weight: 500; color: var(--ink); }
+body.hub .hub-tile h3 { font-family: var(--font-display); font-weight: 500; color: var(--ink); }
 body.hub .hub-tile p { color: var(--ink-70); font-family: var(--font-body); }
 body.hub .hub-tile-go { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink) !important; }
 body.hub .hub-tile-go::after { content: " →"; transition: margin-left var(--dur-fast) var(--ease-out); }
@@ -447,7 +445,6 @@ html.pres-mode .pres-slide-inner::before {
 html.pres-mode .pres-slide h1,
 html.pres-mode .pres-qa-q {
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 40, "WONK" 0;
   font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -545,7 +542,6 @@ html.pres-mode .pres-pillar-cell::before {
 html.pres-mode .pres-pillar-cell h3 {
   position: relative;
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 40;
   font-weight: 500;
   font-size: clamp(1.1rem, 2.6vmin, 1.7rem);
   color: var(--ink);
@@ -635,7 +631,7 @@ body.tasting .boi-score-actions { position: relative; z-index: 2; }
 /* Type in-system */
 body.tasting h1,
 body.tasting h2,
-body.tasting h3 { font-family: var(--font-display); font-variation-settings: "SOFT" 40, "WONK" 0; font-weight: 500; color: var(--paper); }
+body.tasting h3 { font-family: var(--font-display); font-weight: 500; color: var(--paper); }
 body.tasting .boi-kicker {
   font-family: var(--font-mono);
   letter-spacing: 0.14em;
@@ -802,7 +798,6 @@ body.port-mode .port-kicker i { background: var(--breath); }
 
 body.port-mode .port-hero h1 {
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 40, "WONK" 0;
   font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -880,7 +875,6 @@ body.port-mode .port-card-img:not(.port-card-img--bottle):not(.port-card-img--te
 body.port-mode .port-card-foot-tag { font-family: var(--font-mono); letter-spacing: 0.08em; }
 body.port-mode .port-card-title {
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 40;
   font-weight: 500;
   letter-spacing: -0.01em;
 }
@@ -896,7 +890,7 @@ body.port-mode .port-card-title {
   body.port-mode .port-card-desc { clip-path: none !important; }
 }
 
-body.port-mode .port-close h2 { font-family: var(--font-display); font-variation-settings: "SOFT" 40; font-weight: 500; }
+body.port-mode .port-close h2 { font-family: var(--font-display); font-weight: 500; }
 
 /* ═══════════════════════════════════════════════════════════════
    FIND (body.dir-page) · command palette register
@@ -909,7 +903,6 @@ body.dir-page {
 body.dir-page .dir-hero-kicker { font-family: var(--font-mono); color: var(--ink-70); letter-spacing: 0.14em; }
 body.dir-page .dir-hero h1 {
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 40, "WONK" 0;
   font-weight: 500;
   color: var(--ink);
 }
@@ -946,12 +939,11 @@ body.dir-page .dir-search-hit:hover { background: color-mix(in srgb, var(--breat
 body.dir-page .dir-search-meta { font-family: var(--font-mono); letter-spacing: 0.06em; }
 body.dir-page .dir-cluster-head h2 {
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 40;
   font-weight: 500;
   color: var(--ink);
 }
 body.dir-page .dir-jump a { font-family: var(--font-mono); font-size: var(--t-xs); }
-body.dir-page .dir-card h3 { font-family: var(--font-display); font-variation-settings: "SOFT" 40; font-weight: 500; }
+body.dir-page .dir-card h3 { font-family: var(--font-display); font-weight: 500; }
 body.dir-page .dir-card em { font-family: var(--font-mono); }
 body.dir-page .dir-card {
   border-radius: var(--radius);
@@ -984,7 +976,7 @@ body.visit-page .boi-nav-links a.cta { background: var(--ink); color: var(--pape
 
 body.visit-page h1,
 body.visit-page h2,
-body.visit-page h3 { font-family: var(--font-display); font-variation-settings: "SOFT" 40, "WONK" 0; font-weight: 500; color: var(--ink); }
+body.visit-page h3 { font-family: var(--font-display); font-weight: 500; color: var(--ink); }
 body.visit-page .boi-kicker { font-family: var(--font-mono); letter-spacing: 0.14em; color: var(--ink-70); }
 body.visit-page .boi-kicker i {
   width: 8px; height: 8px; border-radius: 50%; background: var(--breath);
