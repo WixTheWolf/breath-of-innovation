@@ -3,17 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Blind flavor mapping — match coded cups to prototype codenames before the host reveal." />
+    <meta name="description" content="Blind flavor mapping. Match coded cups to prototype codenames before the host reveal." />
     <meta name="theme-color" content="#0a1628" />
     <title>Blind Flavor Mapping · Breath of Innovation</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..600,0..100,0..1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/site.css" />
     <link rel="stylesheet" href="/css/taste.css" />
+    <link rel="stylesheet" href="/css/system.css" />
   </head>
-  <body>
+  <body class="tasting sys">
     <canvas class="boi-canvas" id="boi-canvas" aria-hidden="true"></canvas>
 
     <nav class="boi-nav" id="boi-nav"></nav>
@@ -22,12 +23,14 @@
       <header class="boi-hero" style="padding-bottom:20px">
         <p class="boi-kicker"><i aria-hidden="true"></i> Station 1 · blind only</p>
         <h1 style="font-size:clamp(1.8rem,5vw,2.4rem)">Blind Flavor Mapping</h1>
-        <p class="boi-hero-lead">Taste from your coded cup — match it to one of five neutral prototype codenames. No flavor names until reveal.</p>
+        <p class="boi-hero-lead">Taste from your coded cup. Match it to one of five neutral prototype codenames. No flavor names until reveal.</p>
         <div class="boi-hero-qr no-print">
-          <img src="/assets/qr/mystery-sm.png" alt="QR — blind flavor mapping" width="88" height="88" />
+          <img src="/assets/qr/mystery-sm.png" alt="QR, blind flavor mapping" width="88" height="88" />
           <span>breath-of-innovation.vercel.app/map</span>
         </div>
       </header>
+
+        <div class="cup-rail" aria-hidden="true"><span class="cup">M1</span><span class="cup">M2</span><span class="cup">M3</span><span class="cup">M4</span><span class="cup">M5</span></div>
 
       <div class="boi-taste-wrap">
         <div class="boi-toolbar no-print">
@@ -37,9 +40,9 @@
         </div>
 
         <div class="boi-steps no-print">
-          <div class="boi-step"><b>01</b><span>Taste your cup — code on the label only</span></div>
+          <div class="boi-step"><b>01</b><span>Taste your cup, code on the label only</span></div>
           <div class="boi-step"><b>02</b><span>Select the prototype codename that matches</span></div>
-          <div class="boi-step"><b>03</b><span>Lock it in — host reveals after tasting</span></div>
+          <div class="boi-step"><b>03</b><span>Lock it in, host reveals after tasting</span></div>
         </div>
 
         <div class="boi-panel no-print" id="name-panel">
@@ -57,13 +60,13 @@
 
         <div class="boi-panel dim no-print" id="roster-panel">
           <h2>Prototype codenames</h2>
-          <p class="sub">Five workshop prototypes — neutral codenames only. Which profile did your cup taste like?</p>
+          <p class="sub">Five workshop prototypes, neutral codenames only. Which profile did your cup taste like?</p>
           <div class="boi-cipher-roster" id="roster"></div>
         </div>
 
         <div class="boi-panel dim no-print" id="log-panel">
           <h2>Log a tasting</h2>
-          <p class="sub">Find the code on your cup (M1–M5), then select the prototype codename you believe matches.</p>
+          <p class="sub">Find the code on your cup (M1 to M5), then select the prototype codename you believe matches.</p>
 
           <span class="boi-label">Cup code on your sample</span>
           <div class="boi-pick-grid" id="cup-pick"></div>
@@ -75,7 +78,7 @@
           <div class="boi-tags" id="tag-pick"></div>
 
           <button type="button" class="boi-submit" id="submit-guess" disabled>Lock this guess</button>
-          <p class="boi-sealed-note"><b>Guesses stay sealed</b> on your phone until the host reveals. No right/wrong shown here — that's the point.</p>
+          <p class="boi-sealed-note"><b>Guesses stay sealed</b> on your phone until the host reveals. No right/wrong shown here, that's the point.</p>
         </div>
 
         <div class="boi-panel dim no-print" id="dossier-panel">
@@ -92,7 +95,7 @@
             <input type="password" id="host-pw" autocomplete="current-password" placeholder="Enter team password" />
             <button type="submit" id="host-unlock-btn">Show answers</button>
           </form>
-          <p class="boi-host-err" id="host-err">Incorrect password — try again.</p>
+          <p class="boi-host-err" id="host-err">Incorrect password, try again.</p>
         </div>
 
         <div class="boi-panel boi-host-panel no-print" id="host">
@@ -100,7 +103,7 @@
             <h2 style="margin:0;font-family:var(--font-display);font-size:0.92rem;color:#fff">Answer key · cup → codename → concept</h2>
             <button type="button" id="host-lock-btn">Hide answers</button>
           </div>
-          <p class="sub">Confidential — reveal to guests only after tasting block.</p>
+          <p class="sub">Confidential, reveal to guests only after tasting block.</p>
           <table class="boi-host-table" id="host-table"></table>
         </div>
 

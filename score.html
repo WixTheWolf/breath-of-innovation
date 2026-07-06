@@ -3,17 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Prototype scorecard — rate workshop prototypes 1–9 after reveals. Liking, uniqueness, and purchase intent." />
+    <meta name="description" content="Prototype scorecard. Rate workshop prototypes 1 to 9 after reveals. Liking, uniqueness, and purchase intent." />
     <meta name="theme-color" content="#0a1628" />
     <title>Prototype Scorecard · Breath of Innovation</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..600,0..100,0..1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/site.css" />
     <link rel="stylesheet" href="/css/taste.css" />
+    <link rel="stylesheet" href="/css/system.css" />
   </head>
-  <body>
+  <body class="tasting sys">
     <canvas class="boi-canvas" id="boi-canvas" aria-hidden="true"></canvas>
 
     <nav class="boi-nav" id="boi-nav"></nav>
@@ -21,25 +22,27 @@
     <header class="boi-hero" style="padding-bottom:12px">
       <p class="boi-kicker"><i aria-hidden="true"></i> Station 2 · after reveal</p>
       <h1 style="font-size:clamp(1.8rem,5vw,2.4rem)">Prototype Scorecard</h1>
-      <p class="boi-hero-lead">Rate 1–9 on workshop prototypes · Liking · Uniqueness · Purchase intent</p>
+      <p class="boi-hero-lead">Rate 1 to 9 on workshop prototypes · Liking · Uniqueness · Purchase intent</p>
       <div class="boi-hero-qr no-print">
-        <img src="/assets/qr/score-sm.png" alt="QR — prototype scorecard" width="88" height="88" />
+        <img src="/assets/qr/score-sm.png" alt="QR, prototype scorecard" width="88" height="88" />
         <span>breath-of-innovation.vercel.app/score</span>
       </div>
     </header>
+
+        <div class="cup-rail" aria-hidden="true"><span class="cup">M1</span><span class="cup">M2</span><span class="cup">M3</span><span class="cup">M4</span><span class="cup">M5</span></div>
 
     <div class="boi-rater-bar no-print">
       <label for="rater-name">Rater</label>
       <input type="text" id="rater-name" placeholder="Your name" />
       <button type="button" id="rater-save">Set rater</button>
       <select id="rater-pick"></select>
-      <span class="hint">Enter your name first — your scores contribute to the room summary.</span>
+      <span class="hint">Enter your name first. Your scores contribute to the room summary.</span>
       <span class="boi-sync wait" id="sync-pill">Set rater name to sync</span>
     </div>
 
     <div class="boi-wrap boi-taste-wrap">
       <div class="boi-info no-print" style="margin-bottom:20px">
-        Five coded workshop prototypes for directional sensory feedback. Complete <a href="/map">Blind Flavor Mapping</a> first if you haven't — then score what you taste.
+        Five coded workshop prototypes for directional sensory feedback. Complete <a href="/map">Blind Flavor Mapping</a> first if you haven't, then score what you taste.
       </div>
 
       <div id="cards"></div>

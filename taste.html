@@ -3,16 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Blind flavor mapping and prototype scorecard — July 8 tasting at TFF." />
+    <meta name="description" content="Blind flavor mapping and prototype scorecard. July 8 tasting at TFF." />
     <meta name="theme-color" content="#0a1628" />
     <title>Tasting · Breath of Innovation</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..600,0..100,0..1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/site.css" />
+    <link rel="stylesheet" href="/css/system.css" />
   </head>
-  <body>
+  <body class="tasting sys">
     <canvas class="boi-canvas" id="boi-canvas" aria-hidden="true"></canvas>
 
     <nav class="boi-nav" id="boi-nav"></nav>
@@ -21,8 +22,10 @@
       <header class="boi-hero" style="padding-bottom:28px">
         <p class="boi-kicker"><i aria-hidden="true"></i> Opens 10:30 AM</p>
         <h1 style="font-size:clamp(1.8rem,5vw,2.6rem)">Workshop tasting</h1>
-        <p class="boi-hero-lead">Five coded cups (M1–M5). Blind mapping while cups are coded — scorecard after the host reveal.</p>
+        <p class="boi-hero-lead">Five coded cups, M1 to M5. Blind mapping while cups are coded. Scorecard after the host reveal.</p>
       </header>
+
+        <div class="cup-rail" aria-hidden="true"><span class="cup">M1</span><span class="cup">M2</span><span class="cup">M3</span><span class="cup">M4</span><span class="cup">M5</span></div>
 
       <section class="boi-section">
         <div class="boi-grid-2">
@@ -36,7 +39,7 @@
           <article class="boi-card" style="--card-accent:#f58220">
             <img src="/assets/qr/score-sm.png" alt="" width="88" height="88" style="border-radius:12px;margin-bottom:12px;background:#fff;padding:6px" />
             <h3>2 · Prototype Scorecard</h3>
-            <p>After reveal — rate liking, uniqueness, and purchase intent.</p>
+            <p>After reveal, rate liking, uniqueness, and purchase intent.</p>
             <span class="arrow">Open /score →</span>
             <a class="stretch" href="/score" aria-label="Prototype scorecard"></a>
           </article>
@@ -44,8 +47,8 @@
       </section>
 
       <section class="boi-section">
-        <div class="boi-info">
-          <strong>How it works:</strong> Swish 10–15 ml for 10 seconds · reset with water between cups · honest directional feedback only — not a launch decision.
+        <div class="boi-info boi-protocol">
+          <strong>How it works.</strong> Swish 10 to 15 ml for 10 seconds · reset with water between cups · honest directional feedback only, not a launch decision.
         </div>
       </section>
 
