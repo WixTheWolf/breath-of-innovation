@@ -17,8 +17,7 @@
       <header class="tm-top">
         <a class="tm-top-brand" href="/team"><span class="tm-mark">TFF</span><b>Team hub</b></a>
         <nav class="tm-top-links">
-          <a href="/">Guest hub</a>
-          <a href="/present">Slides</a>
+          <a href="/">Guest site</a>
           <a href="/packet">Packet</a>
           <a href="/qr">QR directory</a>
           <button type="button" id="tm-signout">Sign out</button>
@@ -27,9 +26,9 @@
 
       <p class="tm-badge">Internal · TFF team only</p>
       <h1>Command center</h1>
-      <p class="tm-lead">Everything the team needs to prep and run July 8. Guests never see this page, it sits behind the team password.</p>
+      <p class="tm-lead">Internal TFF materials for July 8. This area is separate from the guest facing TheraBreath workshop pages and sits behind the team password.</p>
 
-      <h2>Run the day</h2>
+      <h2>Presenter tools</h2>
       <div class="tm-grid cols-3">
         <a class="tm-card tm-packet-card" href="/packet">
           <div>
@@ -40,17 +39,17 @@
           </div>
           <img class="tm-packet-qr" src="/assets/qr/packet-sm.png" alt="QR code to open the internal speaker packet" width="88" height="88" />
         </a>
-        <a class="tm-card" href="/present">
-          <span class="tag">9:30 AM</span>
-          <h3>Live presentation</h3>
-          <p>The public four-pillar deck. Space reveals key points, F for fullscreen.</p>
-          <span class="go">Open slides →</span>
+        <a class="tm-card" href="/chlorite">
+          <span class="tag">R&amp;D</span>
+          <h3>Sodium chlorite flavor science</h3>
+          <p>Why OXYD-8 is hard on flavors, which compound classes hold, and how M1 to M5 are built for it.</p>
+          <span class="go">Open reference →</span>
         </a>
-        <a class="tm-card" href="/visit">
-          <span class="tag">Schedule</span>
-          <h3>Day-of timeline</h3>
-          <p>The guest schedule with the live now marker. Same page guests see.</p>
-          <span class="go">Open timeline →</span>
+        <a class="tm-card" href="/qr">
+          <span class="tag">Print &amp; share</span>
+          <h3>QR code directory</h3>
+          <p>QR codes for every guest page and every password-gated TFF page.</p>
+          <span class="go">Open QR directory →</span>
         </a>
       </div>
 
@@ -76,27 +75,9 @@
         </a>
       </div>
 
-      <h2>Reference &amp; data</h2>
-      <div class="tm-grid cols-3">
-        <a class="tm-card" href="/chlorite">
-          <span class="tag">R&amp;D</span>
-          <h3>Sodium chlorite flavor science</h3>
-          <p>Why OXYD-8 is hard on flavors, which compound classes hold, and how M1 to M5 are built for it.</p>
-          <span class="go">Open reference →</span>
-        </a>
-        <a class="tm-card" href="/portfolio">
-          <span class="tag">Gallery</span>
-          <h3>Flavor portfolio</h3>
-          <p>Production SKUs, the M1 to M5 pipeline, and Gen Alpha directions.</p>
-          <span class="go">Open portfolio →</span>
-        </a>
-        <a class="tm-card" href="/assets/docs/therabreath-flavor-usage.xlsx" download>
-          <span class="tag">XLSX · data</span>
-          <h3>TheraBreath flavor usage</h3>
-          <p>Flavor usage workbook, the source data behind the production portfolio.</p>
-          <span class="go">Download workbook →</span>
-        </a>
-      </div>
+      <h2>Church &amp; Dwight documents</h2>
+      <p class="tm-lead" style="margin-bottom:16px;font-size:0.92rem">Scanned reference documents from Church &amp; Dwight. Guidelines, spec sheets, COAs, allergen statements. Confidential, internal only.</p>
+      <div id="cd-docs"></div>
 
       <h2>Tools &amp; access</h2>
       <div class="tm-grid cols-3">
@@ -105,18 +86,6 @@
           <h3>TheraBreath visit toolkit</h3>
           <p>Open the original internal visit toolkit and its supporting workshop resources.</p>
           <span class="go">Open toolkit →</span>
-        </a>
-        <a class="tm-card" href="/qr">
-          <span class="tag">Print &amp; share</span>
-          <h3>QR code directory</h3>
-          <p>Updated QR codes for every guest page and every password-gated TFF page.</p>
-          <span class="go">Open QR directory →</span>
-        </a>
-        <a class="tm-card" href="/gate">
-          <span class="tag">Access</span>
-          <h3>Team access gate</h3>
-          <p>Open the password screen used to protect the command center and internal tools.</p>
-          <span class="go">Open access gate →</span>
         </a>
       </div>
 
@@ -132,6 +101,36 @@
     <script>
       if (!TFF.isAuthed()) location.replace("/gate?return=" + encodeURIComponent("/team"));
       document.getElementById("tm-signout").addEventListener("click", function () { TFF.logout(); });
+
+      /* Church and Dwight document scans.
+         Add an entry per scanned PDF placed in /assets/docs/cd/.
+         { file, title, kind, desc } */
+      var CD_DOCS = [
+        // { file: "cd-mouthwash-flavor-guideline.pdf", title: "Mouthwash flavor guideline", kind: "Guideline", desc: "Church and Dwight flavor development guideline." },
+        // { file: "cd-spec-sheet-oxyd8-rinse.pdf", title: "OXYD-8 rinse spec sheet", kind: "Spec sheet", desc: "Product specification for the OXYD-8 rinse." }
+      ];
+
+      function esc(s) {
+        return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+        });
+      }
+
+      (function renderDocs() {
+        var host = document.getElementById("cd-docs");
+        if (!CD_DOCS.length) {
+          host.innerHTML = '<div class="live-empty">No documents added yet. ' +
+            'Scanned Church and Dwight PDFs will appear here once uploaded.</div>';
+          return;
+        }
+        host.innerHTML = '<div class="tm-grid cols-3">' + CD_DOCS.map(function (d) {
+          return '<a class="tm-card" href="/assets/docs/cd/' + encodeURIComponent(d.file) + '">' +
+            '<span class="tag">' + esc(d.kind || "PDF") + "</span>" +
+            "<h3>" + esc(d.title || d.file) + "</h3>" +
+            (d.desc ? "<p>" + esc(d.desc) + "</p>" : "") +
+            '<span class="go">Open PDF →</span></a>';
+        }).join("") + "</div>";
+      })();
     </script>
   </body>
 </html>
