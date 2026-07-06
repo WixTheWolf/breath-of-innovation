@@ -1,4 +1,4 @@
-/** Canonical site map — topic clusters for /find. Only pages that exist on this hub. */
+/** Canonical site map, topic clusters for /find. Only pages that exist on this hub. */
 window.SiteDirectory = {
   clusters: [
     {
@@ -8,7 +8,7 @@ window.SiteDirectory = {
       accent: "#008fd3",
       items: [
         { href: "/", title: "Workshop hub", desc: "Landing page · schedule · quick links", path: "/", keywords: "home index hub agenda landing" },
-        { href: "/visit", title: "Your day", desc: "Day-of timeline — tour, tasting, lunch, Q&A", path: "/visit", keywords: "schedule your day timeline agenda tour lunch" }
+        { href: "/visit", title: "Your day", desc: "Day-of timeline, tour, tasting, lunch, Q&A", path: "/visit", keywords: "schedule your day timeline agenda tour lunch" }
       ]
     },
     {
@@ -46,7 +46,7 @@ window.SiteDirectory = {
       desc: "Presenter tools · password required",
       accent: "#0a1628",
       items: [
-        { href: "/packet", title: "Speaker packet", desc: "Full talk tracks — TFF presenters only", path: "/packet", keywords: "speaker script talk tracks password packet", internal: true },
+        { href: "/packet", title: "Speaker packet", desc: "Full talk tracks, TFF presenters only", path: "/packet", keywords: "speaker script talk tracks password packet", internal: true },
         { href: "/gate", title: "Team sign-in", desc: "Password gate to internal tools", path: "/gate", keywords: "gate login team password sign in", internal: true }
       ]
     }

@@ -202,7 +202,7 @@
       section.dataset.collection = colId;
 
       var extra = colId === "pipeline"
-        ? '<a class="port-chapter-cta" href="/map">Taste M1–M5 July 8 →</a>'
+        ? '<a class="port-chapter-cta" href="/map">Taste M1 to M5 July 8 →</a>'
         : "";
 
       section.innerHTML =

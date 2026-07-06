@@ -3,17 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="TheraBreath flavor portfolio — 53 flavors across in-production SKUs, concepts presented, pipeline M1–M5, and Gen Alpha futures." />
-    <meta name="theme-color" content="#f8fafc" />
+    <meta name="description" content="TheraBreath flavor portfolio. 53 flavors across in-production SKUs, concepts presented, pipeline M1 to M5, and Gen Alpha futures." />
+    <meta name="theme-color" content="#f7fafc" />
     <title>Flavor Portfolio · Breath of Innovation</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..600,0..100,0..1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/site.css" />
     <link rel="stylesheet" href="/css/portfolio.css" />
+    <link rel="stylesheet" href="/css/system.css" />
   </head>
-  <body class="port-mode">
+  <body class="port-mode sys">
     <canvas class="port-canvas" id="port-canvas" aria-hidden="true"></canvas>
 
     <nav class="boi-nav" id="boi-nav"></nav>
@@ -21,16 +22,16 @@
     <div class="port-wrap">
       <header class="port-hero">
         <div class="port-hero-glow" aria-hidden="true"></div>
-        <p class="port-kicker"><i aria-hidden="true"></i> Church &amp; Dwight × TheraBreath</p>
+        <p class="port-kicker"><i aria-hidden="true"></i> Church &amp; Dwight · TheraBreath</p>
         <h1>Where flavor becomes <em>imagination</em></h1>
         <p class="port-hero-lead">
-          Fifty-three flavors organized by where each one lives in your journey — on shelf today, presented for review,
+          Fifty-three flavors organized by where each one lives in your journey. On shelf today, presented for review,
           workshop pipeline, and Gen Alpha futures. Tap any card to open the full story.
         </p>
         <div class="port-stat-row" id="port-stats"></div>
         <div class="port-hero-actions">
           <button type="button" class="port-surprise" id="port-surprise">Surprise me ✦</button>
-          <a class="port-hero-link" href="/taste">July 8 tasting · M1–M5 →</a>
+          <a class="port-hero-link" href="/taste">July 8 tasting · M1 to M5 →</a>
         </div>
       </header>
 
@@ -50,20 +51,20 @@
         </nav>
       </div>
 
-      <p class="port-empty" id="port-empty" hidden>No flavors match your search — try another keyword or clear filters.</p>
+      <p class="port-empty" id="port-empty" hidden>No flavors match your search. Try another keyword or clear filters.</p>
 
       <div id="port-chapters"></div>
 
       <section class="port-close">
         <h2>Ready to taste the pipeline?</h2>
-        <p>Five workshop mint platforms (M1–M5) are live in the tasting room — blind mapping first, scorecard after reveal.</p>
+        <p>Five workshop mint platforms (M1 to M5) are live in the tasting room. Blind mapping first, scorecard after reveal.</p>
         <div class="boi-hero-actions">
           <a class="boi-btn primary" href="/map">Blind flavor mapping</a>
           <a class="boi-btn" href="/present">View presentation</a>
         </div>
       </section>
 
-      <footer class="boi-foot">The Flavor Factory × TheraBreath · Confidential · June 2026</footer>
+      <footer class="boi-foot">The Flavor Factory · TheraBreath · Confidential · June 2026</footer>
     </div>
 
     <div class="port-modal" id="port-modal" role="dialog" aria-modal="true" aria-label="Flavor concept detail">
@@ -97,5 +98,24 @@
     <script src="/js/portfolio-data.js"></script>
     <script src="/js/portfolio-boi.js"></script>
     <script src="/js/tff-decor.js" defer></script>
+    <script>
+      (function () {
+        var inner = document.querySelector(".port-dock-inner");
+        if (!inner) return;
+        var ind = document.createElement("span");
+        ind.className = "port-dock-ind";
+        inner.appendChild(ind);
+        function place() {
+          var on = inner.querySelector("button.active");
+          if (!on) { ind.style.width = "0"; return; }
+          ind.style.width = on.offsetWidth - 16 + "px";
+          ind.style.transform = "translateX(" + (on.offsetLeft + 8) + "px)";
+        }
+        inner.addEventListener("click", function () { requestAnimationFrame(place); });
+        window.addEventListener("resize", place);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+        place();
+      })();
+    </script>
   </body>
 </html>

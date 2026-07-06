@@ -781,3 +781,183 @@ body.tasting input[type="range"]::-webkit-slider-thumb {
 body.tasting input[type="range"]:active::-webkit-slider-thumb { transform: scale(0.9); }
 body.tasting input[type="range"]::-moz-range-track { height: 6px; border-radius: 999px; background: color-mix(in srgb, var(--paper) 14%, transparent); }
 body.tasting input[type="range"]::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; background: var(--breath); border: 3px solid var(--ink); }
+
+/* ═══════════════════════════════════════════════════════════════
+   PORTFOLIO (body.port-mode) · light gallery in-system
+   ═══════════════════════════════════════════════════════════════ */
+body.port-mode {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+body.port-mode::before { content: none; }
+body.port-mode .port-canvas { display: none; }
+
+body.port-mode .port-kicker {
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  color: var(--ink-70);
+}
+body.port-mode .port-kicker i { background: var(--breath); }
+
+body.port-mode .port-hero h1 {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 40, "WONK" 0;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+body.port-mode .port-hero h1 em {
+  font-style: italic;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--breath);
+}
+body.port-mode .port-hero-lead { color: var(--ink-70); }
+body.port-mode .port-hero-glow {
+  background: radial-gradient(circle, color-mix(in srgb, var(--breath) 22%, transparent) 0%, transparent 65%);
+  filter: blur(10px);
+}
+
+/* Filter dock: quiet chips + one sliding underline indicator */
+body.port-mode .port-dock-inner {
+  position: relative;
+  background: color-mix(in srgb, var(--frost) 45%, var(--paper));
+  border: 1px solid var(--line);
+}
+body.port-mode .port-dock button {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--ink-70);
+}
+body.port-mode .port-dock button:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+body.port-mode .port-dock button.active,
+body.port-mode .port-dock button[data-col].active {
+  background: transparent;
+  color: var(--ink);
+}
+body.port-mode .port-dock button.active .port-dock-count { background: color-mix(in srgb, var(--breath) 24%, transparent); color: var(--ink); }
+body.port-mode .port-dock-ind {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--breath);
+  transition: transform var(--dur-base) var(--ease-out), width var(--dur-base) var(--ease-out);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  body.port-mode .port-dock-ind { transition: none; }
+}
+
+/* Search in-system */
+body.port-mode .port-search {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--frost) 40%, var(--paper));
+}
+body.port-mode .port-search input { font-family: var(--font-body); color: var(--ink); }
+
+/* Cards: duotone imagery, display-face names, mono tags,
+   descriptor disclosed with the mask wipe on hover */
+body.port-mode .port-card {
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+body.port-mode .port-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 10%, transparent);
+}
+body.port-mode .port-card:active { transform: scale(0.98); }
+body.port-mode .port-card-img:not(.port-card-img--bottle):not(.port-card-img--text) {
+  background: linear-gradient(160deg, var(--ink) 0%, var(--breath) 135%);
+}
+body.port-mode .port-card-img:not(.port-card-img--bottle):not(.port-card-img--text) img {
+  mix-blend-mode: luminosity;
+  opacity: 0.9;
+}
+body.port-mode .port-card-foot-tag { font-family: var(--font-mono); letter-spacing: 0.08em; }
+body.port-mode .port-card-title {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 40;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+@media (hover: hover) and (pointer: fine) {
+  body.port-mode .port-card-desc {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path var(--dur-base) var(--ease-out);
+  }
+  body.port-mode .port-card:hover .port-card-desc,
+  body.port-mode .port-card:focus-within .port-card-desc { clip-path: inset(0 0 0 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.port-mode .port-card-desc { clip-path: none !important; }
+}
+
+body.port-mode .port-close h2 { font-family: var(--font-display); font-variation-settings: "SOFT" 40; font-weight: 500; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FIND (body.dir-page) · command palette register
+   ═══════════════════════════════════════════════════════════════ */
+body.dir-page {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+body.dir-page .dir-hero-kicker { font-family: var(--font-mono); color: var(--ink-70); letter-spacing: 0.14em; }
+body.dir-page .dir-hero h1 {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 40, "WONK" 0;
+  font-weight: 500;
+  color: var(--ink);
+}
+body.dir-page .dir-hero h1 em {
+  font-style: italic;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--breath);
+}
+body.dir-page .dir-hero p { color: var(--ink-70); }
+
+body.dir-page .dir-search input {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--frost) 40%, var(--paper));
+  font-family: var(--font-body);
+}
+body.dir-page .dir-search-kbd {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--ink-55);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  border-radius: 6px;
+  padding: 2px 7px;
+  pointer-events: none;
+}
+@media (hover: none) { body.dir-page .dir-search-kbd { display: none; } }
+
+body.dir-page .dir-search-hit.kb-active,
+body.dir-page .dir-search-hit:hover { background: color-mix(in srgb, var(--breath) 12%, var(--paper)); }
+body.dir-page .dir-search-meta { font-family: var(--font-mono); letter-spacing: 0.06em; }
+body.dir-page .dir-cluster-head h2 {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 40;
+  font-weight: 500;
+  color: var(--ink);
+}
+body.dir-page .dir-jump a { font-family: var(--font-mono); font-size: var(--t-xs); }
+body.dir-page .dir-card h3 { font-family: var(--font-display); font-variation-settings: "SOFT" 40; font-weight: 500; }
+body.dir-page .dir-card em { font-family: var(--font-mono); }
+body.dir-page .dir-card {
+  border-radius: var(--radius);
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+body.dir-page .dir-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 10%, transparent); }
+
+/* Hub search shares the palette hit styling */
+body.hub .dir-search-hit.kb-active { background: color-mix(in srgb, var(--breath) 12%, var(--paper)); }

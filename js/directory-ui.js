@@ -237,7 +237,7 @@
 
       if (!matches.length) {
         results.innerHTML =
-          '<p class="dir-search-empty">No matches for “' + escapeHtml(query) + "” — try Lakewood, chlorite, tasting, or capacity.</p>";
+          '<p class="dir-search-empty">No matches for “' + escapeHtml(query) + "”, try presentation, tasting, or portfolio.</p>";
         results.classList.add("open");
         setOpen(true);
         return;
@@ -305,17 +305,55 @@
       loaded = true;
     }
 
+    /* Command palette keyboard: arrows move, Enter goes, Escape closes */
+    var kbIndex = -1;
+    function hits() {
+      return results.querySelectorAll(".dir-search-hit");
+    }
+    function paintActive() {
+      var list = hits();
+      Array.prototype.forEach.call(list, function (el, i) {
+        el.classList.toggle("kb-active", i === kbIndex);
+      });
+      if (kbIndex >= 0 && list[kbIndex] && list[kbIndex].scrollIntoView) {
+        list[kbIndex].scrollIntoView({ block: "nearest" });
+      }
+    }
+
     input.addEventListener("input", function () {
+      kbIndex = -1;
       render(input.value);
     });
     input.addEventListener("focus", function () {
       if (input.value.trim()) render(input.value);
     });
     input.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
+      var list = hits();
+      if (e.key === "ArrowDown" && list.length) {
+        e.preventDefault();
+        kbIndex = (kbIndex + 1) % list.length;
+        paintActive();
+      } else if (e.key === "ArrowUp" && list.length) {
+        e.preventDefault();
+        kbIndex = kbIndex <= 0 ? list.length - 1 : kbIndex - 1;
+        paintActive();
+      } else if (e.key === "Enter" && kbIndex >= 0 && list[kbIndex]) {
+        e.preventDefault();
+        location.href = list[kbIndex].getAttribute("href");
+      } else if (e.key === "Escape") {
+        kbIndex = -1;
         results.classList.remove("open");
         setOpen(false);
         input.blur();
+      }
+    });
+
+    /* Cmd+K / Ctrl+K focuses the palette from anywhere on the page */
+    document.addEventListener("keydown", function (e) {
+      if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {
+        e.preventDefault();
+        input.focus();
+        input.select();
       }
     });
     document.addEventListener("click", function (e) {
