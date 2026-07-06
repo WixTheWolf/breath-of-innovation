@@ -1068,3 +1068,145 @@ body.visit-page .boi-btn {
 }
 body.visit-page .boi-btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 body.visit-page .boi-foot { color: var(--ink-55); border-top: 1px solid var(--line); }
+
+/* ============================================================
+   Internal team pages. /team, /chlorite, /emails, live admin.
+   Light paper surface, mono labels, quiet cards.
+   ============================================================ */
+body.team-page {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+body.team-page .tm-wrap { max-width: 1060px; margin: 0 auto; padding: 24px 20px 72px; }
+body.team-page .tm-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 0 22px; border-bottom: 1px solid var(--line); margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+body.team-page .tm-top-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+body.team-page .tm-mark {
+  width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px;
+  background: var(--ink); color: var(--paper);
+  font-family: var(--font-mono); font-weight: 600; font-size: 0.72rem;
+}
+body.team-page .tm-top-brand b { font-family: var(--font-display); font-weight: 500; font-size: 1.05rem; }
+body.team-page .tm-top-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+body.team-page .tm-top-links a, body.team-page .tm-top-links button {
+  font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.04em;
+  color: var(--ink-70); text-decoration: none; background: none; border: 0; cursor: pointer; padding: 4px 2px;
+}
+body.team-page .tm-top-links a:hover, body.team-page .tm-top-links button:hover { color: var(--ink); }
+body.team-page .tm-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 14px;
+}
+body.team-page .tm-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--copper); }
+body.team-page h1 {
+  font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em;
+  font-size: clamp(1.9rem, 5vw, 2.7rem); line-height: 1.08; margin: 0 0 10px;
+}
+body.team-page .tm-lead { color: var(--ink-70); max-width: 62ch; margin: 0 0 34px; line-height: 1.6; }
+body.team-page h2 {
+  font-family: var(--font-mono); font-size: 0.76rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-55);
+  margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line);
+}
+body.team-page .tm-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 700px) { body.team-page .tm-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { body.team-page .tm-grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }
+body.team-page .tm-card {
+  display: block; padding: 18px 18px 16px; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--frost); color: var(--ink); text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+body.team-page .tm-card:hover { border-color: color-mix(in srgb, var(--ink) 30%, transparent); transform: translateY(-1px); }
+@media (prefers-reduced-motion: reduce) { body.team-page .tm-card, body.team-page .tm-card:hover { transform: none; } }
+body.team-page .tm-card .tag {
+  font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-55); display: block; margin-bottom: 8px;
+}
+body.team-page .tm-card h3 { margin: 0 0 6px; font-size: 1.02rem; font-weight: 600; letter-spacing: -0.01em; }
+body.team-page .tm-card p { margin: 0; font-size: 0.86rem; line-height: 1.5; color: var(--ink-70); }
+body.team-page .tm-card .go {
+  display: inline-block; margin-top: 12px;
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink);
+}
+body.team-page .tm-note {
+  padding: 14px 16px; border: 1px solid var(--line); border-left: 3px solid var(--breath);
+  border-radius: 8px; background: color-mix(in srgb, var(--breath) 6%, var(--paper));
+  font-size: 0.86rem; line-height: 1.55; color: var(--ink-70);
+}
+body.team-page .tm-foot {
+  margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line);
+  font-size: 0.76rem; color: var(--ink-55);
+}
+
+/* Prose pages: chlorite reference */
+body.team-page .tm-prose { max-width: 72ch; }
+body.team-page .tm-prose h2 { margin-top: 44px; }
+body.team-page .tm-prose h3 { font-size: 1rem; font-weight: 600; margin: 22px 0 8px; }
+body.team-page .tm-prose p, body.team-page .tm-prose li { line-height: 1.65; color: var(--ink-70); font-size: 0.94rem; }
+body.team-page .tm-prose strong { color: var(--ink); }
+body.team-page .tm-prose ul { padding-left: 20px; }
+body.team-page .tm-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+body.team-page .tm-table th {
+  text-align: left; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-55);
+  padding: 8px 10px; border-bottom: 1px solid var(--line);
+}
+body.team-page .tm-table td { padding: 10px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-70); }
+body.team-page .tm-table td:first-child { font-family: var(--font-mono); white-space: nowrap; color: var(--ink); }
+body.team-page .tm-scroll { overflow-x: auto; }
+body.team-page .lane {
+  display: inline-block; padding: 2px 8px; border-radius: 999px;
+  font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em;
+}
+body.team-page .lane.stable { background: color-mix(in srgb, var(--breath) 18%, var(--paper)); color: var(--ink); }
+body.team-page .lane.review { background: color-mix(in srgb, var(--copper) 16%, var(--paper)); color: var(--copper); }
+
+/* Email templates */
+body.team-page .tm-email { border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 22px; background: var(--paper); }
+body.team-page .tm-email-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--frost);
+  border-radius: var(--radius) var(--radius) 0 0; flex-wrap: wrap;
+}
+body.team-page .tm-email-head b { font-size: 0.92rem; }
+body.team-page .tm-email-head .mono { font-size: 0.68rem; color: var(--ink-55); }
+body.team-page .tm-email pre {
+  margin: 0; padding: 16px 18px; white-space: pre-wrap; word-break: break-word;
+  font-family: var(--font-body); font-size: 0.88rem; line-height: 1.6; color: var(--ink-70);
+}
+body.team-page .tm-copy {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em;
+  padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--paper); color: var(--ink); cursor: pointer;
+}
+body.team-page .tm-copy:hover { border-color: var(--ink); }
+body.team-page .tm-copy.done { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* Live admin dashboards */
+body.team-page .live-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+body.team-page .live-meta { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-55); }
+body.team-page .live-meta .breath-dot { margin-right: 6px; }
+body.team-page .live-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+body.team-page .live-actions button {
+  font-family: var(--font-mono); font-size: 0.72rem; padding: 7px 14px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer;
+}
+body.team-page .live-actions button:hover { border-color: var(--ink); }
+body.team-page .live-actions button.danger { color: #b42318; }
+body.team-page .live-empty { padding: 34px 16px; text-align: center; color: var(--ink-55); font-size: 0.9rem; border: 1px dashed var(--line); border-radius: var(--radius); }
+body.team-page .agg-row { display: grid; grid-template-columns: 110px 1fr 56px; align-items: center; gap: 12px; margin-bottom: 10px; }
+body.team-page .agg-row .code { font-family: var(--font-mono); font-size: 0.78rem; }
+body.team-page .agg-bar { height: 12px; border-radius: 999px; background: var(--frost); border: 1px solid var(--line); overflow: hidden; }
+body.team-page .agg-bar i {
+  display: block; height: 100%; background: var(--breath); border-radius: 999px;
+  transition: width var(--dur-base) var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) { body.team-page .agg-bar i { transition: none; } }
+body.team-page .agg-row .val { font-family: var(--font-mono); font-size: 0.78rem; text-align: right; color: var(--ink-70); }

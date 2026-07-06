@@ -43,10 +43,15 @@ window.SiteDirectory = {
     {
       id: "team",
       title: "TFF team",
-      desc: "Presenter tools · password required",
+      desc: "Internal hub and tools · password required",
       accent: "#0a1628",
       items: [
+        { href: "/team", title: "Team command center", desc: "Internal hub, links to every presenter tool", path: "/team", keywords: "team hub command center internal tools sign in", internal: true, hot: true },
         { href: "/packet", title: "Speaker packet", desc: "Full talk tracks, TFF presenters only", path: "/packet", keywords: "speaker script talk tracks password packet", internal: true },
+        { href: "/chlorite", title: "Sodium chlorite flavor science", desc: "OXYD-8 stability, compound classes, workshop strategy", path: "/chlorite", keywords: "chlorite sodium oxyd8 stability formulation flavor science rd", internal: true },
+        { href: "/emails", title: "Email templates", desc: "Pre-visit confirmation and 24 hour follow-up", path: "/emails", keywords: "email templates follow up thank you confirmation copy", internal: true },
+        { href: "/mystery-live", title: "Blind mapping live", desc: "See guest matches, export CSV, reset room", path: "/mystery-live", keywords: "live admin mystery mapping realtime results", internal: true },
+        { href: "/score-live", title: "Scorecard live", desc: "Room aggregate and per-rater detail", path: "/score-live", keywords: "live admin score scorecard aggregate summary", internal: true },
         { href: "/gate", title: "Team sign-in", desc: "Password gate to internal tools", path: "/gate", keywords: "gate login team password sign in", internal: true }
       ]
     }

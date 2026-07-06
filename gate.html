@@ -94,16 +94,17 @@
       <a class="gate-back" href="/">← Workshop hub</a>
       <div class="gate-panel">
         <div class="gate-mark">TFF</div>
-        <h1>Speaker packet</h1>
+        <h1>Team sign-in</h1>
         <p class="gate-sub">
-          TFF team only, full talk tracks and answers for presenters.
-          Workshop guests can use the <a href="/present">public slides</a> without a password.
+          TFF team only. The internal hub, speaker packet, chlorite reference,
+          email templates, and live tasting boards. Workshop guests can use the
+          <a href="/present">public slides</a> without a password.
         </p>
         <p class="gate-err" id="gate-err">Incorrect password, try again.</p>
         <form id="gate-form">
           <label class="boi-label" for="gate-pw">Team password</label>
           <input type="password" id="gate-pw" autocomplete="current-password" placeholder="Enter team password" autofocus />
-          <button type="submit" class="boi-btn primary" style="width:100%;margin-top:4px">Unlock speaker packet</button>
+          <button type="submit" class="boi-btn primary" style="width:100%;margin-top:4px">Sign in to team hub</button>
         </form>
         <p class="gate-note">Confidential · The Flavor Factory internal use · July 8, 2026 workshop</p>
       </div>
@@ -111,7 +112,7 @@
     <script src="/js/auth.js"></script>
     <script>
       if (TFF.isAuthed()) {
-        location.replace(TFF.getReturnUrl("/packet"));
+        location.replace(TFF.getReturnUrl("/team"));
       }
       document.getElementById("gate-form").addEventListener("submit", function (e) {
         e.preventDefault();
@@ -123,9 +124,9 @@
         btn.textContent = "Checking…";
         TFF.login(pw).then(function (ok) {
           btn.disabled = false;
-          btn.textContent = "Unlock speaker packet";
+          btn.textContent = "Sign in to team hub";
           if (ok) {
-            location.replace(TFF.getReturnUrl("/packet"));
+            location.replace(TFF.getReturnUrl("/team"));
           } else {
             err.classList.add("show");
           }

@@ -1,5 +1,5 @@
 /**
- * Minimal guest chrome — agenda, presentation, portfolio, tasting.
+ * Minimal guest chrome . agenda, presentation, portfolio, tasting.
  */
 (function (global) {
   var LINKS = [

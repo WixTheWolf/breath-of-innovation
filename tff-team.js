@@ -1,5 +1,5 @@
 /**
- * TFF team roster — canonical titles and bios for the TheraBreath visit site.
+ * TFF team roster . canonical titles and bios for the TheraBreath visit site.
  */
 (function (global) {
   var VISIT_HOST_IDS = ["dan", "alex", "ryan", "matt"];
@@ -98,7 +98,7 @@
 
   function rosterHtml() {
     return TEAM.map(function (m) {
-      return "<p><strong>" + m.name + "</strong>, " + m.title + " — " + m.desc + "</p>";
+      return "<p><strong>" + m.name + "</strong>, " + m.title + " . " + m.desc + "</p>";
     }).join("");
   }
 

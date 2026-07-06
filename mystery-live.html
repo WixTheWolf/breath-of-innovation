@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#f7fafc" />
+    <title>Blind Mapping Live · Team Hub</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/system.css" />
+  </head>
+  <body class="team-page sys">
+    <div class="tm-wrap">
+      <header class="tm-top">
+        <a class="tm-top-brand" href="/team"><span class="tm-mark">TFF</span><b>Team hub</b></a>
+        <nav class="tm-top-links">
+          <a href="/team">Command center</a>
+          <a href="/score-live">Scorecard live</a>
+          <button type="button" id="tm-signout">Sign out</button>
+        </nav>
+      </header>
+
+      <p class="tm-badge">Live · tasting admin</p>
+      <h1>Blind mapping results</h1>
+      <p class="tm-lead">Guest matches for the coded cups, updating live during the blind tasting. Highest score first.</p>
+
+      <div class="live-head">
+        <span class="live-meta" id="live-meta"><span class="breath-dot"></span>Connecting.</span>
+        <div class="live-actions">
+          <button type="button" id="live-refresh">Refresh</button>
+          <button type="button" id="live-csv">Export CSV</button>
+          <button type="button" id="live-reset" class="danger">Reset room</button>
+        </div>
+      </div>
+
+      <div id="live-body">
+        <div class="live-empty">Waiting for the first submission.</div>
+      </div>
+
+      <footer class="tm-foot">Confidential · The Flavor Factory · TheraBreath · internal use only</footer>
+    </div>
+
+    <script src="/js/auth.js"></script>
+    <script>
+      if (!TFF.isAuthed()) location.replace("/gate?return=" + encodeURIComponent("/mystery-live"));
+      document.getElementById("tm-signout").addEventListener("click", function () { TFF.logout(); });
+
+      var meta = document.getElementById("live-meta");
+      var bodyEl = document.getElementById("live-body");
+      var last = { submissions: [] };
+
+      function fmtTime(iso) {
+        if (!iso) return "";
+        try { return new Date(iso).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }); }
+        catch (e) { return ""; }
+      }
+
+      function esc(s) {
+        return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+        });
+      }
+
+      function render(data) {
+        last = data || { submissions: [] };
+        var subs = last.submissions || [];
+        meta.innerHTML = '<span class="breath-dot"></span>' +
+          subs.length + " " + (subs.length === 1 ? "player" : "players") +
+          " . updated " + esc(fmtTime(last.updatedAt) || "just now");
+        if (!subs.length) {
+          bodyEl.innerHTML = '<div class="live-empty">Waiting for the first submission.</div>';
+          return;
+        }
+        var rows = subs.map(function (s, i) {
+          var pct = s.total ? Math.round((s.correct / s.total) * 100) : 0;
+          return '<div class="tm-card" style="cursor:default">' +
+            '<span class="tag">#' + (i + 1) + " . updated " + esc(fmtTime(s.updatedAt)) + "</span>" +
+            "<h3>" + esc(s.player || "Guest") + "</h3>" +
+            '<div class="agg-row"><span class="code">' + s.correct + "/" + s.total + " correct</span>" +
+            '<span class="agg-bar"><i style="width:' + pct + '%"></i></span>' +
+            '<span class="val">' + pct + "%</span></div></div>";
+        }).join("");
+        bodyEl.innerHTML = '<div class="tm-grid">' + rows + "</div>";
+      }
+
+      function load() {
+        fetch("/api/mystery/live", { credentials: "same-origin" })
+          .then(function (r) {
+            if (r.status === 401) { location.replace("/gate?return=" + encodeURIComponent("/mystery-live")); return null; }
+            return r.json();
+          })
+          .then(function (d) {
+            if (!d) return;
+            if (d.ok) render(d);
+            else meta.innerHTML = '<span class="breath-dot"></span>Live sync not configured (' + esc(d.error || "no store") + ").";
+          })
+          .catch(function () { meta.innerHTML = '<span class="breath-dot"></span>Offline, retrying.'; });
+      }
+
+      document.getElementById("live-refresh").addEventListener("click", load);
+
+      document.getElementById("live-csv").addEventListener("click", function () {
+        var subs = last.submissions || [];
+        var lines = ["player,correct,total,updated"];
+        subs.forEach(function (s) {
+          lines.push('"' + String(s.player || "").replace(/"/g, '""') + '",' + s.correct + "," + s.total + "," + (s.updatedAt || ""));
+        });
+        var blob = new Blob([lines.join("\n")], { type: "text/csv" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "blind-mapping-" + new Date().toISOString().slice(0, 10) + ".csv";
+        a.click();
+      });
+
+      document.getElementById("live-reset").addEventListener("click", function () {
+        if (!confirm("Reset all blind mapping submissions for the room?")) return;
+        fetch("/api/mystery/live", { method: "DELETE", credentials: "same-origin" })
+          .then(function () { load(); });
+      });
+
+      load();
+      setInterval(load, 5000);
+    </script>
+  </body>
+</html>

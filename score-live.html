@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#f7fafc" />
+    <title>Scorecard Live · Team Hub</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/system.css" />
+  </head>
+  <body class="team-page sys">
+    <div class="tm-wrap">
+      <header class="tm-top">
+        <a class="tm-top-brand" href="/team"><span class="tm-mark">TFF</span><b>Team hub</b></a>
+        <nav class="tm-top-links">
+          <a href="/team">Command center</a>
+          <a href="/mystery-live">Blind mapping live</a>
+          <button type="button" id="tm-signout">Sign out</button>
+        </nav>
+      </header>
+
+      <p class="tm-badge">Live · tasting admin</p>
+      <h1>Scorecard summary</h1>
+      <p class="tm-lead">Room aggregate for the five mint platforms plus per-rater detail, updating live as scorecards come in. Average liking, top platform first.</p>
+
+      <div class="live-head">
+        <span class="live-meta" id="live-meta"><span class="breath-dot"></span>Connecting.</span>
+        <div class="live-actions">
+          <button type="button" id="live-refresh">Refresh</button>
+          <button type="button" id="live-csv">Export CSV</button>
+          <button type="button" id="live-reset" class="danger">Reset room</button>
+        </div>
+      </div>
+
+      <h2>Room aggregate</h2>
+      <div id="agg-body"><div class="live-empty">Waiting for the first scorecard.</div></div>
+
+      <h2>Per rater</h2>
+      <div id="rater-body"><div class="live-empty">No raters yet.</div></div>
+
+      <footer class="tm-foot">Confidential · The Flavor Factory · TheraBreath · internal use only</footer>
+    </div>
+
+    <script src="/js/content.js"></script>
+    <script src="/js/concepts.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+      if (!TFF.isAuthed()) location.replace("/gate?return=" + encodeURIComponent("/score-live"));
+      document.getElementById("tm-signout").addEventListener("click", function () { TFF.logout(); });
+
+      var meta = document.getElementById("live-meta");
+      var aggBody = document.getElementById("agg-body");
+      var raterBody = document.getElementById("rater-body");
+      var last = { aggregate: {}, submissions: [] };
+
+      function conceptName(cid) {
+        try {
+          var c = window.TFFConcepts && window.TFFConcepts.byId(cid);
+          if (c) return c.code + " . " + c.name;
+        } catch (e) {}
+        return "Concept " + cid;
+      }
+
+      function fmtTime(iso) {
+        if (!iso) return "";
+        try { return new Date(iso).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }); }
+        catch (e) { return ""; }
+      }
+
+      function esc(s) {
+        return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+        });
+      }
+
+      function render(data) {
+        last = data || { aggregate: {}, submissions: [] };
+        var subs = last.submissions || [];
+        meta.innerHTML = '<span class="breath-dot"></span>' +
+          (last.count != null ? last.count : subs.length) + " raters . updated " +
+          esc(fmtTime(last.updatedAt) || "just now");
+
+        var agg = last.aggregate || {};
+        var ids = Object.keys(agg).sort(function (a, b) { return (agg[b].liking || 0) - (agg[a].liking || 0); });
+        if (!ids.length) {
+          aggBody.innerHTML = '<div class="live-empty">Waiting for the first scorecard.</div>';
+        } else {
+          aggBody.innerHTML = ids.map(function (cid) {
+            var b = agg[cid];
+            var pct = Math.round(((b.liking || 0) / 10) * 100);
+            return '<div class="agg-row"><span class="code">' + esc(conceptName(cid)) + "</span>" +
+              '<span class="agg-bar"><i style="width:' + pct + '%"></i></span>' +
+              '<span class="val">' + (b.liking || 0).toFixed(1) + "</span></div>";
+          }).join("");
+        }
+
+        if (!subs.length) {
+          raterBody.innerHTML = '<div class="live-empty">No raters yet.</div>';
+        } else {
+          raterBody.innerHTML = '<div class="tm-grid">' + subs.map(function (s) {
+            return '<div class="tm-card" style="cursor:default">' +
+              '<span class="tag">' + s.rated + " rated . " + esc(fmtTime(s.updatedAt)) + "</span>" +
+              "<h3>" + esc(s.rater || "Guest") + "</h3>" +
+              '<p>Avg liking ' + (s.avgLiking || 0).toFixed(1) + " . composite " + (s.avgComposite || 0).toFixed(1) + "</p></div>";
+          }).join("") + "</div>";
+        }
+      }
+
+      function load() {
+        fetch("/api/score/live", { credentials: "same-origin" })
+          .then(function (r) {
+            if (r.status === 401) { location.replace("/gate?return=" + encodeURIComponent("/score-live")); return null; }
+            return r.json();
+          })
+          .then(function (d) {
+            if (!d) return;
+            if (d.ok) render(d);
+            else meta.innerHTML = '<span class="breath-dot"></span>Live sync not configured (' + esc(d.error || "no store") + ").";
+          })
+          .catch(function () { meta.innerHTML = '<span class="breath-dot"></span>Offline, retrying.'; });
+      }
+
+      document.getElementById("live-refresh").addEventListener("click", load);
+
+      document.getElementById("live-csv").addEventListener("click", function () {
+        var agg = last.aggregate || {};
+        var ids = Object.keys(agg);
+        var lines = ["concept,liking,unique,intent,composite,count"];
+        ids.forEach(function (cid) {
+          var b = agg[cid];
+          lines.push('"' + conceptName(cid).replace(/"/g, '""') + '",' +
+            (b.liking || 0).toFixed(2) + "," + (b.unique || 0).toFixed(2) + "," +
+            (b.intent || 0).toFixed(2) + "," + (b.composite || 0).toFixed(2) + "," + (b.count || 0));
+        });
+        var blob = new Blob([lines.join("\n")], { type: "text/csv" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "scorecard-" + new Date().toISOString().slice(0, 10) + ".csv";
+        a.click();
+      });
+
+      document.getElementById("live-reset").addEventListener("click", function () {
+        if (!confirm("Reset all scorecard submissions for the room?")) return;
+        fetch("/api/score/live", { method: "DELETE", credentials: "same-origin" })
+          .then(function () { load(); });
+      });
+
+      load();
+      setInterval(load, 5000);
+    </script>
+  </body>
+</html>

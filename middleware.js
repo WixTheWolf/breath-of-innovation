@@ -1,5 +1,13 @@
-/** Server-side gate — TFF team password (same as /api/auth). */
-const PROTECTED = new Set(["/packet", "/speaker-packet"]);
+/** Server-side gate. TFF team password (same as /api/auth). */
+const PROTECTED = new Set([
+  "/packet",
+  "/speaker-packet",
+  "/team",
+  "/chlorite",
+  "/emails",
+  "/mystery-live",
+  "/score-live"
+]);
 
 // Matches api/auth.js default HMAC for password TFF4321#
 const DEFAULT_TOKEN = "8318d6e214f2f81cf9b808f102dd75d6c39e98530ed22d04ccc940377ba39a5f";
@@ -33,5 +41,5 @@ export default function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/packet", "/speaker-packet"]
+  matcher: ["/packet", "/speaker-packet", "/team", "/chlorite", "/emails", "/mystery-live", "/score-live"]
 };

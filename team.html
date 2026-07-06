@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#f7fafc" />
+    <title>Team Hub · Breath of Innovation</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/system.css" />
+  </head>
+  <body class="team-page sys">
+    <div class="tm-wrap">
+      <header class="tm-top">
+        <a class="tm-top-brand" href="/team"><span class="tm-mark">TFF</span><b>Team hub</b></a>
+        <nav class="tm-top-links">
+          <a href="/">Guest hub</a>
+          <a href="/present">Slides</a>
+          <a href="/packet">Packet</a>
+          <button type="button" id="tm-signout">Sign out</button>
+        </nav>
+      </header>
+
+      <p class="tm-badge">Internal · TFF team only</p>
+      <h1>Command center</h1>
+      <p class="tm-lead">Everything the team needs to prep and run July 8. Guests never see this page, it sits behind the team password.</p>
+
+      <h2>Run the day</h2>
+      <div class="tm-grid cols-3">
+        <a class="tm-card" href="/packet">
+          <span class="tag">Script</span>
+          <h3>Speaker packet</h3>
+          <p>Full talk tracks for every slide, plus the top 10 strategic questions to ask TheraBreath.</p>
+          <span class="go">Open packet →</span>
+        </a>
+        <a class="tm-card" href="/present">
+          <span class="tag">9:30 AM</span>
+          <h3>Live presentation</h3>
+          <p>The public four-pillar deck. Space reveals key points, F for fullscreen.</p>
+          <span class="go">Open slides →</span>
+        </a>
+        <a class="tm-card" href="/visit">
+          <span class="tag">Schedule</span>
+          <h3>Day-of timeline</h3>
+          <p>The guest schedule with the live now marker. Same page guests see.</p>
+          <span class="go">Open timeline →</span>
+        </a>
+      </div>
+
+      <h2>Live tasting admin · 10:30 AM</h2>
+      <div class="tm-grid">
+        <a class="tm-card" href="/mystery-live">
+          <span class="tag">Live</span>
+          <h3>Blind mapping results</h3>
+          <p>Watch guest matches come in during the blind tasting. Per-player scores, CSV export, reset.</p>
+          <span class="go">Open live board →</span>
+        </a>
+        <a class="tm-card" href="/score-live">
+          <span class="tag">Live</span>
+          <h3>Scorecard summary</h3>
+          <p>Room aggregate for M1 to M5 plus per-rater detail as scorecards are submitted.</p>
+          <span class="go">Open live summary →</span>
+        </a>
+      </div>
+
+      <h2>Reference &amp; data</h2>
+      <div class="tm-grid cols-3">
+        <a class="tm-card" href="/chlorite">
+          <span class="tag">R&amp;D</span>
+          <h3>Sodium chlorite flavor science</h3>
+          <p>Why OXYD-8 is hard on flavors, which compound classes hold, and how M1 to M5 are built for it.</p>
+          <span class="go">Open reference →</span>
+        </a>
+        <a class="tm-card" href="/portfolio">
+          <span class="tag">Gallery</span>
+          <h3>Flavor portfolio</h3>
+          <p>Production SKUs, the M1 to M5 pipeline, and Gen Alpha directions.</p>
+          <span class="go">Open portfolio →</span>
+        </a>
+        <a class="tm-card" href="/assets/docs/therabreath-flavor-usage.xlsx" download>
+          <span class="tag">XLSX · data</span>
+          <h3>TheraBreath flavor usage</h3>
+          <p>Flavor usage workbook, the source data behind the production portfolio.</p>
+          <span class="go">Download workbook →</span>
+        </a>
+      </div>
+
+      <h2>Documents &amp; print</h2>
+      <div class="tm-grid">
+        <a class="tm-card" href="/assets/docs/therabreath-capabilities-workshop-booklet.pdf">
+          <span class="tag">PDF · 18 pages</span>
+          <h3>Capabilities workshop booklet</h3>
+          <p>Print booklet for the room. Partnership, four pillars, trends, five prototype concepts, sensory guide, and feedback sheet.</p>
+          <span class="go">Open PDF →</span>
+        </a>
+        <a class="tm-card" href="/emails">
+          <span class="tag">Templates</span>
+          <h3>Email templates</h3>
+          <p>Copy-ready pre-visit confirmation and the 24-hour follow-up thank-you.</p>
+          <span class="go">Open templates →</span>
+        </a>
+      </div>
+
+      <h2>Room logistics</h2>
+      <div class="tm-note">
+        <strong>Arrivals 9:00 AM</strong> at 2058 Second Street, Norco, CA 92860. Tour first, presentation 9:30 in the conference room across from The Flavor Factory, break 10:15, tasting 10:30, lunch 11:30 to 1:00, open Q&amp;A after 1:00 PM. Phones charged for the tasting tools, cups coded M1 to M5.
+      </div>
+
+      <footer class="tm-foot">Confidential · The Flavor Factory · TheraBreath · internal use only</footer>
+    </div>
+
+    <script src="/js/auth.js"></script>
+    <script>
+      if (!TFF.isAuthed()) location.replace("/gate?return=" + encodeURIComponent("/team"));
+      document.getElementById("tm-signout").addEventListener("click", function () { TFF.logout(); });
+    </script>
+  </body>
+</html>
