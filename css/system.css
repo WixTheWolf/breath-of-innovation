@@ -88,6 +88,7 @@
   mix-blend-mode: luminosity;
   opacity: 0.9;
   filter: contrast(1.04) brightness(1.02);
+  transition: opacity var(--dur-base) var(--ease-out), filter var(--dur-base) var(--ease-out);
 }
 
 .media::after {
@@ -96,6 +97,24 @@
   inset: 0;
   background: linear-gradient(160deg, transparent 40%, color-mix(in srgb, var(--ink) 22%, transparent));
   pointer-events: none;
+  opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .media:hover img,
+  a:focus-visible .media img,
+  button:focus-visible .media img {
+    mix-blend-mode: normal;
+    opacity: 1;
+    filter: none;
+  }
+
+  .media:hover::after,
+  a:focus-visible .media::after,
+  button:focus-visible .media::after {
+    opacity: 0;
+  }
 }
 
 /* ── The breath motif ──────────────────────────────────────── */
@@ -871,6 +890,18 @@ body.port-mode .port-card-img:not(.port-card-img--bottle):not(.port-card-img--te
 body.port-mode .port-card-img:not(.port-card-img--bottle):not(.port-card-img--text) img {
   mix-blend-mode: luminosity;
   opacity: 0.9;
+  transition:
+    transform 0.6s var(--ease),
+    opacity var(--dur-base) var(--ease-out),
+    filter var(--dur-base) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  body.port-mode .port-card:hover .port-card-img:not(.port-card-img--bottle):not(.port-card-img--text) img,
+  body.port-mode .port-card:focus-visible .port-card-img:not(.port-card-img--bottle):not(.port-card-img--text) img {
+    mix-blend-mode: normal;
+    opacity: 1;
+    filter: none;
+  }
 }
 body.port-mode .port-card-foot-tag { font-family: var(--font-mono); letter-spacing: 0.08em; }
 body.port-mode .port-card-title {
