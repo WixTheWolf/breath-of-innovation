@@ -402,3 +402,205 @@ body.hub .hub-foot-qr img {
   padding: 5px;
 }
 body.hub .hub-foot-qr figcaption { font-family: var(--font-mono); font-size: var(--t-xs); color: var(--ink-55); margin-top: 6px; letter-spacing: 0.08em; }
+
+/* ═══════════════════════════════════════════════════════════════
+   DECK (html.pres-mode) · frost stage, ink text, section rail
+   ═══════════════════════════════════════════════════════════════ */
+html.pres-mode,
+html.pres-mode body { background: var(--frost); }
+
+html.pres-mode :focus-visible { outline: 2px solid var(--breath); outline-offset: 2px; }
+
+/* Retire the multi-color canvas. A calm frost backdrop that inhales
+   at section boundaries. */
+html.pres-mode #pres-bg-canvas { display: none; }
+html.pres-mode .pres-bg {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 12%, color-mix(in srgb, var(--breath) 10%, transparent), transparent 70%),
+    var(--frost);
+  transform-origin: 50% 40%;
+}
+@keyframes pres-inhale {
+  0% { transform: scale(1.035); }
+  100% { transform: scale(1); }
+}
+html.pres-mode .pres-bg.inhaling { animation: pres-inhale 1.2s var(--ease-inout); }
+@media (prefers-reduced-motion: reduce) {
+  html.pres-mode .pres-bg.inhaling { animation: none; }
+}
+
+/* Slide sheet: paper with ink text */
+html.pres-mode .pres-slide-inner {
+  background: linear-gradient(180deg, var(--paper), color-mix(in srgb, var(--frost) 45%, var(--paper)));
+  color: var(--ink);
+}
+html.pres-mode .pres-slide.cover .pres-slide-inner {
+  background:
+    radial-gradient(circle at 20% 18%, color-mix(in srgb, var(--breath) 12%, transparent), transparent 45%),
+    var(--paper);
+}
+html.pres-mode .pres-slide-inner::before {
+  background: linear-gradient(90deg, var(--breath), color-mix(in srgb, var(--breath) 40%, var(--copper)));
+}
+
+/* Type in-system */
+html.pres-mode .pres-slide h1,
+html.pres-mode .pres-qa-q {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 40, "WONK" 0;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+html.pres-mode .pres-tag,
+html.pres-mode .pres-qa-label,
+html.pres-mode #pres-counter { font-family: var(--font-mono); color: var(--ink-70); letter-spacing: 0.1em; }
+html.pres-mode .pres-body,
+html.pres-mode .pres-lead { font-family: var(--font-body); color: var(--ink-70); }
+html.pres-mode .pres-body strong { color: var(--ink); }
+html.pres-mode .pres-logo { background: var(--ink); color: var(--paper); }
+html.pres-mode .pres-pills span,
+html.pres-mode .pres-pillar-badge {
+  font-family: var(--font-mono);
+  background: color-mix(in srgb, var(--breath) 14%, var(--paper));
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+html.pres-mode .pres-quote {
+  font-family: var(--font-display);
+  border-left: 3px solid var(--breath);
+  background: color-mix(in srgb, var(--breath) 8%, var(--paper));
+  color: var(--ink);
+}
+
+/* Slide transition: horizontal 24px slide + fade */
+html.pres-mode .pres-slide {
+  transform: translateX(24px);
+  transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out), visibility var(--dur-base);
+}
+html.pres-mode .pres-slide.active { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html.pres-mode .pres-slide { transform: none; transition: opacity var(--dur-base) var(--ease-out), visibility var(--dur-base); }
+}
+
+/* Key-point reveals: mask wipe left to right, staggered */
+html.pres-mode .pres-qa-bullets li {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--dur-base) var(--ease-out);
+}
+html.pres-mode .pres-slide-qa.revealed .pres-qa-bullets li { clip-path: inset(0 0 0 0); }
+html.pres-mode .pres-slide-qa.revealed .pres-qa-bullets li:nth-child(1) { transition-delay: 40ms; }
+html.pres-mode .pres-slide-qa.revealed .pres-qa-bullets li:nth-child(2) { transition-delay: 110ms; }
+html.pres-mode .pres-slide-qa.revealed .pres-qa-bullets li:nth-child(3) { transition-delay: 180ms; }
+html.pres-mode .pres-slide-qa.revealed .pres-qa-bullets li:nth-child(4) { transition-delay: 250ms; }
+html.pres-mode .pres-slide-qa.revealed .pres-qa-bullets li:nth-child(5) { transition-delay: 320ms; }
+@media (prefers-reduced-motion: reduce) {
+  html.pres-mode .pres-qa-bullets li { clip-path: none; }
+}
+
+/* Reveal button */
+html.pres-mode .pres-reveal-btn {
+  font-family: var(--font-mono);
+  background: var(--ink);
+  color: var(--paper);
+}
+html.pres-mode .pres-slide-qa.revealed .pres-reveal-btn {
+  background: color-mix(in srgb, var(--frost) 60%, var(--paper));
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+html.pres-mode .pres-qa-bullets {
+  background: color-mix(in srgb, var(--breath) 6%, var(--paper));
+  border: 1px solid var(--line);
+}
+html.pres-mode .pres-qa-bullets li::before { background: var(--breath); box-shadow: none; }
+
+/* Pillar overview: 2x2 grid with large ghost numerals */
+html.pres-mode .pres-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 2.4vmin, 22px);
+}
+html.pres-mode .pres-pillar-cell {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(16px, 3vmin, 30px);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--frost) 40%, var(--paper));
+}
+html.pres-mode .pres-pillar-cell::before {
+  content: attr(data-n);
+  position: absolute;
+  right: 0.1em;
+  bottom: -0.28em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(5rem, 16vmin, 11rem);
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0.08;
+  pointer-events: none;
+}
+html.pres-mode .pres-pillar-cell h3 {
+  position: relative;
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 40;
+  font-weight: 500;
+  font-size: clamp(1.1rem, 2.6vmin, 1.7rem);
+  color: var(--ink);
+  margin: 0 0 0.3em;
+}
+html.pres-mode .pres-pillar-cell p { position: relative; color: var(--ink-70); font-family: var(--font-body); font-size: clamp(0.85rem, 1.7vmin, 1.05rem); }
+@media (max-width: 640px) {
+  html.pres-mode .pres-pillars { grid-template-columns: 1fr; }
+}
+
+/* Section progress rail */
+html.pres-mode .pres-rail {
+  flex-shrink: 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 4px;
+  padding: 0 14px 6px;
+  background: transparent;
+}
+html.pres-mode .pres-rail-seg {
+  height: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+  transition: background var(--dur-base) var(--ease-out);
+}
+html.pres-mode .pres-rail-seg.past { background: color-mix(in srgb, var(--ink) 34%, transparent); }
+html.pres-mode .pres-rail-seg.current { background: var(--breath); }
+
+/* Toolbar in-system */
+html.pres-mode .pres-toolbar {
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  border-top: 1px solid var(--line);
+}
+html.pres-mode .pres-toolbar-actions .primary { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+html.pres-mode .pres-toolbar-hint { color: var(--ink-55); font-family: var(--font-mono); font-size: var(--t-xs); }
+html.pres-mode .pres-toolbar kbd { background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink-70); font-family: var(--font-mono); }
+
+/* Keyboard hint auto-hide plus toggle */
+html.pres-mode .pres-hint {
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+html.pres-mode .pres-hint.is-hidden { opacity: 0; pointer-events: none; }
+html.pres-mode .pres-hint-toggle {
+  display: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--frost) 50%, var(--paper));
+  color: var(--ink-70);
+  font-family: var(--font-mono);
+  cursor: pointer;
+}
+html.pres-mode .pres-hint.is-hidden + .pres-hint-toggle { display: inline-flex; align-items: center; justify-content: center; }
+
+/* Fullscreen: hide all chrome except the rail */
+html.pres-mode .pres-app.fs-chrome-hidden .pres-rail { transform: none; opacity: 1; }

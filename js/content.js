@@ -1,18 +1,18 @@
-/** Canonical content — Breath of Innovation · July 8, 2026 */
+/** Canonical content. Breath of Innovation · July 8, 2026 */
 window.BOI = {
   event: {
     title: "Breath of Innovation",
     date: "Tuesday, July 8, 2026",
     location: "Norco, California",
     arrival: "9:00 AM",
-    arrivalNote: "2058 Second Street — facility tour at 9:00 AM, presentation across the street at 9:30",
+    arrivalNote: "2058 Second Street, facility tour at 9:00 AM, presentation across the street at 9:30",
     facility: "2058 Second Street, Norco, CA 92860",
     phone: "(951) 273-9877",
     web: "flavorfactory.net",
   },
   schedule: [
     { time: "9:00 AM", end: "9:25", title: "Facility tour", desc: "Production, QC, TheraBreath room", accent: "#5fb832" },
-    { time: "9:30", end: "10:15", title: "Presentation", desc: "Four pillars — open conversation", accent: "#008fd3" },
+    { time: "9:30", end: "10:15", title: "Presentation", desc: "Four pillars, open conversation", accent: "#008fd3" },
     { time: "10:15", end: "10:30", title: "Break", desc: "Reset before tasting", accent: "#5c6678" },
     { time: "10:30", end: "11:15", title: "Tasting", desc: "Five prototypes · blind then score", accent: "#f58220" },
     { time: "11:30", end: "1:00", title: "Lunch off site", desc: "Your hosts take the group", accent: "#5b6b8a" },
@@ -62,7 +62,7 @@ window.BOI = {
       cards: [
         {
           num: 1,
-          question: "If TheraBreath doubles in volume over the next 3–5 years, how will TFF support that growth?",
+          question: "If TheraBreath doubles in volume over the next 3 to 5 years, how will TFF support that growth?",
           points: ["Built for headroom", "More shifts & equipment", "Invest as you grow"],
           answer: "We intentionally operate with room to grow. Our current infrastructure, staffing model, and production planning processes allow us to absorb significant growth. As demand increases, we can expand production schedules, add equipment, increase staffing, and continue investing in our facility to support TheraBreath's growth trajectory.",
         },
@@ -163,7 +163,7 @@ window.BOI = {
       pillarShort: "Pillar 4",
       num: 4,
       color: "#0a1628",
-      intro: "Why TFF is the right long-term partner — and what success looks like.",
+      intro: "Why TFF is the right long-term partner, and what success looks like.",
       cards: [
         {
           num: 14,
@@ -189,7 +189,7 @@ window.BOI = {
   strategicQuestions: [
     {
       num: 1,
-      question: "What does success look like for TheraBreath in 3–5 years?",
+      question: "What does success look like for TheraBreath in 3 to 5 years?",
       points: ["Align investments with brand direction", "Plan capacity & innovation together"],
       why: "Helps us align our investments and capabilities with the brand's future direction.",
     },

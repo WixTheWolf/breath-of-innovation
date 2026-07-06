@@ -3,26 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#eef3f8" />
+    <meta name="theme-color" content="#dcebf5" />
     <title>Presentation · Breath of Innovation</title>
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..600,0..100,0..1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/site.css" />
     <link rel="stylesheet" href="/css/present.css" />
     <link rel="stylesheet" href="/css/brand.css" />
+    <link rel="stylesheet" href="/css/system.css" />
   </head>
   <body>
     <div class="pres-app" id="pres-app">
       <aside class="pres-qr-dock" aria-label="Scan to open on your phone">
         <a class="pres-qr-item" href="https://breath-of-innovation.vercel.app/present" title="Open presentation">
-          <img src="/assets/qr/present-sm.png" alt="QR code — open presentation" width="72" height="72" />
+          <img src="/assets/qr/present-sm.png" alt="QR code, open presentation" width="72" height="72" />
           <span class="pres-qr-label">Slides</span>
           <span class="pres-qr-url">breath-of-innovation.vercel.app/present</span>
         </a>
         <a class="pres-qr-item" href="https://breath-of-innovation.vercel.app/packet" title="Open speaker packet">
-          <img src="/assets/qr/packet-sm.png" alt="QR code — open speaker packet" width="72" height="72" />
+          <img src="/assets/qr/packet-sm.png" alt="QR code, open speaker packet" width="72" height="72" />
           <span class="pres-qr-label">Packet</span>
           <span class="pres-qr-url">breath-of-innovation.vercel.app/packet</span>
         </a>
@@ -41,7 +42,7 @@
             <div class="pres-slide-inner">
               <div class="pres-slide-pad">
                 <span class="pres-logo">TFF</span>
-                <p class="pres-tag">The Flavor Factory × TheraBreath</p>
+                <p class="pres-tag">The Flavor Factory · TheraBreath</p>
                 <h1>Breath of Innovation</h1>
                 <p class="pres-lead">Capabilities workshop · July 8, 2026 · Norco, California</p>
                 <div class="pres-pills"><span>Presentation · 9:30 AM</span><span>R&amp;D + Procurement</span><span>Open Q&amp;A</span></div>
@@ -59,8 +60,8 @@
                 <p class="pres-tag">Welcome</p>
                 <h1>Thank you for being here.</h1>
                 <div class="pres-body">
-                  <p>You've just walked our production floor — now we'll show you how we work. This is a <strong>capabilities review</strong>, not a sales pitch: four pillars, honest answers, and a clear picture of partnership.</p>
-                  <div class="pres-quote">We make flavors that work inside real products — built to repeat in production.</div>
+                  <p>You've just walked our production floor. Now we'll show you how we work. This is a <strong>capabilities review</strong>, not a sales pitch: four pillars, honest answers, and a clear picture of partnership.</p>
+                  <div class="pres-quote">We make flavors that work inside real products, built to repeat in production.</div>
                   <p style="color:var(--muted);font-size:0.9em">Jump in anytime. We'll adjust to what matters most to your team.</p>
                 </div>
               </div>
@@ -73,11 +74,11 @@
               <div class="pres-slide-pad">
                 <p class="pres-tag">Capabilities</p>
                 <h1>Four pillars. Honest answers.</h1>
-                <div class="pres-body pres-grid-2">
-                  <div class="pres-tile accent" style="--tile-accent:#008fd3"><h3>1 · Resiliency</h3><p>Capacity · redundancy · quality · continuity</p></div>
-                  <div class="pres-tile accent" style="--tile-accent:#5fb832"><h3>2 · Innovation</h3><p>Oral-care · sensory · new directions</p></div>
-                  <div class="pres-tile accent" style="--tile-accent:#f58220"><h3>3 · Operations</h3><p>One site · traceability · documentation</p></div>
-                  <div class="pres-tile accent" style="--tile-accent:#0a1628"><h3>4 · Partnership</h3><p>Growth · communication · vision</p></div>
+                <div class="pres-body pres-pillars">
+                  <div class="pres-pillar-cell" data-n="1"><h3>Resiliency</h3><p>Capacity · redundancy · quality · continuity</p></div>
+                  <div class="pres-pillar-cell" data-n="2"><h3>Innovation</h3><p>Oral-care · sensory · new directions</p></div>
+                  <div class="pres-pillar-cell" data-n="3"><h3>Operations</h3><p>One site · traceability · documentation</p></div>
+                  <div class="pres-pillar-cell" data-n="4"><h3>Partnership</h3><p>Growth · communication · vision</p></div>
                 </div>
               </div>
             </div>
@@ -91,7 +92,7 @@
               <div class="pres-slide-pad">
                 <p class="pres-tag">Thank you</p>
                 <h1>Questions?</h1>
-                <p class="pres-lead">Open discussion — your questions, your pace.</p>
+                <p class="pres-lead">Open discussion. Your questions, your pace.</p>
                 <div class="pres-close-card">
                   <strong>The Flavor Factory</strong><br />
                   2058 Second Street · Norco, CA 92860<br />
@@ -105,11 +106,15 @@
           </section>
         </div>
 
+        <div class="pres-rail" id="pres-rail" aria-hidden="true"></div>
+
         <footer class="pres-toolbar">
-          <span class="pres-toolbar-hint pres-toolbar-hint-desktop"><kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>Space</kbd> reveal points · <kbd>R</kbd> toggle · <kbd>F</kbd> fullscreen</span>
-          <span class="pres-toolbar-hint pres-toolbar-hint-mobile">Tap Reveal or anywhere on slide · swipe left for next</span>
-          <div class="pres-progress-track"><div class="pres-progress-fill" id="pres-progress-fill" style="width:7%"></div></div>
-          <span id="pres-counter">1 / 41</span>
+          <div class="pres-hint" id="pres-hint">
+            <span class="pres-toolbar-hint pres-toolbar-hint-desktop"><kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>Space</kbd> reveal points · <kbd>R</kbd> toggle · <kbd>F</kbd> fullscreen</span>
+            <span class="pres-toolbar-hint pres-toolbar-hint-mobile">Tap Reveal or anywhere on slide · swipe left for next</span>
+          </div>
+          <button type="button" class="pres-hint-toggle" id="pres-hint-toggle" aria-label="Show keyboard shortcuts">?</button>
+          <span id="pres-counter" class="mono">1 / 41</span>
           <div class="pres-toolbar-actions">
             <a href="/packet" class="pres-packet-link">Packet</a>
             <a href="/">Exit</a>

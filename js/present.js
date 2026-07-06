@@ -3,7 +3,12 @@
   var chaptersEl = document.getElementById("pres-chapters");
   var progressEl = document.getElementById("pres-progress-fill");
   var counterEl = document.getElementById("pres-counter");
+  var railEl = document.getElementById("pres-rail");
+  var bgEl = document.querySelector(".pres-bg");
   var app = document.getElementById("pres-app");
+  var railSegs = [];
+  var segOfSlide = [];
+  var currentSeg = -1;
   var slides = [];
   var index = 0;
   var hideTimer = null;
@@ -144,6 +149,49 @@
     if (tail.length) ch.push({ id: "close", label: "Close", slides: tail });
 
     BOI.chapters = ch;
+  }
+
+  /* Section rail: Welcome, four pillars, Close */
+  function buildRail() {
+    if (!railEl || !window.BOI || !BOI.chapters) return;
+    var ch = BOI.chapters;
+    function byId(id) { return ch.filter(function (c) { return c.id === id; })[0]; }
+    var segments = [];
+    var welcome = (byId("welcome") || { slides: [] }).slides.concat((byId("overview") || { slides: [] }).slides);
+    segments.push({ label: "Welcome", slides: welcome });
+    ch.forEach(function (c) {
+      if (c.id.indexOf("pillar-") === 0) segments.push({ label: c.label, slides: c.slides });
+    });
+    var close = byId("close");
+    if (close) segments.push({ label: "Close", slides: close.slides });
+
+    railEl.innerHTML = "";
+    railSegs = [];
+    segOfSlide = [];
+    segments.forEach(function (seg, si) {
+      var el = document.createElement("span");
+      el.className = "pres-rail-seg";
+      el.title = seg.label;
+      railEl.appendChild(el);
+      railSegs.push(el);
+      seg.slides.forEach(function (sl) { segOfSlide[sl] = si; });
+    });
+  }
+
+  function updateRail(i) {
+    if (!railSegs.length) return;
+    var seg = segOfSlide[i];
+    if (seg === undefined) seg = 0;
+    railSegs.forEach(function (el, si) {
+      el.classList.toggle("past", si < seg);
+      el.classList.toggle("current", si === seg);
+    });
+    if (seg !== currentSeg && currentSeg !== -1 && bgEl) {
+      bgEl.classList.remove("inhaling");
+      void bgEl.offsetWidth;
+      bgEl.classList.add("inhaling");
+    }
+    currentSeg = seg;
   }
 
   function chapterForSlide(i) {
@@ -316,6 +364,7 @@
     if (counterEl) counterEl.textContent = (index + 1) + " / " + slides.length;
     history.replaceState(null, "", "#" + (index + 1));
     updateChapters();
+    updateRail(index);
     updateMobileNextLabel();
     requestAnimationFrame(fitSlide);
   }
@@ -484,13 +533,31 @@
   });
   document.addEventListener("mousemove", flashChrome);
 
+  /* Keyboard hint shows briefly, then folds to a ? affordance */
+  var hintEl = document.getElementById("pres-hint");
+  var hintToggle = document.getElementById("pres-hint-toggle");
+  var hintTimer = null;
+  function foldHint() {
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(function () {
+      if (hintEl) hintEl.classList.add("is-hidden");
+    }, 4000);
+  }
+  if (hintToggle && hintEl) {
+    hintToggle.addEventListener("click", function () {
+      hintEl.classList.remove("is-hidden");
+      foldHint();
+    });
+  }
+
   buildDynamicSlides();
   bindRevealButtons();
   buildChapters();
+  buildRail();
 
   var hash = (location.hash || "").match(/^#(\d+)$/);
-  initCanvas();
   show(hash ? parseInt(hash[1], 10) - 1 : 0);
+  foldHint();
 
   if (document.fonts?.ready) document.fonts.ready.then(fitSlide);
 })();
