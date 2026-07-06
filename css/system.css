@@ -1193,6 +1193,46 @@ body.team-page .tm-foot {
   font-size: 0.76rem; color: var(--ink-55);
 }
 
+body.team-page .qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
+}
+body.team-page .qr-card {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  text-align: center;
+}
+body.team-page .qr-card:hover { border-color: var(--ink); }
+body.team-page .qr-card img {
+  width: min(100%, 180px);
+  aspect-ratio: 1;
+  display: block;
+}
+body.team-page .qr-card b { font-size: 0.9rem; }
+body.team-page .qr-card span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-55);
+}
+
+@media print {
+  body.team-page { background: #fff; }
+  body.team-page .qr-dir { max-width: none; padding: 0; }
+  body.team-page .no-print { display: none !important; }
+  body.team-page .qr-grid { grid-template-columns: repeat(4, 1fr); break-inside: avoid; }
+  body.team-page .qr-card { break-inside: avoid; padding: 10px; }
+  body.team-page .qr-card img { width: 120px; }
+  body.team-page h2 { margin-top: 24px; }
+}
+
 /* Prose pages: chlorite reference */
 body.team-page .tm-prose { max-width: 72ch; }
 body.team-page .tm-prose h2 { margin-top: 44px; }

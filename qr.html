@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#f7fafc" />
+    <title>QR Directory · TFF Command Center</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/system.css" />
+  </head>
+  <body class="team-page sys">
+    <div class="tm-wrap qr-dir">
+      <header class="tm-top no-print">
+        <a class="tm-top-brand" href="/team"><span class="tm-mark">TFF</span><b>QR directory</b></a>
+        <nav class="tm-top-links">
+          <a href="/team">Command center</a>
+          <button type="button" onclick="window.print()">Print</button>
+          <button type="button" id="tm-signout">Sign out</button>
+        </nav>
+      </header>
+
+      <p class="tm-badge">Internal · TFF team only</p>
+      <h1>QR code directory</h1>
+      <p class="tm-lead">Current production links for every guest experience and internal TFF tool. Internal links require the team password.</p>
+
+      <h2>TheraBreath guest pages</h2>
+      <div class="qr-grid">
+        <a class="qr-card" href="/"><img src="/assets/qr/home.png" alt="QR code for workshop hub" /><b>Workshop hub</b><span>/</span></a>
+        <a class="qr-card" href="/find"><img src="/assets/qr/find.png" alt="QR code for guest directory" /><b>Guest directory</b><span>/find</span></a>
+        <a class="qr-card" href="/visit"><img src="/assets/qr/visit.png" alt="QR code for visit schedule" /><b>Your day</b><span>/visit</span></a>
+        <a class="qr-card" href="/present"><img src="/assets/qr/present.png" alt="QR code for presentation" /><b>Presentation</b><span>/present</span></a>
+        <a class="qr-card" href="/portfolio"><img src="/assets/qr/portfolio.png" alt="QR code for flavor portfolio" /><b>Flavor portfolio</b><span>/portfolio</span></a>
+        <a class="qr-card" href="/taste"><img src="/assets/qr/taste.png" alt="QR code for Flavor Flight Challenge" /><b>Flavor Flight</b><span>/taste</span></a>
+      </div>
+
+      <h2>Internal TFF pages</h2>
+      <div class="qr-grid">
+        <a class="qr-card" href="/team"><img src="/assets/qr/team.png" alt="QR code for TFF Command Center" /><b>Command center</b><span>/team</span></a>
+        <a class="qr-card" href="/packet"><img src="/assets/qr/packet.png" alt="QR code for speaker packet" /><b>Speaker packet</b><span>/packet</span></a>
+        <a class="qr-card" href="/score"><img src="/assets/qr/score.png" alt="QR code for Flavor Flight results" /><b>Flight results</b><span>/score</span></a>
+        <a class="qr-card" href="/chlorite"><img src="/assets/qr/chlorite.png" alt="QR code for sodium chlorite reference" /><b>Chlorite reference</b><span>/chlorite</span></a>
+        <a class="qr-card" href="/mystery-live"><img src="/assets/qr/mystery-live.png" alt="QR code for legacy blind mapping board" /><b>Legacy mapping</b><span>/mystery-live</span></a>
+        <a class="qr-card" href="/score-live"><img src="/assets/qr/score-live.png" alt="QR code for legacy score summary" /><b>Legacy scores</b><span>/score-live</span></a>
+        <a class="qr-card" href="/gate"><img src="/assets/qr/gate.png" alt="QR code for TFF team access" /><b>Team access</b><span>/gate</span></a>
+        <a class="qr-card" href="/qr"><img src="/assets/qr/qr.png" alt="QR code for this QR directory" /><b>QR directory</b><span>/qr</span></a>
+      </div>
+
+      <h2>Archived tasting pages</h2>
+      <div class="qr-grid">
+        <a class="qr-card" href="/map"><img src="/assets/qr/map.png" alt="QR code for legacy blind mapping" /><b>Legacy mapping form</b><span>/map</span></a>
+      </div>
+
+      <footer class="tm-foot">Confidential · The Flavor Factory · internal use only</footer>
+    </div>
+    <script src="/js/auth.js"></script>
+    <script>
+      if (!TFF.isAuthed()) location.replace("/gate?return=" + encodeURIComponent("/qr"));
+      document.getElementById("tm-signout").addEventListener("click", function () { TFF.logout(); });
+    </script>
+  </body>
+</html>

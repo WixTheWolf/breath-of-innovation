@@ -20,6 +20,7 @@
           <a href="/">Guest hub</a>
           <a href="/present">Slides</a>
           <a href="/packet">Packet</a>
+          <a href="/qr">QR directory</a>
           <button type="button" id="tm-signout">Sign out</button>
         </nav>
       </header>
@@ -54,18 +55,24 @@
       </div>
 
       <h2>Live tasting admin · 10:30 AM</h2>
-      <div class="tm-grid">
+      <div class="tm-grid cols-3">
+        <a class="tm-card" href="/score">
+          <span class="tag">Current</span>
+          <h3>Flavor Flight results</h3>
+          <p>Average scores, top-ranked sample, descriptors, daily-use intent, CSV export, and the private flavor key.</p>
+          <span class="go">Open flight results →</span>
+        </a>
         <a class="tm-card" href="/mystery-live">
-          <span class="tag">Live</span>
-          <h3>Blind mapping results</h3>
-          <p>Watch guest matches come in during the blind tasting. Per-player scores, CSV export, reset.</p>
-          <span class="go">Open live board →</span>
+          <span class="tag">Legacy</span>
+          <h3>Blind mapping board</h3>
+          <p>Archived coded-cup mapping results, per-player scores, CSV export, and room reset.</p>
+          <span class="go">Open legacy board →</span>
         </a>
         <a class="tm-card" href="/score-live">
-          <span class="tag">Live</span>
-          <h3>Scorecard summary</h3>
-          <p>Room aggregate for M1 to M5 plus per-rater detail as scorecards are submitted.</p>
-          <span class="go">Open live summary →</span>
+          <span class="tag">Legacy</span>
+          <h3>Legacy score summary</h3>
+          <p>Archived M1 to M5 room aggregate and per-rater scorecard detail.</p>
+          <span class="go">Open legacy summary →</span>
         </a>
       </div>
 
@@ -88,6 +95,22 @@
           <h3>TheraBreath flavor usage</h3>
           <p>Flavor usage workbook, the source data behind the production portfolio.</p>
           <span class="go">Download workbook →</span>
+        </a>
+      </div>
+
+      <h2>Tools &amp; access</h2>
+      <div class="tm-grid">
+        <a class="tm-card" href="/qr">
+          <span class="tag">Print &amp; share</span>
+          <h3>QR code directory</h3>
+          <p>Updated QR codes for every guest page and every password-gated TFF page.</p>
+          <span class="go">Open QR directory →</span>
+        </a>
+        <a class="tm-card" href="/gate">
+          <span class="tag">Access</span>
+          <h3>Team access gate</h3>
+          <p>Open the password screen used to protect the command center and internal tools.</p>
+          <span class="go">Open access gate →</span>
         </a>
       </div>
 

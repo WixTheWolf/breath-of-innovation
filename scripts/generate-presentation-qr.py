@@ -1,4 +1,4 @@
-"""Regenerate presentation + packet QR assets. Run after URL changes."""
+"""Regenerate QR assets for every live guest and internal page."""
 from pathlib import Path
 
 import qrcode
@@ -7,8 +7,23 @@ BASE = "https://breath-of-innovation.vercel.app"
 OUT = Path(__file__).resolve().parents[1] / "assets" / "qr"
 
 TARGETS = {
+    "site": f"{BASE}/",
+    "home": f"{BASE}/",
+    "find": f"{BASE}/find",
+    "visit": f"{BASE}/visit",
     "present": f"{BASE}/present",
+    "portfolio": f"{BASE}/portfolio",
+    "taste": f"{BASE}/taste",
+    "mystery": f"{BASE}/map",
+    "map": f"{BASE}/map",
+    "score": f"{BASE}/score",
+    "gate": f"{BASE}/gate",
+    "team": f"{BASE}/team",
     "packet": f"{BASE}/packet",
+    "chlorite": f"{BASE}/chlorite",
+    "mystery-live": f"{BASE}/mystery-live",
+    "score-live": f"{BASE}/score-live",
+    "qr": f"{BASE}/qr",
 }
 
 
