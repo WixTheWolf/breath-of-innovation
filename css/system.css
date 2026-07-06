@@ -1070,7 +1070,7 @@ body.visit-page .boi-btn.primary { background: var(--ink); color: var(--paper); 
 body.visit-page .boi-foot { color: var(--ink-55); border-top: 1px solid var(--line); }
 
 /* ============================================================
-   Internal team pages. /team, /chlorite, /emails, live admin.
+   Internal team pages. /team, /chlorite, packet, live admin.
    Light paper surface, mono labels, quiet cards.
    ============================================================ */
 body.team-page {
@@ -1135,6 +1135,23 @@ body.team-page .tm-card .go {
   display: inline-block; margin-top: 12px;
   font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink);
 }
+body.team-page .tm-packet-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 88px;
+  align-items: center;
+  gap: 18px;
+}
+body.team-page .tm-packet-qr {
+  width: 88px;
+  height: 88px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+@media (max-width: 420px) {
+  body.team-page .tm-packet-card { grid-template-columns: 1fr; }
+}
 body.team-page .tm-note {
   padding: 14px 16px; border: 1px solid var(--line); border-left: 3px solid var(--breath);
   border-radius: 8px; background: color-mix(in srgb, var(--breath) 6%, var(--paper));
@@ -1167,27 +1184,6 @@ body.team-page .lane {
 }
 body.team-page .lane.stable { background: color-mix(in srgb, var(--breath) 18%, var(--paper)); color: var(--ink); }
 body.team-page .lane.review { background: color-mix(in srgb, var(--copper) 16%, var(--paper)); color: var(--copper); }
-
-/* Email templates */
-body.team-page .tm-email { border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 22px; background: var(--paper); }
-body.team-page .tm-email-head {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--frost);
-  border-radius: var(--radius) var(--radius) 0 0; flex-wrap: wrap;
-}
-body.team-page .tm-email-head b { font-size: 0.92rem; }
-body.team-page .tm-email-head .mono { font-size: 0.68rem; color: var(--ink-55); }
-body.team-page .tm-email pre {
-  margin: 0; padding: 16px 18px; white-space: pre-wrap; word-break: break-word;
-  font-family: var(--font-body); font-size: 0.88rem; line-height: 1.6; color: var(--ink-70);
-}
-body.team-page .tm-copy {
-  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em;
-  padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line);
-  background: var(--paper); color: var(--ink); cursor: pointer;
-}
-body.team-page .tm-copy:hover { border-color: var(--ink); }
-body.team-page .tm-copy.done { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
 /* Live admin dashboards */
 body.team-page .live-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }

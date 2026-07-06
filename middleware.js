@@ -4,7 +4,6 @@ const PROTECTED = new Set([
   "/speaker-packet",
   "/team",
   "/chlorite",
-  "/emails",
   "/mystery-live",
   "/score-live"
 ]);
@@ -41,5 +40,5 @@ export default function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/packet", "/speaker-packet", "/team", "/chlorite", "/emails", "/mystery-live", "/score-live"]
+  matcher: ["/packet", "/speaker-packet", "/team", "/chlorite", "/mystery-live", "/score-live"]
 };
