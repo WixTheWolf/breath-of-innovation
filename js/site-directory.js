@@ -23,12 +23,12 @@ window.SiteDirectory = {
     {
       id: "tasting",
       title: "Tasting · 10:30 AM",
-      desc: "Blind mapping and scorecard",
+      desc: "Guest flavor flight and live admin",
       accent: "#f58220",
       items: [
-        { href: "/taste", title: "Tasting hub", desc: "Gateway to blind mapping and the scorecard", path: "/taste", keywords: "tasting sensory 1030 flavors" },
-        { href: "/map", title: "Blind flavor mapping", desc: "Match the coded cups before the reveal", path: "/map", keywords: "blind mystery mapping coded cups reveal", hot: true },
-        { href: "/score", title: "Prototype scorecard", desc: "Rate the five prototypes after the reveal", path: "/score", keywords: "score scorecard rating prototypes", hot: true }
+        { href: "/taste", title: "Flavor Flight Challenge", desc: "Guest-guided blind tasting for Samples A-E", path: "/taste", keywords: "tasting sensory 1030 flavor flight samples", hot: true },
+        { href: "/map", title: "Legacy blind mapping", desc: "Archived coded-cup mapping workflow", path: "/map", keywords: "blind mystery mapping coded cups reveal", internal: true },
+        { href: "/score", title: "Flight results admin", desc: "Aggregate results, CSV export, private flavor key", path: "/score", keywords: "score results admin csv reveal", internal: true }
       ]
     },
     {

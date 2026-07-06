@@ -5,10 +5,9 @@
   var LINKS = [
     { href: "/", label: "Home", match: ["/", "/index.html", "/agenda"] },
     { href: "/find", label: "Find", match: ["/find"], find: true },
-    { href: "/visit", label: "Day hub", match: ["/visit", "/taste"] },
+    { href: "/visit", label: "Day hub", match: ["/visit"] },
     { href: "/present", label: "Slides", match: ["/present", "/presentation"] },
-    { href: "/mystery", label: "Mapping", match: ["/mystery", "/map"] },
-    { href: "/score", label: "Score", cta: true, match: ["/score"] }
+    { href: "/taste", label: "Tasting", cta: true, match: ["/taste"] }
   ];
 
   function path() {
