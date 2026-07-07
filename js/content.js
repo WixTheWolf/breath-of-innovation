@@ -162,6 +162,12 @@ window.BOI = {
           points: ["Supplier relationships", "Alt sourcing", "Inventory visibility"],
           answer: "We actively manage supplier relationships, monitor inventory levels, evaluate alternative sourcing opportunities, and maintain visibility on critical ingredients to reduce supply risk.",
         },
+        {
+          num: 17,
+          question: "What does TFF's manufacturing footprint look like, and how does it scale across sites?",
+          points: ["One site, one roof", "Contingency partners", "Scales in place"],
+          answer: "The Flavor Factory develops, produces, and quality checks under one roof in Norco, which keeps control and traceability high. For coverage beyond a single site we maintain contingency and emergency manufacturing relationships. Capacity scales in place through added shifts, equipment, and dedicated space rather than a second address.",
+        },
       ],
     },
     {

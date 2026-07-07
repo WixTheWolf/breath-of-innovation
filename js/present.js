@@ -70,6 +70,7 @@
     11: "What have we already invested?",
     12: "How do we hold service levels?",
     13: "How do we secure critical materials?",
+    17: "One site, or many?",
     14: "Why the right long-term partner?",
     15: "What makes working with us different?",
     16: "What does success look like by year five?",
@@ -152,12 +153,23 @@
   }
 
   function injectSketches() {
-    if (!window.BOISketches) return;
     slides.forEach(function (s) {
-      var scene = sceneForSlide(s);
-      if (!scene || !BOISketches[scene]) return;
       var inner = s.querySelector(".pres-slide-inner");
       if (!inner || inner.querySelector(".pres-sketch")) return;
+      /* Pillar slides get the full color pillar icon */
+      if (s.classList.contains("pres-slide-pillar") && window.BOIPillarIcons) {
+        var pn = parseInt(s.dataset.pillar, 10) || 1;
+        if (!BOIPillarIcons[pn]) return;
+        var pic = document.createElement("div");
+        pic.className = "pres-sketch pres-pillar-icon";
+        pic.setAttribute("data-pillar", String(pn));
+        pic.innerHTML = BOIPillarIcons[pn];
+        inner.appendChild(pic);
+        return;
+      }
+      if (!window.BOISketches) return;
+      var scene = sceneForSlide(s);
+      if (!scene || !BOISketches[scene]) return;
       var div = document.createElement("div");
       div.className = "pres-sketch";
       div.setAttribute("data-scene", scene);
@@ -365,7 +377,7 @@
   /* Supporting detail lives in the appendix, nothing is deleted.
      Demoted Q&A cards by card.num, plus the facility photo slide and
      the non-featured strategic questions. */
-  var APPENDIX_CARDS = { 1: [4, 5], 2: [8], 4: [14] };
+  var APPENDIX_CARDS = { 1: [3], 2: [8] };
   var FEATURED_STRATEGIC = [0, 9];
 
   function buildDynamicSlides() {

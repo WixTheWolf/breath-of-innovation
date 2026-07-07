@@ -157,3 +157,79 @@ window.BOISketches = (function () {
 
   return scenes;
 })();
+
+/**
+ * Full color pillar icons, matching the illustrated set. These render
+ * on the four pillar slides in place of the line sketch. Filled shapes,
+ * so they fade in rather than draw on. No pathLength here on purpose.
+ */
+window.BOIPillarIcons = (function () {
+  var NAVY = "#12386b";
+  var BLUE = "#a9cdec";
+  var GREEN = "#8fce5a";
+  var GREEND = "#4f9c22";
+  var DROP = "#9cc3e6";
+  var ORANGE = "#f58220";
+  function wrap(inner) {
+    return (
+      '<svg class="pic" viewBox="0 0 120 120" fill="none" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      inner + "</svg>"
+    );
+  }
+
+  return {
+    /* 1 Resiliency: a shield with a check, protected and continuous */
+    1: wrap(
+      '<path d="M60 18 L94 29 V58 Q94 89 60 104 Q26 89 26 58 V29 Z" fill="#eef4fa" stroke="' + NAVY + '" stroke-width="3.4"/>' +
+      '<path d="M60 27 L86 35 V58 Q86 82 60 94 Q34 82 34 58 V35 Z" fill="none" stroke="' + BLUE + '" stroke-width="2"/>' +
+      '<path d="M47 59 l10 11 19 -25" fill="none" stroke="' + GREEN + '" stroke-width="7"/>'
+    ),
+
+    /* 2 Innovation: a bright idea with a leaf and a drop inside */
+    2: wrap(
+      '<g stroke="' + NAVY + '" stroke-width="3.1">' +
+      '<line x1="60" y1="9" x2="60" y2="18"/>' +
+      '<line x1="31" y1="21" x2="37" y2="29"/>' +
+      '<line x1="89" y1="21" x2="83" y2="29"/>' +
+      '<line x1="17" y1="49" x2="26" y2="51"/>' +
+      '<line x1="103" y1="49" x2="94" y2="51"/>' +
+      "</g>" +
+      '<path d="M60 22 a26 26 0 0 1 16 46 q-3 3 -3 8 v3 h-26 v-3 q0 -5 -3 -8 a26 26 0 0 1 16 -46 Z" fill="#fff" stroke="' + NAVY + '" stroke-width="3.4"/>' +
+      '<path d="M47 84 h26 M50 91 h20" stroke="' + NAVY + '" stroke-width="3.1"/>' +
+      '<path d="M56 45 q13 3 9 25 q-15 -3 -9 -25 Z" fill="' + GREEN + '" stroke="' + GREEND + '" stroke-width="1.8"/>' +
+      '<path d="M69 57 q7 9 0 15 q-7 -6 0 -15 Z" fill="' + DROP + '" stroke="#2f7fbf" stroke-width="1.8"/>'
+    ),
+
+    /* 3 Operations: a checked clipboard and a gear, run reliably */
+    3: wrap(
+      '<rect x="24" y="28" width="50" height="64" rx="6" fill="#fff" stroke="' + NAVY + '" stroke-width="3.4"/>' +
+      '<rect x="39" y="22" width="20" height="11" rx="3" fill="' + BLUE + '" stroke="' + NAVY + '" stroke-width="3"/>' +
+      '<g stroke="' + GREEN + '" stroke-width="2.6" fill="none">' +
+      '<circle cx="37" cy="47" r="5"/><path d="M34.6 47 l1.8 2 3.4 -4"/>' +
+      '<circle cx="37" cy="62" r="5"/><path d="M34.6 62 l1.8 2 3.4 -4"/>' +
+      '<circle cx="37" cy="77" r="5"/><path d="M34.6 77 l1.8 2 3.4 -4"/>' +
+      "</g>" +
+      '<g stroke="' + NAVY + '" stroke-width="3" stroke-linecap="round">' +
+      '<line x1="48" y1="47" x2="66" y2="47"/>' +
+      '<line x1="48" y1="62" x2="66" y2="62"/>' +
+      '<line x1="48" y1="77" x2="66" y2="77"/>' +
+      "</g>" +
+      '<g transform="translate(88 80)">' +
+      '<path d="M0 -15 l3 0 2 -5 4 1 0 5 3 2 4 -3 3 3 -3 4 2 3 5 0 1 4 -5 2 0 3 3 3 -3 3 -4 -2 -3 2 -1 4 -4 -1 -1 -5 -3 -2 -4 3 -3 -3 3 -4 -2 -3 -5 0 -1 -4 5 -2 0 -3 z" fill="#eef4fa" stroke="' + NAVY + '" stroke-width="2.6"/>' +
+      '<circle cx="0" cy="0" r="5" fill="#fff" stroke="' + NAVY + '" stroke-width="2.6"/>' +
+      "</g>"
+    ),
+
+    /* 4 Partnership: two puzzle pieces coming together */
+    4: wrap(
+      '<g stroke="' + ORANGE + '" stroke-width="3">' +
+      '<line x1="60" y1="24" x2="60" y2="34"/>' +
+      '<line x1="47" y1="28" x2="51" y2="36"/>' +
+      '<line x1="73" y1="28" x2="69" y2="36"/>' +
+      "</g>" +
+      '<path d="M28 48 H57 V56 A6 6 0 0 1 57 68 V80 H28 V68 A6 6 0 0 0 28 56 Z" fill="' + BLUE + '" stroke="' + NAVY + '" stroke-width="3.2"/>' +
+      '<path d="M92 48 H63 V56 A6 6 0 0 0 63 68 V80 H92 V68 A6 6 0 0 1 92 56 Z" fill="' + GREEN + '" stroke="' + NAVY + '" stroke-width="3.2"/>'
+    ),
+  };
+})();

@@ -1903,3 +1903,21 @@ html.pres-mode .pres-slide.active .pres-sketch [pathLength]:nth-child(n+8) { ani
     animation: none;
   }
 }
+
+/* Full color pillar icons on the four pillar slides. Filled shapes,
+   so they fade in rather than draw on. */
+html.pres-mode .pres-pillar-icon {
+  width: clamp(124px, 23vmin, 216px);
+  opacity: 1;
+}
+html.pres-mode .pres-pillar-icon .pic { display: block; width: 100%; height: auto; }
+html.pres-mode .pres-slide.active .pres-pillar-icon {
+  animation: pillar-pop 480ms var(--ease-out) both;
+}
+@keyframes pillar-pop {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.pres-mode .pres-slide.active .pres-pillar-icon { animation: none; }
+}
