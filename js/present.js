@@ -72,47 +72,149 @@
     );
   }
 
-  function qaSlide(section, card, pos, total) {
+  function qaSlide(section, card, pos, total, opts) {
+    opts = opts || {};
+    var extraClass = opts.strategic ? " pres-slide-strategic" : "";
+    var tag = opts.strategic
+      ? "Strategic · Question " + pos
+      : esc(section.pillarShort) + " · Question " + pos + " of " + total;
+    var color = opts.strategic ? "#6c5ce7" : section.color;
+    var answerClass = opts.strategic ? " pres-qa-answer strategic" : " pres-qa-answer";
+    var btnClass = opts.strategic ? " pres-reveal-btn strategic" : " pres-reveal-btn";
     return makeSlide(
-      "pres-slide-qa",
-      '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
+      "pres-slide-qa" + extraClass,
+      '<div class="pres-slide-inner" style="--pillar-color:' + color + '">' +
         '<div class="pres-slide-pad">' +
-        '<p class="pres-tag">' + esc(section.pillarShort) + " · Question " + pos + " of " + total + "</p>" +
+        '<p class="pres-tag">' + tag + "</p>" +
         '<div class="pres-qa-stage">' +
         '<p class="pres-qa-label">Question</p>' +
         '<h2 class="pres-qa-q">' + esc(card.question) + "</h2>" +
         '<div class="pres-qa-reveal">' +
         '<p class="pres-qa-label answer">Key points</p>' +
-        '<div class="pres-qa-answer">' + bulletList(card.points) + "</div>" +
+        '<div class="' + answerClass.trim() + '">' + bulletList(card.points) + "</div>" +
         "</div>" +
-        '<button type="button" class="pres-reveal-btn" data-reveal-label="Reveal points" data-hide-label="Hide points">' +
+        '<button type="button" class="' + btnClass.trim() + '" data-reveal-label="Reveal points" data-hide-label="Hide points">' +
         '<span class="pres-reveal-icon" aria-hidden="true">✦</span> Reveal points</button>' +
         "</div></div></div>"
     );
   }
 
+  function agendaSlide() {
+    var items = (BOI.schedule || [])
+      .map(function (item) {
+        var isNow = item.title === "Presentation";
+        return (
+          '<li class="' + (isNow ? "is-now" : "") + '" style="--accent:' + esc(item.accent || "#008fd3") + '">' +
+          "<time>" + esc(item.time) + "</time>" +
+          "<div><b>" + esc(item.title) + "</b><span>" + esc(item.desc) + "</span></div></li>"
+        );
+      })
+      .join("");
+    return makeSlide(
+      "pres-slide-agenda pres-slide-dynamic",
+      '<div class="pres-slide-inner"><div class="pres-slide-pad">' +
+        '<p class="pres-tag">Your day</p>' +
+        "<h1>Where we are in July 8.</h1>" +
+        '<p class="pres-lead">Tour done. Now capabilities. Then tasting at 10:30.</p>' +
+        '<ul class="pres-agenda">' + items + "</ul>" +
+        "</div></div>"
+    );
+  }
+
+  function facilitySlide() {
+    return makeSlide(
+      "pres-slide-facility pres-slide-dynamic",
+      '<div class="pres-slide-inner"><div class="pres-slide-pad pres-facility">' +
+        '<div class="pres-facility-copy">' +
+        '<p class="pres-tag">You just walked this</p>' +
+        "<h1>From the floor to the conversation.</h1>" +
+        '<div class="pres-body">' +
+        "<p>You saw production, QC, and the TheraBreath room. This presentation connects what you walked to how we plan, document, and scale.</p>" +
+        '<div class="pres-quote">One site in Norco — development, production, and quality under one roof.</div>' +
+        "</div></div>" +
+        '<figure class="pres-facility-photo">' +
+        '<img src="/assets/companies/tff/therabreath-production-room.jpg" alt="TheraBreath production room at The Flavor Factory" width="384" height="512" decoding="async" />' +
+        "<figcaption>The Flavor Factory · production room</figcaption></figure>" +
+        "</div></div>"
+    );
+  }
+
+  function handoffSlide() {
+    return makeSlide(
+      "pres-slide-handoff pres-slide-dynamic",
+      '<div class="pres-slide-inner"><div class="pres-slide-pad">' +
+        '<p class="pres-tag">What&apos;s next</p>' +
+        "<h1>10:30 — blind Flavor Flight.</h1>" +
+        '<p class="pres-lead">Five prototypes. Score on your phone. Results live in the room.</p>' +
+        '<div class="pres-handoff-grid">' +
+        '<a class="pres-handoff-card" href="/taste">' +
+        '<span class="pres-handoff-kicker">10:30 AM</span><strong>Tasting</strong><span>Blind samples A–E · score as you go</span></a>' +
+        '<a class="pres-handoff-card" href="/portfolio">' +
+        '<span class="pres-handoff-kicker">Gallery</span><strong>Flavor portfolio</strong><span>53 SKUs · pipeline · Gen Alpha</span></a>' +
+        '<div class="pres-handoff-qr">' +
+        '<img src="/assets/qr/score-sm.png" alt="QR code for tasting" width="88" height="88" />' +
+        "<span>Scan for tasting</span></div></div>" +
+        "</div></div>"
+    );
+  }
+
+  function strategicIntroSlide() {
+    return makeSlide(
+      "pres-slide-strategic-intro pres-slide-dynamic",
+      '<div class="pres-slide-inner" style="--pillar-color:#6c5ce7"><div class="pres-slide-pad">' +
+        '<p class="pres-tag">Your turn</p>' +
+        "<h1>Questions for TheraBreath.</h1>" +
+        '<p class="pres-lead">Three strategic prompts to shape the partnership conversation. Full list of ten is in your speaker packet.</p>' +
+        '<div class="pres-pills pres-pills-left">' +
+        "<span>Vision &amp; growth</span><span>Innovation priorities</span><span>Confidence &amp; partnership</span>" +
+        "</div>" +
+        '<p class="pres-intro-hint">Reveal key points on each — then open the floor.</p>' +
+        "</div></div>"
+    );
+  }
+
   function buildDynamicSlides() {
     if (!viewport || !window.BOI) return;
-    var staticSlides = Array.prototype.slice.call(
-      viewport.querySelectorAll(".pres-slide:not(.pres-slide-dynamic)")
-    );
-    var closeSlide = staticSlides[3];
-    if (!closeSlide) return;
+    var closeSlide = viewport.querySelector(".pres-slide-close");
+    var overviewSlide = viewport.querySelector(".pres-slide-overview");
+    var welcomeSlide = viewport.querySelector(".pres-slide-welcome");
+    if (!closeSlide || !overviewSlide || !welcomeSlide) return;
 
-    var frag = document.createDocumentFragment();
+    var preOverview = document.createDocumentFragment();
+    preOverview.appendChild(agendaSlide());
+    preOverview.appendChild(facilitySlide());
+    overviewSlide.parentNode.insertBefore(preOverview, overviewSlide);
 
+    var pillarFrag = document.createDocumentFragment();
     BOI.qaSections.forEach(function (section) {
       var intro = pillarIntroSlide(section);
       intro.classList.add("pres-slide-dynamic");
-      frag.appendChild(intro);
+      pillarFrag.appendChild(intro);
       section.cards.forEach(function (card, c) {
         var slide = qaSlide(section, card, c + 1, section.cards.length);
         slide.classList.add("pres-slide-dynamic");
-        frag.appendChild(slide);
+        pillarFrag.appendChild(slide);
       });
     });
+    closeSlide.parentNode.insertBefore(pillarFrag, closeSlide);
 
-    viewport.insertBefore(frag, closeSlide);
+    var closeFrag = document.createDocumentFragment();
+    closeFrag.appendChild(handoffSlide());
+    closeFrag.appendChild(strategicIntroSlide());
+    var featured = [0, 4, 9];
+    (BOI.strategicQuestions || []).forEach(function (card, i) {
+      if (featured.indexOf(i) === -1) return;
+      var slide = qaSlide(
+        { pillarShort: "Strategic", color: "#6c5ce7" },
+        card,
+        featured.indexOf(i) + 1,
+        3,
+        { strategic: true }
+      );
+      slide.classList.add("pres-slide-dynamic");
+      closeFrag.appendChild(slide);
+    });
+    closeSlide.parentNode.insertBefore(closeFrag, closeSlide);
 
     slides = Array.prototype.slice.call(viewport.querySelectorAll(".pres-slide"));
     slides.forEach(function (s, i) {
@@ -123,19 +225,30 @@
   }
 
   function buildChaptersFromSlides() {
-    if (!window.BOI) return;
+    if (!window.BOI || !slides.length) return;
     var ch = [];
+    var i = 0;
 
-    ch.push({ id: "welcome", label: "Welcome", slides: [0, 1] });
-    ch.push({ id: "overview", label: "Overview", slides: [2] });
+    function take(count, id, label) {
+      var ids = [];
+      for (var n = 0; n < count && i < slides.length; n++) {
+        ids.push(i);
+        i += 1;
+      }
+      if (ids.length) ch.push({ id: id, label: label, slides: ids });
+    }
 
-    var cursor = 3;
+    take(1, "cover", "Cover");
+    take(1, "welcome", "Welcome");
+    take(2, "today", "Today");
+    take(1, "overview", "Overview");
+
     BOI.qaSections.forEach(function (section) {
-      var ids = [cursor];
-      cursor += 1;
+      var ids = [i];
+      i += 1;
       section.cards.forEach(function () {
-        ids.push(cursor);
-        cursor += 1;
+        ids.push(i);
+        i += 1;
       });
       ch.push({
         id: "pillar-" + section.num,
@@ -145,10 +258,32 @@
     });
 
     var tail = [];
-    for (var t = cursor; t < slides.length; t++) tail.push(t);
+    while (i < slides.length) {
+      tail.push(i);
+      i += 1;
+    }
     if (tail.length) ch.push({ id: "close", label: "Close", slides: tail });
 
     BOI.chapters = ch;
+  }
+
+  function jumpToPillar(num) {
+    if (!BOI.chapters) return;
+    var ch = BOI.chapters.filter(function (c) {
+      return c.id === "pillar-" + num;
+    })[0];
+    if (ch && ch.slides.length) {
+      show(ch.slides[0]);
+      flashChrome();
+    }
+  }
+
+  function bindPillarPicker() {
+    Array.prototype.forEach.call(document.querySelectorAll(".pres-pillar-cell[data-pillar]"), function (btn) {
+      btn.addEventListener("click", function () {
+        jumpToPillar(parseInt(btn.dataset.pillar, 10));
+      });
+    });
   }
 
   /* Section rail: Welcome, four pillars, Close */
@@ -157,8 +292,12 @@
     var ch = BOI.chapters;
     function byId(id) { return ch.filter(function (c) { return c.id === id; })[0]; }
     var segments = [];
-    var welcome = (byId("welcome") || { slides: [] }).slides.concat((byId("overview") || { slides: [] }).slides);
-    segments.push({ label: "Welcome", slides: welcome });
+    var intro = [];
+    ["cover", "welcome", "today", "overview"].forEach(function (id) {
+      var c = byId(id);
+      if (c) intro = intro.concat(c.slides);
+    });
+    segments.push({ label: "Intro", slides: intro });
     ch.forEach(function (c) {
       if (c.id.indexOf("pillar-") === 0) segments.push({ label: c.label, slides: c.slides });
     });
@@ -234,6 +373,10 @@
 
   function isQaSlide(slide) {
     return slide && slide.classList.contains("pres-slide-qa");
+  }
+
+  function isRevealSlide(slide) {
+    return slide && (slide.classList.contains("pres-slide-qa") || slide.classList.contains("pres-slide-strategic"));
   }
 
   function isRevealed(slide) {
@@ -344,7 +487,7 @@
     if (!nextBtn || !isTouch) return;
     var slide = slides[index];
     nextBtn.textContent =
-      isQaSlide(slide) && !isRevealed(slide) ? "Reveal" : "Next";
+      isRevealSlide(slide) && !isRevealed(slide) ? "Reveal" : "Next";
   }
 
   function show(i) {
@@ -379,7 +522,7 @@
 
   function handleAdvance() {
     var slide = slides[index];
-    if (isQaSlide(slide) && !isRevealed(slide)) {
+    if (isRevealSlide(slide) && !isRevealed(slide)) {
       toggleReveal(slide);
       flashChrome();
       return;
@@ -404,50 +547,6 @@
     hideTimer = setTimeout(function () {
       if (document.fullscreenElement) app.classList.add("fs-chrome-hidden");
     }, 3200);
-  }
-
-  function initCanvas() {
-    var canvas = document.getElementById("pres-bg-canvas");
-    if (!canvas) return;
-    var ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    var orbs = [
-      { x: 0.2, y: 0.3, r: 0.35, c: "0,143,211", s: 0.00015 },
-      { x: 0.8, y: 0.7, r: 0.3, c: "95,184,50", s: -0.00012 },
-      { x: 0.5, y: 0.85, r: 0.25, c: "245,130,32", s: 0.0001 },
-    ];
-    var t = 0;
-
-    function resize() {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = canvas.clientWidth * dpr;
-      canvas.height = canvas.clientHeight * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    function draw() {
-      var w = canvas.clientWidth;
-      var h = canvas.clientHeight;
-      ctx.fillStyle = "#eef3f8";
-      ctx.fillRect(0, 0, w, h);
-      orbs.forEach(function (o, i) {
-        var ox = (o.x + Math.sin(t * o.s * 1000 + i) * 0.08) * w;
-        var oy = (o.y + Math.cos(t * o.s * 1000 + i * 2) * 0.06) * h;
-        var rad = o.r * Math.min(w, h);
-        var g = ctx.createRadialGradient(ox, oy, 0, ox, oy, rad);
-        g.addColorStop(0, "rgba(" + o.c + ",0.18)");
-        g.addColorStop(1, "rgba(" + o.c + ",0)");
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, w, h);
-      });
-      t += 0.016;
-      requestAnimationFrame(draw);
-    }
-
-    resize();
-    draw();
-    window.addEventListener("resize", resize);
   }
 
   document.addEventListener("keydown", function (e) {
@@ -476,7 +575,7 @@
       toggleFullscreen();
     } else if (e.key === "r" || e.key === "R") {
       e.preventDefault();
-      if (isQaSlide(slides[index])) toggleReveal(slides[index]);
+      if (isRevealSlide(slides[index])) toggleReveal(slides[index]);
       flashChrome();
     }
   });
@@ -501,7 +600,7 @@
     var slide = slides[index];
 
     if (Math.abs(dx) < 36 && Math.abs(dy) < 36) {
-      if (isQaSlide(slide) && !isRevealed(slide)) {
+      if (isRevealSlide(slide) && !isRevealed(slide)) {
         toggleReveal(slide);
         flashChrome();
       }
@@ -552,6 +651,7 @@
 
   buildDynamicSlides();
   bindRevealButtons();
+  bindPillarPicker();
   buildChapters();
   buildRail();
 

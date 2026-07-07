@@ -544,6 +544,19 @@ html.pres-mode .pres-pillar-cell {
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: color-mix(in srgb, var(--frost) 40%, var(--paper));
+  font: inherit;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+html.pres-mode button.pres-pillar-cell:hover,
+html.pres-mode button.pres-pillar-cell:focus-visible {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--breath) 40%, var(--line));
+  box-shadow: 0 12px 28px rgba(0, 143, 211, 0.12);
+  outline: none;
 }
 html.pres-mode .pres-pillar-cell::before {
   content: attr(data-n);

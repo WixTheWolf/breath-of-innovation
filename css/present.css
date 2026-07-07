@@ -1017,3 +1017,132 @@ html.pres-touch .pres-slide-qa.revealed .pres-reveal-btn {
     font-size: 0.6rem;
   }
 }
+
+/* Cover bottle strip */
+.pres-bottle-strip {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 1.2em;
+}
+
+.pres-bottle-strip img {
+  width: clamp(72px, 12vmin, 110px);
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(10, 22, 40, 0.14);
+  object-fit: cover;
+}
+
+.pres-pillar-pick {
+  margin: 0 0 0.8em;
+  font-size: clamp(0.78rem, 1.35vmin, 0.92rem);
+  color: var(--muted);
+}
+
+.pres-agenda li.is-now {
+  border-color: color-mix(in srgb, var(--accent, var(--blue)) 45%, #e2e9ec);
+  background: color-mix(in srgb, var(--accent, var(--blue)) 8%, #fff);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--accent, var(--blue)) 18%, transparent);
+}
+
+.pres-agenda li.is-now time {
+  color: var(--accent, var(--blue));
+}
+
+.pres-facility {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(16px, 3vmin, 28px);
+  align-items: center;
+}
+
+.pres-facility-photo {
+  margin: 0;
+}
+
+.pres-facility-photo img {
+  width: 100%;
+  max-height: min(52vh, 420px);
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(10, 22, 40, 0.16);
+}
+
+.pres-facility-photo figcaption {
+  margin-top: 0.5em;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pres-handoff-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  margin-top: 1em;
+  align-items: stretch;
+}
+
+.pres-handoff-card {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid #e2e9ec;
+  background: linear-gradient(160deg, #fff 0%, #f4fafd 100%);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pres-handoff-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 143, 211, 0.14);
+}
+
+.pres-handoff-kicker {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.pres-handoff-card strong {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vmin, 1.25rem);
+}
+
+.pres-handoff-card span:last-child {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.pres-handoff-qr {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px dashed #c5d5e0;
+  background: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pres-slide-strategic-intro h1 {
+  color: #4c3ab8;
+}
+
+@media (max-width: 900px) {
+  .pres-facility,
+  .pres-handoff-grid {
+    grid-template-columns: 1fr;
+  }
+}

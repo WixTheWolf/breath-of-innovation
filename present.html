@@ -27,13 +27,18 @@
           <span class="pres-qr-label">Slides</span>
           <span class="pres-qr-url">breath-of-innovation.vercel.app/present</span>
         </a>
+        <a class="pres-qr-item" href="https://breath-of-innovation.vercel.app/taste" title="Open tasting">
+          <img src="/assets/qr/score-sm.png" alt="QR code, open tasting" width="72" height="72" />
+          <span class="pres-qr-label">Tasting</span>
+          <span class="pres-qr-url">10:30 Flavor Flight</span>
+        </a>
       </aside>
 
       <aside class="pres-chapters" id="pres-chapters"></aside>
 
       <div class="pres-main">
         <div class="pres-viewport" id="pres-viewport">
-          <div class="pres-bg"><canvas id="pres-bg-canvas" aria-hidden="true"></canvas></div>
+          <div class="pres-bg" aria-hidden="true"></div>
           <button type="button" class="pres-hitzone prev" aria-label="Previous"></button>
           <button type="button" class="pres-hitzone next" aria-label="Next"></button>
 
@@ -46,15 +51,17 @@
                 <h1>Breath of Innovation</h1>
                 <p class="pres-lead">Capabilities workshop · July 8, 2026 · Norco, California</p>
                 <div class="pres-pills"><span>Presentation · 9:30 AM</span><span>R&amp;D + Procurement</span><span>Open Q&amp;A</span></div>
-                <div class="pres-bottle-row" aria-hidden="true">
-                  <img class="pres-lineup" src="/assets/companies/therabreath/oxyd8-hero.jpg" alt="" loading="lazy" decoding="async" />
+                <div class="pres-bottle-row pres-bottle-strip" aria-hidden="true">
+                  <img src="/assets/portfolio/production/clean-mint.jpg" alt="" width="120" height="160" decoding="async" />
+                  <img src="/assets/companies/therabreath/oxyd8-hero.jpg" alt="" width="120" height="160" decoding="async" />
+                  <img src="/assets/portfolio/production/invigorating-icy-mint.jpg" alt="" width="120" height="160" decoding="async" />
                 </div>
               </div>
             </div>
           </section>
 
           <!-- 1 Welcome -->
-          <section class="pres-slide" data-i="1">
+          <section class="pres-slide pres-slide-welcome" data-i="1">
             <div class="pres-slide-inner">
               <div class="pres-slide-pad">
                 <p class="pres-tag">Welcome</p>
@@ -69,25 +76,26 @@
           </section>
 
           <!-- 2 Pillars overview -->
-          <section class="pres-slide" data-i="2">
+          <section class="pres-slide pres-slide-overview" data-i="2">
             <div class="pres-slide-inner">
               <div class="pres-slide-pad">
                 <p class="pres-tag">Capabilities</p>
                 <h1>Four pillars. Honest answers.</h1>
-                <div class="pres-body pres-pillars">
-                  <div class="pres-pillar-cell" data-n="1"><h3>Resiliency</h3><p>Capacity · redundancy · quality · continuity</p></div>
-                  <div class="pres-pillar-cell" data-n="2"><h3>Innovation</h3><p>Oral-care · sensory · new directions</p></div>
-                  <div class="pres-pillar-cell" data-n="3"><h3>Operations</h3><p>One site · traceability · documentation</p></div>
-                  <div class="pres-pillar-cell" data-n="4"><h3>Partnership</h3><p>Growth · communication · vision</p></div>
+                <p class="pres-pillar-pick">Tap a pillar to jump — or we'll walk through in order.</p>
+                <div class="pres-body pres-pillars" id="pres-pillars">
+                  <button type="button" class="pres-pillar-cell" data-n="1" data-pillar="1"><h3>Resiliency</h3><p>Capacity · redundancy · quality · continuity</p></button>
+                  <button type="button" class="pres-pillar-cell" data-n="2" data-pillar="2"><h3>Innovation</h3><p>Oral-care · sensory · new directions</p></button>
+                  <button type="button" class="pres-pillar-cell" data-n="3" data-pillar="3"><h3>Operations</h3><p>One site · traceability · documentation</p></button>
+                  <button type="button" class="pres-pillar-cell" data-n="4" data-pillar="4"><h3>Partnership</h3><p>Growth · communication · vision</p></button>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- Dynamic pillar Q&A slides injected by present.js after the overview -->
+          <!-- Dynamic slides injected by present.js: agenda, facility, pillar Q&A, handoff, strategic -->
 
-          <!-- 3 Close -->
-          <section class="pres-slide cover" data-i="3">
+          <!-- Close -->
+          <section class="pres-slide cover pres-slide-close" data-i="3">
             <div class="pres-slide-inner">
               <div class="pres-slide-pad">
                 <p class="pres-tag">Thank you</p>
@@ -114,8 +122,10 @@
             <span class="pres-toolbar-hint pres-toolbar-hint-mobile">Tap Reveal or anywhere on slide · swipe left for next</span>
           </div>
           <button type="button" class="pres-hint-toggle" id="pres-hint-toggle" aria-label="Show keyboard shortcuts">?</button>
-          <span id="pres-counter" class="mono">1 / 41</span>
+          <div class="pres-progress-track" aria-hidden="true"><div class="pres-progress-fill" id="pres-progress-fill"></div></div>
+          <span id="pres-counter" class="mono">1 / …</span>
           <div class="pres-toolbar-actions">
+            <a href="/packet" class="pres-packet-link">Packet</a>
             <a href="/">Exit</a>
             <button type="button" id="pres-prev" aria-label="Previous slide">Prev</button>
             <button type="button" id="pres-next" aria-label="Next slide or reveal">Next</button>
