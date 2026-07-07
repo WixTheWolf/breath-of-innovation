@@ -1936,8 +1936,8 @@ html.pres-mode .pres-slide.active .pres-pillar-icon {
 /* Resting states for the parts that draw or slide in */
 html.pres-mode .picon .pi-check,
 html.pres-mode .picon .pi-ck { stroke-dasharray: 1; stroke-dashoffset: 1; }
-html.pres-mode .picon .pi-piece-l { transform: translateX(-15px); }
-html.pres-mode .picon .pi-piece-r { transform: translateX(15px); }
+html.pres-mode .picon .pi-piece-l { transform: translateX(-26px); }
+html.pres-mode .picon .pi-piece-r { transform: translateX(26px); }
 html.pres-mode .picon .pi-spark { opacity: 0; }
 html.pres-mode .picon .pi-gear { transform-box: fill-box; transform-origin: center; }
 html.pres-mode .picon .pi-loop path,
