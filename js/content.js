@@ -141,8 +141,8 @@ window.BOI = {
       num: 3,
       color: "#f58220",
       intro: "Investments, service levels, and securing critical materials.",
-      questionTitle: "Could you audit us tomorrow?",
-      discussion: "What does your audit team wish every supplier did?",
+      questionTitle: "Can you count on every order?",
+      discussion: "What would make us the easiest supplier you work with?",
       cards: [
         {
           num: 11,

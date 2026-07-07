@@ -264,7 +264,7 @@
 
   /* Guess then reveal numbers. Values derived from repo data:
      53 = 14 production + 29 presented + 5 pipeline + 5 Gen Alpha (portfolio-data.js),
-     40 = Dan's years in flavor (tff-team.js). */
+     40 = the founder's years in flavor (tff-team.js). */
   var STATS = [
     {
       section: 2,
@@ -282,7 +282,7 @@
       question: "How many years of flavor experience set the standards here?",
       value: 40,
       suffix: "+",
-      story: "Dan has spent more than 40 years in flavor. He is still the first person in the room when a project gets complicated.",
+      story: "More than 40 years of flavor experience set the standards here, and it still leads from the bench when a project gets complicated.",
     },
   ];
 
