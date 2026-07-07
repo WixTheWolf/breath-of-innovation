@@ -11,9 +11,12 @@
   var currentSeg = -1;
   var slides = [];
   var index = 0;
+  var mainCount = 0;
   var hideTimer = null;
   var touchX = null;
   var touchY = null;
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var PARK_KEY = "boi-parking-v1";
   var isTouch =
     window.matchMedia("(hover: none) and (pointer: coarse)").matches ||
     window.matchMedia("(max-width: 768px)").matches;
@@ -59,15 +62,15 @@
         pillar.points.map(function (pt) { return "<span>" + esc(pt) + "</span>"; }).join("") +
         "</div>"
       : "";
+    var eyebrow = pillar ? esc(section.pillarShort) + " · " + esc(pillar.title) : esc(section.pillarShort);
     return makeSlide(
       "pres-slide-intro",
       '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
         '<div class="pres-slide-pad">' +
-        '<span class="pres-pillar-badge">' + esc(section.pillarShort) + "</span>" +
-        "<h1>" + esc(section.pillar) + "</h1>" +
+        '<span class="pres-pillar-badge">' + eyebrow + "</span>" +
+        "<h1>" + esc(section.questionTitle || section.pillar) + "</h1>" +
         '<p class="pres-lead">' + esc(section.intro) + "</p>" +
         pills +
-        '<p class="pres-intro-hint">' + section.cards.length + " questions · tap to reveal key points</p>" +
         "</div></div>"
     );
   }
@@ -77,7 +80,9 @@
     var extraClass = opts.strategic ? " pres-slide-strategic" : "";
     var tag = opts.strategic
       ? "Strategic · Question " + pos
-      : esc(section.pillarShort) + " · Question " + pos + " of " + total;
+      : opts.appendix
+        ? esc(section.pillarShort) + " · Appendix"
+        : esc(section.pillarShort) + " · Question " + pos + " of " + total;
     var color = opts.strategic ? "#6c5ce7" : section.color;
     var answerClass = opts.strategic ? " pres-qa-answer strategic" : " pres-qa-answer";
     var btnClass = opts.strategic ? " pres-reveal-btn strategic" : " pres-reveal-btn";
@@ -114,8 +119,8 @@
       "pres-slide-agenda pres-slide-dynamic",
       '<div class="pres-slide-inner"><div class="pres-slide-pad">' +
         '<p class="pres-tag">Your day</p>' +
-        "<h1>Where we are in July 8.</h1>" +
-        '<p class="pres-lead">Tour done. Now capabilities. Then tasting at 10:30.</p>' +
+        "<h1>The shape of your day.</h1>" +
+        '<p class="pres-lead">Tour done. Capabilities now. Tasting at 10:30.</p>' +
         '<ul class="pres-agenda">' + items + "</ul>" +
         "</div></div>"
     );
@@ -130,7 +135,7 @@
         "<h1>From the floor to the conversation.</h1>" +
         '<div class="pres-body">' +
         "<p>You saw production, QC, and the TheraBreath room. This presentation connects what you walked to how we plan, document, and scale.</p>" +
-        '<div class="pres-quote">One site in Norco — development, production, and quality under one roof.</div>' +
+        '<div class="pres-quote">One site in Norco. Development, production, and quality under one roof.</div>' +
         "</div></div>" +
         '<figure class="pres-facility-photo">' +
         '<img src="/assets/companies/tff/therabreath-production-room.jpg" alt="TheraBreath production room at The Flavor Factory" width="384" height="512" decoding="async" />' +
@@ -144,11 +149,11 @@
       "pres-slide-handoff pres-slide-dynamic",
       '<div class="pres-slide-inner"><div class="pres-slide-pad">' +
         '<p class="pres-tag">What&apos;s next</p>' +
-        "<h1>10:30 — blind Flavor Flight.</h1>" +
+        "<h1>10:30. The blind Flavor Flight.</h1>" +
         '<p class="pres-lead">Five prototypes. Score on your phone. Results live in the room.</p>' +
         '<div class="pres-handoff-grid">' +
         '<a class="pres-handoff-card" href="/taste">' +
-        '<span class="pres-handoff-kicker">10:30 AM</span><strong>Tasting</strong><span>Blind samples A–E · score as you go</span></a>' +
+        '<span class="pres-handoff-kicker">10:30 AM</span><strong>Tasting</strong><span>Blind samples A to E · score as you go</span></a>' +
         '<a class="pres-handoff-card" href="/portfolio">' +
         '<span class="pres-handoff-kicker">Gallery</span><strong>Flavor portfolio</strong><span>53 SKUs · pipeline · Gen Alpha</span></a>' +
         '<div class="pres-handoff-qr">' +
@@ -164,106 +169,203 @@
       '<div class="pres-slide-inner" style="--pillar-color:#6c5ce7"><div class="pres-slide-pad">' +
         '<p class="pres-tag">Your turn</p>' +
         "<h1>Questions for TheraBreath.</h1>" +
-        '<p class="pres-lead">Three strategic prompts to shape the partnership conversation. Full list of ten is in your speaker packet.</p>' +
+        '<p class="pres-lead">Two prompts to shape the partnership conversation. The full list of ten lives in the appendix and the speaker packet.</p>' +
         '<div class="pres-pills pres-pills-left">' +
-        "<span>Vision &amp; growth</span><span>Innovation priorities</span><span>Confidence &amp; partnership</span>" +
+        "<span>Vision &amp; growth</span><span>Confidence &amp; partnership</span>" +
         "</div>" +
-        '<p class="pres-intro-hint">Reveal key points on each — then open the floor.</p>' +
         "</div></div>"
     );
   }
+
+  function discussionSlide(section) {
+    return makeSlide(
+      "pres-slide-discussion",
+      '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
+        '<div class="pres-slide-pad">' +
+        '<p class="pres-tag pres-discussion-tag">Your turn · 2 min</p>' +
+        '<h1 class="pres-discussion-q">' + esc(section.discussion) + "</h1>" +
+        '<p class="pres-discussion-hint">Anyone can start.</p>' +
+        '<div class="pres-timer" aria-hidden="true"><i class="pres-timer-fill"></i><span class="pres-timer-count mono"></span></div>' +
+        "</div></div>"
+    );
+  }
+
+  /* Guess then reveal numbers. Values derived from repo data:
+     53 = 14 production + 29 presented + 5 pipeline + 5 Gen Alpha (portfolio-data.js),
+     40 = Dan's years in flavor (tff-team.js). */
+  var STATS = [
+    {
+      section: 2,
+      tag: "Pillar 2 · One number",
+      color: "#5fb832",
+      question: "How many flavors has TFF put in front of TheraBreath so far?",
+      value: 53,
+      suffix: "",
+      story: "14 in production, 29 presented concepts, 5 in today's flight, 5 Gen Alpha directions. The bench runs deep.",
+    },
+    {
+      section: 4,
+      tag: "Pillar 4 · One number",
+      color: "#0a1628",
+      question: "How many years of flavor experience set the standards here?",
+      value: 40,
+      suffix: "+",
+      story: "Dan has spent more than 40 years in flavor. He is still the first person in the room when a project gets complicated.",
+    },
+  ];
+
+  function statSlide(stat) {
+    return makeSlide(
+      "pres-slide-stat",
+      '<div class="pres-slide-inner" style="--pillar-color:' + stat.color + '">' +
+        '<div class="pres-slide-pad">' +
+        '<p class="pres-tag">' + esc(stat.tag) + "</p>" +
+        '<div class="pres-qa-stage">' +
+        '<h2 class="pres-qa-q">' + esc(stat.question) + "</h2>" +
+        '<p class="pres-stat-hint">Take a guess.</p>' +
+        '<div class="pres-qa-reveal">' +
+        '<div class="pres-qa-answer pres-stat-answer">' +
+        '<span class="pres-stat-number mono" data-value="' + stat.value + '" data-suffix="' + esc(stat.suffix) + '">0</span>' +
+        '<p class="pres-stat-story">' + esc(stat.story) + "</p>" +
+        "</div></div>" +
+        '<button type="button" class="pres-reveal-btn" data-reveal-label="Reveal" data-hide-label="Hide">' +
+        '<span class="pres-reveal-icon" aria-hidden="true">✦</span> Reveal</button>' +
+        "</div></div></div>"
+    );
+  }
+
+  function appendixCoverSlide() {
+    return makeSlide(
+      "pres-slide-appendix-cover",
+      '<div class="pres-slide-inner"><div class="pres-slide-pad">' +
+        '<p class="pres-tag">Appendix</p>' +
+        "<h1>Detail on demand.</h1>" +
+        '<p class="pres-lead">Backup slides for specific questions. Press A to jump back to the close.</p>' +
+        "</div></div>"
+    );
+  }
+
+  function tagChapter(el, id) {
+    el.classList.add("pres-slide-dynamic");
+    el.dataset.chapter = id;
+    if (id === "appendix") el.classList.add("pres-slide-appendix");
+    return el;
+  }
+
+  /* Supporting detail lives in the appendix, nothing is deleted.
+     Demoted Q&A cards by card.num, plus the facility photo slide and
+     the non-featured strategic questions. */
+  var APPENDIX_CARDS = { 1: [4, 5], 2: [8], 4: [14] };
+  var FEATURED_STRATEGIC = [0, 9];
 
   function buildDynamicSlides() {
     if (!viewport || !window.BOI) return;
     var closeSlide = viewport.querySelector(".pres-slide-close");
     var overviewSlide = viewport.querySelector(".pres-slide-overview");
-    var welcomeSlide = viewport.querySelector(".pres-slide-welcome");
-    if (!closeSlide || !overviewSlide || !welcomeSlide) return;
+    var contrastSlide = viewport.querySelector(".pres-slide-contrast");
+    if (!closeSlide || !overviewSlide || !contrastSlide) return;
 
-    var preOverview = document.createDocumentFragment();
-    preOverview.appendChild(agendaSlide());
-    preOverview.appendChild(facilitySlide());
-    overviewSlide.parentNode.insertBefore(preOverview, overviewSlide);
+    var appendixSlides = [];
+
+    overviewSlide.parentNode.insertBefore(tagChapter(agendaSlide(), "today"), overviewSlide);
 
     var pillarFrag = document.createDocumentFragment();
     BOI.qaSections.forEach(function (section) {
-      var intro = pillarIntroSlide(section);
-      intro.classList.add("pres-slide-dynamic");
-      pillarFrag.appendChild(intro);
-      section.cards.forEach(function (card, c) {
-        var slide = qaSlide(section, card, c + 1, section.cards.length);
-        slide.classList.add("pres-slide-dynamic");
-        pillarFrag.appendChild(slide);
+      var demoted = APPENDIX_CARDS[section.num] || [];
+      pillarFrag.appendChild(tagChapter(pillarIntroSlide(section), "pillar-" + section.num));
+      var kept = section.cards.filter(function (card) {
+        return demoted.indexOf(card.num) === -1;
       });
+      kept.forEach(function (card, c) {
+        pillarFrag.appendChild(
+          tagChapter(qaSlide(section, card, c + 1, kept.length), "pillar-" + section.num)
+        );
+      });
+      section.cards.forEach(function (card) {
+        if (demoted.indexOf(card.num) === -1) return;
+        appendixSlides.push(
+          tagChapter(qaSlide(section, card, card.num, 0, { appendix: true }), "appendix")
+        );
+      });
+      STATS.forEach(function (stat) {
+        if (stat.section === section.num) {
+          pillarFrag.appendChild(tagChapter(statSlide(stat), "pillar-" + section.num));
+        }
+      });
+      pillarFrag.appendChild(tagChapter(discussionSlide(section), "pillar-" + section.num));
     });
-    closeSlide.parentNode.insertBefore(pillarFrag, closeSlide);
+    contrastSlide.parentNode.insertBefore(pillarFrag, contrastSlide);
 
     var closeFrag = document.createDocumentFragment();
-    closeFrag.appendChild(handoffSlide());
-    closeFrag.appendChild(strategicIntroSlide());
-    var featured = [0, 4, 9];
-    (BOI.strategicQuestions || []).forEach(function (card, i) {
-      if (featured.indexOf(i) === -1) return;
-      var slide = qaSlide(
-        { pillarShort: "Strategic", color: "#6c5ce7" },
-        card,
-        featured.indexOf(i) + 1,
-        3,
-        { strategic: true }
-      );
-      slide.classList.add("pres-slide-dynamic");
-      closeFrag.appendChild(slide);
+    closeFrag.appendChild(tagChapter(handoffSlide(), "close"));
+    closeFrag.appendChild(tagChapter(strategicIntroSlide(), "close"));
+    var strat = BOI.strategicQuestions || [];
+    var extraPos = 0;
+    strat.forEach(function (card, i) {
+      var fi = FEATURED_STRATEGIC.indexOf(i);
+      if (fi !== -1) {
+        closeFrag.appendChild(
+          tagChapter(
+            qaSlide({ pillarShort: "Strategic", color: "#6c5ce7" }, card, fi + 1, FEATURED_STRATEGIC.length, { strategic: true }),
+            "close"
+          )
+        );
+      } else {
+        extraPos += 1;
+        appendixSlides.push(
+          tagChapter(
+            qaSlide({ pillarShort: "Strategic", color: "#6c5ce7" }, card, extraPos, strat.length - FEATURED_STRATEGIC.length, { strategic: true }),
+            "appendix"
+          )
+        );
+      }
     });
-    closeSlide.parentNode.insertBefore(closeFrag, closeSlide);
+    contrastSlide.parentNode.insertBefore(closeFrag, contrastSlide);
+
+    var appFrag = document.createDocumentFragment();
+    appFrag.appendChild(tagChapter(appendixCoverSlide(), "appendix"));
+    appFrag.appendChild(tagChapter(facilitySlide(), "appendix"));
+    appendixSlides.forEach(function (s) {
+      appFrag.appendChild(s);
+    });
+    closeSlide.parentNode.appendChild(appFrag);
 
     slides = Array.prototype.slice.call(viewport.querySelectorAll(".pres-slide"));
     slides.forEach(function (s, i) {
       s.dataset.i = String(i);
     });
 
+    mainCount = slides.length;
+    for (var m = 0; m < slides.length; m++) {
+      if (slides[m].dataset.chapter === "appendix") {
+        mainCount = m;
+        break;
+      }
+    }
+
     buildChaptersFromSlides();
   }
 
   function buildChaptersFromSlides() {
     if (!window.BOI || !slides.length) return;
-    var ch = [];
-    var i = 0;
-
-    function take(count, id, label) {
-      var ids = [];
-      for (var n = 0; n < count && i < slides.length; n++) {
-        ids.push(i);
-        i += 1;
-      }
-      if (ids.length) ch.push({ id: id, label: label, slides: ids });
-    }
-
-    take(1, "cover", "Cover");
-    take(1, "welcome", "Welcome");
-    take(2, "today", "Today");
-    take(1, "overview", "Overview");
-
-    BOI.qaSections.forEach(function (section) {
-      var ids = [i];
-      i += 1;
-      section.cards.forEach(function () {
-        ids.push(i);
-        i += 1;
-      });
-      ch.push({
-        id: "pillar-" + section.num,
-        label: section.pillarShort.replace("Pillar ", "P"),
-        slides: ids,
-      });
+    var labels = {
+      cover: "Cover",
+      welcome: "Welcome",
+      today: "Today",
+      overview: "Overview",
+      close: "Close",
+      appendix: "Appendix",
+    };
+    BOI.qaSections.forEach(function (s) {
+      labels["pillar-" + s.num] = s.pillarShort.replace("Pillar ", "P");
     });
-
-    var tail = [];
-    while (i < slides.length) {
-      tail.push(i);
-      i += 1;
-    }
-    if (tail.length) ch.push({ id: "close", label: "Close", slides: tail });
-
+    var ch = [];
+    slides.forEach(function (s, i) {
+      var id = s.dataset.chapter || "cover";
+      var last = ch[ch.length - 1];
+      if (last && last.id === id) last.slides.push(i);
+      else ch.push({ id: id, label: labels[id] || id, slides: [i] });
+    });
     BOI.chapters = ch;
   }
 
@@ -303,13 +405,15 @@
     });
     var close = byId("close");
     if (close) segments.push({ label: "Close", slides: close.slides });
+    var appendix = byId("appendix");
+    if (appendix) segments.push({ label: "Appendix", slides: appendix.slides, appendix: true });
 
     railEl.innerHTML = "";
     railSegs = [];
     segOfSlide = [];
     segments.forEach(function (seg, si) {
       var el = document.createElement("span");
-      el.className = "pres-rail-seg";
+      el.className = "pres-rail-seg" + (seg.appendix ? " is-appendix" : "");
       el.title = seg.label;
       railEl.appendChild(el);
       railSegs.push(el);
@@ -376,7 +480,29 @@
   }
 
   function isRevealSlide(slide) {
-    return slide && (slide.classList.contains("pres-slide-qa") || slide.classList.contains("pres-slide-strategic"));
+    return (
+      slide &&
+      (slide.classList.contains("pres-slide-qa") ||
+        slide.classList.contains("pres-slide-strategic") ||
+        slide.classList.contains("pres-slide-stat"))
+    );
+  }
+
+  function countUp(el) {
+    var target = parseInt(el.dataset.value, 10) || 0;
+    var suffix = el.dataset.suffix || "";
+    if (reducedMotion) {
+      el.textContent = target.toLocaleString("en-US") + suffix;
+      return;
+    }
+    var start = performance.now();
+    function frame(now) {
+      var t = Math.min(1, (now - start) / 900);
+      var eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased).toLocaleString("en-US") + (t >= 1 ? suffix : "");
+      if (t < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
   }
 
   function isRevealed(slide) {
@@ -419,6 +545,8 @@
     if (!slide) return;
     slide.classList.remove("revealed");
     var btn = slide.querySelector(".pres-reveal-btn");
+    var num = slide.querySelector(".pres-stat-number");
+    if (num) num.textContent = "0";
     syncRevealHeight(slide);
     revealLabel(btn, slide, false);
   }
@@ -430,6 +558,8 @@
     slide.classList.toggle("revealed", revealing);
     revealLabel(btn, slide, revealing);
     if (revealing) {
+      var num = slide.querySelector(".pres-stat-number");
+      if (num) countUp(num);
       refitAfterReveal(slide);
     } else {
       syncRevealHeight(slide);
@@ -493,7 +623,10 @@
   function show(i) {
     if (!slides.length) return;
     var prev = slides[index];
-    if (prev && prev !== slides[i]) resetReveal(prev);
+    if (prev && prev !== slides[i]) {
+      resetReveal(prev);
+      if (prev.classList.contains("pres-slide-discussion")) resetTimer();
+    }
 
     index = Math.max(0, Math.min(slides.length - 1, i));
     slides.forEach(function (s, n) {
@@ -503,12 +636,21 @@
         if (inner) inner.style.transform = "none";
       }
     });
-    if (progressEl) progressEl.style.width = ((index + 1) / slides.length * 100) + "%";
-    if (counterEl) counterEl.textContent = (index + 1) + " / " + slides.length;
+    var inAppendix = index >= mainCount && mainCount < slides.length;
+    if (app) app.classList.toggle("in-appendix", inAppendix);
+    if (progressEl) {
+      progressEl.style.width = inAppendix ? "100%" : ((index + 1) / mainCount * 100) + "%";
+    }
+    if (counterEl) {
+      counterEl.textContent = inAppendix
+        ? "A" + (index - mainCount + 1) + " / A" + (slides.length - mainCount)
+        : (index + 1) + " / " + mainCount;
+    }
     history.replaceState(null, "", "#" + (index + 1));
     updateChapters();
     updateRail(index);
     updateMobileNextLabel();
+    if (slides[index].classList.contains("pres-slide-close")) renderParked();
     requestAnimationFrame(fitSlide);
   }
 
@@ -549,7 +691,190 @@
     }, 3200);
   }
 
+  /* Discussion beat timer. T cycles start, pause, reset. Silent.
+     Reduced motion shows a numeric countdown instead of the bar. */
+  var TIMER_TOTAL = 120;
+  var timer = { state: "idle", remaining: TIMER_TOTAL, raf: null, last: 0 };
+
+  function timerEls() {
+    var s = slides[index];
+    if (!s || !s.classList.contains("pres-slide-discussion")) return null;
+    return {
+      bar: s.querySelector(".pres-timer"),
+      fill: s.querySelector(".pres-timer-fill"),
+      count: s.querySelector(".pres-timer-count"),
+    };
+  }
+
+  function paintTimer() {
+    var els = timerEls();
+    if (!els || !els.bar) return;
+    els.bar.classList.toggle("numeric", reducedMotion);
+    els.bar.classList.toggle("running", timer.state === "running");
+    els.bar.classList.toggle("paused", timer.state === "paused");
+    els.bar.classList.toggle("done", timer.state === "done");
+    if (reducedMotion) {
+      var whole = Math.ceil(timer.remaining);
+      var m = Math.floor(whole / 60);
+      var sec = whole % 60;
+      els.count.textContent =
+        timer.state === "idle" ? "" : m + ":" + (sec < 10 ? "0" : "") + sec;
+    } else if (els.fill) {
+      els.fill.style.width = ((1 - timer.remaining / TIMER_TOTAL) * 100) + "%";
+    }
+  }
+
+  function timerTick(ts) {
+    if (timer.state !== "running") return;
+    timer.remaining = Math.max(0, timer.remaining - (ts - timer.last) / 1000);
+    timer.last = ts;
+    paintTimer();
+    if (timer.remaining <= 0) {
+      timer.state = "done";
+      paintTimer();
+      return;
+    }
+    timer.raf = requestAnimationFrame(timerTick);
+  }
+
+  function toggleTimer() {
+    if (!timerEls()) return;
+    if (timer.state === "running") {
+      timer.state = "paused";
+      cancelAnimationFrame(timer.raf);
+    } else if (timer.state === "paused") {
+      timer.state = "idle";
+      timer.remaining = TIMER_TOTAL;
+    } else {
+      timer.state = "running";
+      timer.remaining = TIMER_TOTAL;
+      timer.last = performance.now();
+      timer.raf = requestAnimationFrame(timerTick);
+    }
+    paintTimer();
+  }
+
+  function resetTimer() {
+    cancelAnimationFrame(timer.raf);
+    timer.state = "idle";
+    timer.remaining = TIMER_TOTAL;
+    Array.prototype.forEach.call(document.querySelectorAll(".pres-timer"), function (bar) {
+      bar.classList.remove("running", "paused", "done");
+      var fill = bar.querySelector(".pres-timer-fill");
+      if (fill) fill.style.width = "0%";
+      var count = bar.querySelector(".pres-timer-count");
+      if (count) count.textContent = "";
+    });
+  }
+
+  /* Parking lot. P opens the overlay, Enter saves to localStorage,
+     the final discussion slide renders the parked list. */
+  var parkEl = document.getElementById("pres-park");
+  var parkInput = document.getElementById("pres-park-input");
+
+  function loadParked() {
+    try {
+      return JSON.parse(localStorage.getItem(PARK_KEY) || "[]");
+    } catch (err) {
+      return [];
+    }
+  }
+
+  function saveParked(list) {
+    try {
+      localStorage.setItem(PARK_KEY, JSON.stringify(list));
+    } catch (err) {}
+  }
+
+  function closePark() {
+    if (parkEl) parkEl.hidden = true;
+    if (parkInput) parkInput.blur();
+  }
+
+  function togglePark() {
+    if (!parkEl) return;
+    if (parkEl.hidden) {
+      parkEl.hidden = false;
+      if (parkInput) {
+        parkInput.value = "";
+        parkInput.focus();
+      }
+    } else {
+      closePark();
+    }
+  }
+
+  function renderParked() {
+    var host = document.getElementById("pres-parked");
+    if (!host) return;
+    var list = loadParked();
+    if (!list.length) {
+      host.innerHTML = "";
+      return;
+    }
+    host.innerHTML =
+      '<p class="pres-parked-label mono">Parked from earlier</p>' +
+      "<ul>" +
+      list.map(function (item) { return "<li>" + esc(item.text) + "</li>"; }).join("") +
+      "</ul>" +
+      '<button type="button" class="pres-parked-clear mono" id="pres-parked-clear">Clear list</button>';
+    var clearBtn = document.getElementById("pres-parked-clear");
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        saveParked([]);
+        renderParked();
+        requestAnimationFrame(fitSlide);
+      });
+    }
+  }
+
+  document.getElementById("pres-park-form")?.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var text = (parkInput && parkInput.value || "").trim();
+    if (text) {
+      var list = loadParked();
+      list.push({ text: text, slide: index + 1 });
+      saveParked(list);
+    }
+    closePark();
+    flashChrome();
+    if (slides[index] && slides[index].classList.contains("pres-slide-close")) {
+      renderParked();
+      requestAnimationFrame(fitSlide);
+    }
+  });
+
+  parkEl?.addEventListener("click", function (e) {
+    if (e.target === parkEl) closePark();
+  });
+
+  /* Seeded conversation chips on the close slide */
+  Array.prototype.forEach.call(document.querySelectorAll(".pres-chip"), function (chip) {
+    chip.addEventListener("click", function (e) {
+      e.stopPropagation();
+      chip.classList.toggle("on");
+    });
+  });
+
+  function toggleAppendix() {
+    if (mainCount >= slides.length) return;
+    if (index >= mainCount) show(mainCount - 1);
+    else show(mainCount);
+  }
+
   document.addEventListener("keydown", function (e) {
+    var tgt = e.target;
+    if (tgt && (tgt.tagName === "INPUT" || tgt.tagName === "TEXTAREA")) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closePark();
+      }
+      return;
+    }
+    if (e.key === "Escape" && parkEl && !parkEl.hidden) {
+      closePark();
+      return;
+    }
     if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown" || e.key === "Enter") {
       e.preventDefault();
       if (e.key === "ArrowRight" || e.key === "PageDown") {
@@ -576,6 +901,17 @@
     } else if (e.key === "r" || e.key === "R") {
       e.preventDefault();
       if (isRevealSlide(slides[index])) toggleReveal(slides[index]);
+      flashChrome();
+    } else if (e.key === "t" || e.key === "T") {
+      e.preventDefault();
+      toggleTimer();
+      flashChrome();
+    } else if (e.key === "p" || e.key === "P") {
+      e.preventDefault();
+      togglePark();
+    } else if (e.key === "a" || e.key === "A") {
+      e.preventDefault();
+      toggleAppendix();
       flashChrome();
     }
   });

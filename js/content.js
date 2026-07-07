@@ -59,6 +59,8 @@ window.BOI = {
       num: 1,
       color: "#008fd3",
       intro: "Supply security, capacity, and continuity as TheraBreath grows.",
+      questionTitle: "What happens when something goes wrong?",
+      discussion: "When has a flavor supplier let you down, and what did it cost you?",
       cards: [
         {
           num: 1,
@@ -98,6 +100,8 @@ window.BOI = {
       num: 2,
       color: "#5fb832",
       intro: "Flavor development, sensory science, and what's next for oral care.",
+      questionTitle: "Where do new flavors actually come from?",
+      discussion: "What is the flavor request you have not made yet because you assumed the answer was no?",
       cards: [
         {
           num: 6,
@@ -137,6 +141,8 @@ window.BOI = {
       num: 3,
       color: "#f58220",
       intro: "Investments, service levels, and securing critical materials.",
+      questionTitle: "Could you audit us tomorrow?",
+      discussion: "What does your audit team wish every supplier did?",
       cards: [
         {
           num: 11,
@@ -164,6 +170,8 @@ window.BOI = {
       num: 4,
       color: "#0a1628",
       intro: "Why TFF is the right long-term partner, and what success looks like.",
+      questionTitle: "What does year five look like?",
+      discussion: "If this partnership doubled, what would have to be true?",
       cards: [
         {
           num: 14,

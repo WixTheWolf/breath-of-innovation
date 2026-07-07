@@ -43,7 +43,7 @@
           <button type="button" class="pres-hitzone next" aria-label="Next"></button>
 
           <!-- 0 Cover -->
-          <section class="pres-slide cover active" data-i="0">
+          <section class="pres-slide cover active" data-i="0" data-chapter="cover">
             <div class="pres-slide-inner">
               <div class="pres-slide-pad">
                 <span class="pres-logo">TFF</span>
@@ -60,28 +60,26 @@
             </div>
           </section>
 
-          <!-- 1 Welcome -->
-          <section class="pres-slide pres-slide-welcome" data-i="1">
+          <!-- 1 Welcome, the cold open -->
+          <section class="pres-slide pres-slide-welcome" data-i="1" data-chapter="welcome">
             <div class="pres-slide-inner">
               <div class="pres-slide-pad">
-                <p class="pres-tag">Welcome</p>
-                <h1>Thank you for being here.</h1>
+                <p class="pres-tag">Welcome back from the floor</p>
+                <h1>You just stood where your flavors are made.</h1>
                 <div class="pres-body">
-                  <p>You've just walked our production floor. Now we'll show you how we work. This is a <strong>capabilities review</strong>, not a sales pitch: four pillars, honest answers, and a clear picture of partnership.</p>
-                  <div class="pres-quote">We make flavors that work inside real products, built to repeat in production.</div>
-                  <p style="color:var(--muted);font-size:0.9em">Jump in anytime. We'll adjust to what matters most to your team.</p>
+                  <p>The next 45 minutes are a working session, not a pitch. <strong>Interrupt us.</strong> The best version of this morning is the one where you steer.</p>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- 2 Pillars overview -->
-          <section class="pres-slide pres-slide-overview" data-i="2">
+          <!-- 2 Pillars overview, the roadmap -->
+          <section class="pres-slide pres-slide-overview" data-i="2" data-chapter="overview">
             <div class="pres-slide-inner">
               <div class="pres-slide-pad">
                 <p class="pres-tag">Capabilities</p>
                 <h1>Four pillars. Honest answers.</h1>
-                <p class="pres-pillar-pick">Tap a pillar to jump — or we'll walk through in order.</p>
+                <p class="pres-pillar-pick">Tap a pillar to jump, or walk through in order.</p>
                 <div class="pres-body pres-pillars" id="pres-pillars">
                   <button type="button" class="pres-pillar-cell" data-n="1" data-pillar="1"><h3>Resiliency</h3><p>Capacity · redundancy · quality · continuity</p></button>
                   <button type="button" class="pres-pillar-cell" data-n="2" data-pillar="2"><h3>Innovation</h3><p>Oral-care · sensory · new directions</p></button>
@@ -94,20 +92,62 @@
 
           <!-- Dynamic slides injected by present.js: agenda, facility, pillar Q&A, handoff, strategic -->
 
-          <!-- Close -->
-          <section class="pres-slide cover pres-slide-close" data-i="3">
+          <!-- Close 1 of 3: today and what could be -->
+          <section class="pres-slide pres-slide-contrast" data-chapter="close">
+            <div class="pres-slide-inner">
+              <div class="pres-slide-pad">
+                <p class="pres-tag">Where this goes</p>
+                <h1>Today, and what could be.</h1>
+                <div class="pres-contrast">
+                  <div class="pres-contrast-col is-today">
+                    <p class="pres-contrast-label mono">Today</p>
+                    <ul>
+                      <li>14 TheraBreath SKUs in production, a dedicated room in Norco</li>
+                      <li>Full traceability, batch records, COAs on demand</li>
+                      <li>Direct line to leadership, fast decisions</li>
+                    </ul>
+                  </div>
+                  <div class="pres-contrast-col is-could">
+                    <p class="pres-contrast-label mono">What could be</p>
+                    <ul>
+                      <li>Kids, gummies, powders, wellness, seasonal programs</li>
+                      <li>A shared innovation pipeline with structured sensory validation</li>
+                      <li>A co-development roadmap with capacity planned for double the volume</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Close 2 of 3: one concrete next step -->
+          <section class="pres-slide pres-slide-cta" data-chapter="close">
+            <div class="pres-slide-inner">
+              <div class="pres-slide-pad">
+                <p class="pres-tag">One next step</p>
+                <h1>Pick one prototype from today's flight.</h1>
+                <p class="pres-cta-line">We will have a revision on your bench in [MATT: needs real turnaround commitment, example 10 days].</p>
+                <p class="pres-cta-contact mono">The Flavor Factory · (951) 273-9877 · flavorfactory.net</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Close 3 of 3: open discussion -->
+          <section class="pres-slide pres-slide-close" data-chapter="close">
             <div class="pres-slide-inner">
               <div class="pres-slide-pad">
                 <p class="pres-tag">Thank you</p>
-                <h1>Questions?</h1>
-                <p class="pres-lead">Open discussion. Your questions, your pace.</p>
+                <h1>The floor is yours.</h1>
+                <div class="pres-chips" aria-label="Conversation starters">
+                  <button type="button" class="pres-chip">Ask us about the PG shortage</button>
+                  <button type="button" class="pres-chip">Ask us what we would do differently</button>
+                  <button type="button" class="pres-chip">Ask us about Gen Alpha</button>
+                </div>
+                <div class="pres-parked" id="pres-parked"></div>
                 <div class="pres-close-card">
                   <strong>The Flavor Factory</strong><br />
                   2058 Second Street · Norco, CA 92860<br />
                   (951) 273-9877 · flavorfactory.net
-                </div>
-                <div class="pres-bottle-row" aria-hidden="true">
-                  <img class="pres-lineup" src="/assets/companies/therabreath/oxyd8-hero.jpg" alt="" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>
@@ -118,7 +158,7 @@
 
         <footer class="pres-toolbar">
           <div class="pres-hint" id="pres-hint">
-            <span class="pres-toolbar-hint pres-toolbar-hint-desktop"><kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>Space</kbd> reveal points · <kbd>R</kbd> toggle · <kbd>F</kbd> fullscreen</span>
+            <span class="pres-toolbar-hint pres-toolbar-hint-desktop"><kbd>←</kbd> <kbd>→</kbd> navigate · <kbd>Space</kbd> reveal · <kbd>T</kbd> timer · <kbd>P</kbd> park a question · <kbd>A</kbd> appendix · <kbd>F</kbd> fullscreen</span>
             <span class="pres-toolbar-hint pres-toolbar-hint-mobile">Tap Reveal or anywhere on slide · swipe left for next</span>
           </div>
           <button type="button" class="pres-hint-toggle" id="pres-hint-toggle" aria-label="Show keyboard shortcuts">?</button>
@@ -132,6 +172,13 @@
             <button type="button" class="primary" id="pres-fs" aria-label="Fullscreen">Full</button>
           </div>
         </footer>
+      </div>
+      <div class="pres-park" id="pres-park" hidden>
+        <form id="pres-park-form">
+          <label class="mono" for="pres-park-input">Parking lot · save it for open Q&amp;A</label>
+          <input id="pres-park-input" type="text" maxlength="120" placeholder="Type the question, press Enter" autocomplete="off" />
+          <p class="pres-park-hint mono">Enter saves · Esc closes</p>
+        </form>
       </div>
     </div>
 
