@@ -1845,3 +1845,61 @@ html.pres-mode .pres-step-hint {
   transition: opacity var(--dur-fast) var(--ease-out);
 }
 html.pres-mode .pres-slide-pillar.steps-done .pres-step-hint { opacity: 0; }
+
+/* ============================================================
+   Sketch illustrations. One line art scene per slide, drawn on
+   when the slide becomes active. Reduced motion shows them
+   fully drawn with no animation.
+   ============================================================ */
+html.pres-mode .pres-slide-inner { position: relative; }
+html.pres-mode .pres-sketch {
+  position: absolute;
+  top: clamp(14px, 3vmin, 34px);
+  right: clamp(14px, 3vmin, 40px);
+  width: clamp(116px, 21vmin, 232px);
+  color: var(--pillar-color, var(--breath));
+  opacity: 0.9;
+  z-index: 0;
+  pointer-events: none;
+}
+html.pres-mode .pres-sketch .sk { display: block; width: 100%; height: auto; }
+
+/* Keep the sketch clear of the ghost numeral and rows on pillar slides */
+html.pres-mode .pres-slide-pillar .pres-sketch { top: clamp(12px, 2.4vmin, 26px); opacity: 0.82; }
+
+/* Cover, close, cta and contrast center their text, so the corner is free */
+html.pres-mode .pres-slide.cover .pres-sketch,
+html.pres-mode .pres-slide-close .pres-sketch,
+html.pres-mode .pres-slide-cta .pres-sketch,
+html.pres-mode .pres-slide-contrast .pres-sketch { color: var(--breath); }
+
+/* Discussion beats sit on ink, so the line goes light */
+html.pres-mode .pres-slide-discussion .pres-sketch {
+  color: color-mix(in srgb, var(--breath) 82%, var(--paper));
+  opacity: 0.8;
+}
+
+/* Draw on: every stroked element has pathLength 1 */
+html.pres-mode .pres-sketch [pathLength] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+html.pres-mode .pres-slide.active .pres-sketch [pathLength] {
+  animation: sketch-draw 760ms var(--ease-out) forwards;
+}
+html.pres-mode .pres-slide.active .pres-sketch [pathLength]:nth-child(1) { animation-delay: 120ms; }
+html.pres-mode .pres-slide.active .pres-sketch [pathLength]:nth-child(2) { animation-delay: 220ms; }
+html.pres-mode .pres-slide.active .pres-sketch [pathLength]:nth-child(3) { animation-delay: 320ms; }
+html.pres-mode .pres-slide.active .pres-sketch [pathLength]:nth-child(4) { animation-delay: 420ms; }
+html.pres-mode .pres-slide.active .pres-sketch [pathLength]:nth-child(5) { animation-delay: 500ms; }
+html.pres-mode .pres-slide.active .pres-sketch [pathLength]:nth-child(6) { animation-delay: 580ms; }
+html.pres-mode .pres-slide.active .pres-sketch [pathLength]:nth-child(7) { animation-delay: 650ms; }
+html.pres-mode .pres-slide.active .pres-sketch [pathLength]:nth-child(n+8) { animation-delay: 720ms; }
+@keyframes sketch-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  html.pres-mode .pres-sketch [pathLength],
+  html.pres-mode .pres-slide.active .pres-sketch [pathLength] {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}

@@ -125,7 +125,45 @@
     );
     el.dataset.steps = String(kept.length);
     el.dataset.step = "0";
+    el.dataset.pillar = String(section.num);
     return el;
+  }
+
+  /* Pick the storytelling sketch for a slide, main path only */
+  function sceneForSlide(s) {
+    if (s.dataset.chapter === "appendix") return null;
+    var cl = s.classList;
+    if (cl.contains("cover")) return "cover";
+    if (cl.contains("pres-slide-welcome")) return "welcome";
+    if (cl.contains("pres-slide-overview")) return "overview";
+    if (cl.contains("pres-slide-pillar")) {
+      return ["resiliency", "innovation", "operations", "partnership"][(parseInt(s.dataset.pillar, 10) || 1) - 1];
+    }
+    if (cl.contains("pres-slide-discussion")) return "discussion";
+    if (cl.contains("pres-slide-stat")) {
+      var n = s.querySelector(".pres-stat-number");
+      return n && n.dataset.value === "53" ? "shelf" : "rings";
+    }
+    if (cl.contains("pres-slide-tease")) return "tease";
+    if (cl.contains("pres-slide-contrast")) return "contrast";
+    if (cl.contains("pres-slide-cta")) return "cta";
+    if (cl.contains("pres-slide-close")) return "close";
+    return null;
+  }
+
+  function injectSketches() {
+    if (!window.BOISketches) return;
+    slides.forEach(function (s) {
+      var scene = sceneForSlide(s);
+      if (!scene || !BOISketches[scene]) return;
+      var inner = s.querySelector(".pres-slide-inner");
+      if (!inner || inner.querySelector(".pres-sketch")) return;
+      var div = document.createElement("div");
+      div.className = "pres-sketch";
+      div.setAttribute("data-scene", scene);
+      div.innerHTML = BOISketches[scene];
+      inner.appendChild(div);
+    });
   }
 
   /* Tasting anticipation: the deck's cliffhanger, lives in Innovation */
@@ -1078,6 +1116,7 @@
   }
 
   buildDynamicSlides();
+  injectSketches();
   bindRevealButtons();
   bindPillarPicker();
   buildChapters();
