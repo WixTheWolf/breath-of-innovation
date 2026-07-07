@@ -59,7 +59,7 @@ window.BOI = {
       num: 1,
       color: "#008fd3",
       intro: "Supply security, capacity, and continuity as TheraBreath grows.",
-      questionTitle: "What happens when something goes wrong?",
+      questionTitle: "Can you scale with us and absorb a shock?",
       discussion: "When has a flavor supplier let you down, and what did it cost you?",
       cards: [
         {
