@@ -1919,13 +1919,12 @@ html.pres-mode .pres-slide.active .pres-sketch [pathLength]:nth-child(n+8) { ani
   }
 }
 
-/* Illustrated pillar icons on the four pillar slides. Raster art,
-   so they fade and pop in rather than draw on. */
+/* Animated illustrated pillar icons on the four pillar slides. */
 html.pres-mode .pres-pillar-icon {
-  width: clamp(104px, 19vmin, 180px);
+  width: clamp(112px, 20vmin, 188px);
   opacity: 1;
 }
-html.pres-mode .pres-pillar-icon img { display: block; width: 100%; height: auto; }
+html.pres-mode .pres-pillar-icon .picon { display: block; width: 100%; height: auto; overflow: visible; }
 html.pres-mode .pres-slide.active .pres-pillar-icon {
   animation: pillar-pop 480ms var(--ease-out) both;
 }
@@ -1933,6 +1932,82 @@ html.pres-mode .pres-slide.active .pres-pillar-icon {
   from { opacity: 0; transform: scale(0.94); }
   to { opacity: 1; transform: none; }
 }
+
+/* Resting states for the parts that draw or slide in */
+html.pres-mode .picon .pi-check,
+html.pres-mode .picon .pi-ck { stroke-dasharray: 1; stroke-dashoffset: 1; }
+html.pres-mode .picon .pi-piece-l { transform: translateX(-15px); }
+html.pres-mode .picon .pi-piece-r { transform: translateX(15px); }
+html.pres-mode .picon .pi-spark { opacity: 0; }
+html.pres-mode .picon .pi-gear { transform-box: fill-box; transform-origin: center; }
+html.pres-mode .picon .pi-loop path,
+html.pres-mode .picon .pi-dot { }
+
+/* Motion, only while the slide is active */
+html.pres-mode .pres-slide.active .picon .pi-check,
+html.pres-mode .pres-slide.active .picon .pi-ck {
+  animation: pi-draw 620ms var(--ease-out) 340ms forwards;
+}
+html.pres-mode .pres-slide.active .picon .pi-gear {
+  animation: pi-spin 7s linear infinite;
+}
+html.pres-mode .pres-slide.active .picon .pi-gear-arrows {
+  animation: pi-spin 7s linear infinite reverse;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+html.pres-mode .pres-slide.active .picon .pi-loop path {
+  stroke-dasharray: 6 8;
+  animation: pi-flow 1.6s linear infinite;
+}
+html.pres-mode .pres-slide.active .picon .pi-ray {
+  animation: pi-twinkle 2.4s ease-in-out infinite;
+}
+html.pres-mode .pres-slide.active .picon .pi-ray:nth-child(2) { animation-delay: 0.3s; }
+html.pres-mode .pres-slide.active .picon .pi-ray:nth-child(3) { animation-delay: 0.6s; }
+html.pres-mode .pres-slide.active .picon .pi-ray:nth-child(4) { animation-delay: 0.9s; }
+html.pres-mode .pres-slide.active .picon .pi-ray:nth-child(5) { animation-delay: 1.2s; }
+html.pres-mode .pres-slide.active .picon .pi-ray:nth-child(6) { animation-delay: 1.5s; }
+html.pres-mode .pres-slide.active .picon .pi-ray:nth-child(7) { animation-delay: 1.8s; }
+html.pres-mode .pres-slide.active .picon .pi-bulb {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pi-glow 3s ease-in-out infinite;
+}
+html.pres-mode .pres-slide.active .picon .pi-piece-l {
+  animation: pi-slide-l 620ms var(--ease-out) 200ms forwards;
+}
+html.pres-mode .pres-slide.active .picon .pi-piece-r {
+  animation: pi-slide-r 620ms var(--ease-out) 200ms forwards;
+}
+html.pres-mode .pres-slide.active .picon .pi-spark {
+  animation: pi-flash 620ms var(--ease-out) 760ms forwards;
+}
+
+@keyframes pi-draw { to { stroke-dashoffset: 0; } }
+@keyframes pi-spin { to { transform: rotate(360deg); } }
+@keyframes pi-flow { to { stroke-dashoffset: -28; } }
+@keyframes pi-twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+@keyframes pi-glow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+@keyframes pi-slide-l { to { transform: translateX(0); } }
+@keyframes pi-slide-r { to { transform: translateX(0); } }
+@keyframes pi-flash { 0% { opacity: 0; } 40% { opacity: 1; } 100% { opacity: 0.85; } }
+
 @media (prefers-reduced-motion: reduce) {
   html.pres-mode .pres-slide.active .pres-pillar-icon { animation: none; }
+  html.pres-mode .picon .pi-check,
+  html.pres-mode .picon .pi-ck { stroke-dashoffset: 0; }
+  html.pres-mode .picon .pi-piece-l,
+  html.pres-mode .picon .pi-piece-r { transform: none; }
+  html.pres-mode .picon .pi-spark { opacity: 0.85; }
+  html.pres-mode .pres-slide.active .picon .pi-check,
+  html.pres-mode .pres-slide.active .picon .pi-ck,
+  html.pres-mode .pres-slide.active .picon .pi-gear,
+  html.pres-mode .pres-slide.active .picon .pi-gear-arrows,
+  html.pres-mode .pres-slide.active .picon .pi-loop path,
+  html.pres-mode .pres-slide.active .picon .pi-ray,
+  html.pres-mode .pres-slide.active .picon .pi-bulb,
+  html.pres-mode .pres-slide.active .picon .pi-piece-l,
+  html.pres-mode .pres-slide.active .picon .pi-piece-r,
+  html.pres-mode .pres-slide.active .picon .pi-spark { animation: none; }
 }

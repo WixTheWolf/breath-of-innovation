@@ -152,26 +152,18 @@
     return null;
   }
 
-  var PILLAR_ICON_FILES = {
-    1: "resiliency.png",
-    2: "innovation.png",
-    3: "operations.png",
-    4: "partnership.png",
-  };
-
   function injectSketches() {
     slides.forEach(function (s) {
       var inner = s.querySelector(".pres-slide-inner");
       if (!inner || inner.querySelector(".pres-sketch")) return;
-      /* Pillar slides get the illustrated pillar icon */
-      if (s.classList.contains("pres-slide-pillar")) {
+      /* Pillar slides get the animated illustrated pillar icon */
+      if (s.classList.contains("pres-slide-pillar") && window.BOIPillarIcons) {
         var pn = parseInt(s.dataset.pillar, 10) || 1;
-        var file = PILLAR_ICON_FILES[pn];
-        if (!file) return;
+        if (!BOIPillarIcons[pn]) return;
         var pic = document.createElement("div");
         pic.className = "pres-sketch pres-pillar-icon";
         pic.setAttribute("data-pillar", String(pn));
-        pic.innerHTML = '<img src="/assets/pillars/' + file + '" alt="" width="432" height="432" loading="eager" decoding="async" />';
+        pic.innerHTML = BOIPillarIcons[pn];
         inner.appendChild(pic);
         return;
       }

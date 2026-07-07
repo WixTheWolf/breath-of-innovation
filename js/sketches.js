@@ -157,3 +157,177 @@ window.BOISketches = (function () {
 
   return scenes;
 })();
+
+/**
+ * Animated pillar icons. SVG recreations of the illustrated pillar set,
+ * in the same navy line and brand fill style, with motion hooked up in
+ * system.css (gated by prefers-reduced-motion). Rendered on the four
+ * pillar slides. Class hooks: pi-loop, pi-check, pi-ray, pi-bulb,
+ * pi-gear, pi-ck, pi-bottle, pi-piece-l, pi-piece-r, pi-spark.
+ */
+window.BOIPillarIcons = (function () {
+  var NAVY = "#12386b";
+  var LBLUE = "#cfe0f2";
+  var BLUE = "#9cc3e6";
+  var GREEN = "#5fb832";
+  var GREENL = "#8fce5a";
+  var GREEND = "#3f8f1e";
+  var ORANGE = "#f58220";
+  var DROP = "#7fb4e6";
+  var WHITE = "#ffffff";
+
+  function wrap(inner) {
+    return (
+      '<svg class="picon" viewBox="0 0 200 200" fill="none" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      inner + "</svg>"
+    );
+  }
+  function ring() {
+    return '<circle cx="100" cy="100" r="92" stroke="' + NAVY + '" stroke-width="3" fill="none"/>';
+  }
+  /* Procedural cog centered at 0,0 */
+  function gear(rOut, rIn, teeth) {
+    var n = teeth * 2, pts = [];
+    for (var i = 0; i < n; i++) {
+      var a = (Math.PI * 2 * i) / n - Math.PI / 2;
+      var r = i % 2 === 0 ? rOut : rIn;
+      pts.push((r * Math.cos(a)).toFixed(1) + " " + (r * Math.sin(a)).toFixed(1));
+    }
+    return "M" + pts.join(" L") + " Z";
+  }
+  /* Small standing bottle, base at (bx, by) */
+  function convBottle(bx, by, cls) {
+    var h = 22;
+    return (
+      '<g class="' + cls + '" stroke="' + NAVY + '" stroke-width="2.2">' +
+      '<path d="M' + (bx - 6) + " " + by + " v-" + (h - 6) +
+        " q0 -3 2 -4 v-4 h8 v4 q2 1 2 4 v" + (h - 6) + ' Z" fill="' + WHITE + '"/>' +
+      '<rect x="' + (bx - 4) + '" y="' + (by - h - 1) + '" width="8" height="4" rx="1" fill="' + BLUE + '" stroke="none"/>' +
+      '<path d="M' + bx + " " + (by - 12) + " q4 5 0 9 q-4 -4 0 -9 Z\" fill=\"" + BLUE + '" stroke="none"/>' +
+      "</g>"
+    );
+  }
+
+  return {
+    /* 1 Resiliency: shield protected between two sites, a continuity loop */
+    1: wrap(
+      ring() +
+      '<g class="pi-loop" stroke="' + NAVY + '" stroke-width="3" fill="none">' +
+        '<path d="M58 56 A60 60 0 0 1 150 60"/>' +
+        '<path d="M150 60 l-8 -1 3 -8"/>' +
+        '<path d="M142 144 A60 60 0 0 1 50 140"/>' +
+        '<path d="M50 140 l8 1 -3 8"/>' +
+      "</g>" +
+      '<g class="pi-fac pi-fac-l" stroke="' + NAVY + '" stroke-width="2.4">' +
+        '<path d="M32 122 v-16 l7 -5 v5 l7 -5 v5 l7 -5 v21 Z" fill="' + WHITE + '"/>' +
+        '<rect x="44" y="112" width="6" height="10" fill="' + BLUE + '" stroke="none"/>' +
+      "</g>" +
+      '<g class="pi-fac pi-fac-r" stroke="' + NAVY + '" stroke-width="2.4">' +
+        '<path d="M168 122 v-16 l-7 -5 v5 l-7 -5 v5 l-7 -5 v21 Z" fill="' + WHITE + '"/>' +
+        '<rect x="150" y="112" width="6" height="10" fill="' + BLUE + '" stroke="none"/>' +
+      "</g>" +
+      '<g class="pi-dot" stroke="' + GREEN + '" stroke-width="2.4" stroke-dasharray="1.5 5">' +
+        '<line x1="58" y1="114" x2="76" y2="106"/>' +
+        '<line x1="142" y1="114" x2="124" y2="106"/>' +
+      "</g>" +
+      '<g class="pi-shield">' +
+        '<path d="M100 62 L126 71 V100 Q126 123 100 136 Q74 123 74 100 V71 Z" fill="' + LBLUE + '" stroke="' + NAVY + '" stroke-width="3"/>' +
+        '<path class="pi-check" pathLength="1" d="M88 100 l9 10 17 -22" stroke="' + GREEN + '" stroke-width="6" fill="none"/>' +
+      "</g>" +
+      '<g class="pi-box" stroke="' + NAVY + '" stroke-width="2.4">' +
+        '<path d="M89 150 h22 v18 h-22 Z" fill="' + WHITE + '"/>' +
+        '<path d="M89 150 l5 -5 h22 l-5 5" fill="' + LBLUE + '"/>' +
+        '<line x1="100" y1="150" x2="100" y2="168" stroke="' + GREEN + '" stroke-width="3"/>' +
+      "</g>"
+    ),
+
+    /* 2 Innovation: a bright idea with a leaf, a lime and a drop */
+    2: wrap(
+      ring() +
+      '<g class="pi-rays" stroke-width="3">' +
+        '<line class="pi-ray" x1="100" y1="30" x2="100" y2="41" stroke="' + BLUE + '"/>' +
+        '<line class="pi-ray" x1="66" y1="41" x2="73" y2="51" stroke="' + BLUE + '"/>' +
+        '<line class="pi-ray" x1="134" y1="41" x2="127" y2="51" stroke="' + BLUE + '"/>' +
+        '<line class="pi-ray" x1="45" y1="66" x2="56" y2="70" stroke="' + ORANGE + '"/>' +
+        '<line class="pi-ray" x1="155" y1="66" x2="144" y2="70" stroke="' + ORANGE + '"/>' +
+        '<line class="pi-ray" x1="42" y1="96" x2="53" y2="96" stroke="' + BLUE + '"/>' +
+        '<line class="pi-ray" x1="158" y1="96" x2="147" y2="96" stroke="' + BLUE + '"/>' +
+      "</g>" +
+      '<path class="pi-bulb" d="M100 50 a34 34 0 0 1 21 60 q-4 4 -4 10 v3 h-34 v-3 q0 -6 -4 -10 a34 34 0 0 1 21 -60 Z" fill="' + WHITE + '" stroke="' + NAVY + '" stroke-width="3.2"/>' +
+      '<g stroke="' + NAVY + '" stroke-width="3">' +
+        '<line x1="85" y1="126" x2="115" y2="126"/>' +
+        '<line x1="88" y1="133" x2="112" y2="133"/>' +
+        '<path d="M94 140 h12"/>' +
+      "</g>" +
+      '<path d="M90 74 q17 4 11 31 q-19 -4 -11 -31 Z" fill="' + GREENL + '" stroke="' + GREEND + '" stroke-width="1.8"/>' +
+      '<path d="M92 79 q4 13 6 23" stroke="' + GREEND + '" stroke-width="1.3" fill="none"/>' +
+      '<path d="M112 72 a27 27 0 0 1 0 42 Z" fill="' + GREENL + '" stroke="' + GREEND + '" stroke-width="1.8"/>' +
+      '<g stroke="' + GREEND + '" stroke-width="1.2">' +
+        '<line x1="112" y1="72" x2="119" y2="93"/>' +
+        '<line x1="112" y1="114" x2="119" y2="93"/>' +
+      "</g>" +
+      '<path d="M105 102 q8 11 0 18 q-8 -7 0 -18 Z" fill="' + DROP + '" stroke="#2f7fbf" stroke-width="1.8"/>'
+    ),
+
+    /* 3 Operations: a checked clipboard, a turning gear, a line of product */
+    3: wrap(
+      ring() +
+      '<g class="pi-clip">' +
+        '<rect x="40" y="50" width="52" height="66" rx="6" fill="' + WHITE + '" stroke="' + NAVY + '" stroke-width="3"/>' +
+        '<rect x="56" y="44" width="20" height="11" rx="3" fill="' + LBLUE + '" stroke="' + NAVY + '" stroke-width="2.6"/>' +
+        '<g stroke="' + GREEN + '" stroke-width="2.4" fill="none">' +
+          '<circle cx="54" cy="70" r="5"/><path class="pi-ck" pathLength="1" d="M51.4 70 l1.8 2 3.6 -4.4"/>' +
+          '<circle cx="54" cy="85" r="5"/><path class="pi-ck" pathLength="1" d="M51.4 85 l1.8 2 3.6 -4.4"/>' +
+          '<circle cx="54" cy="100" r="5"/><path class="pi-ck" pathLength="1" d="M51.4 100 l1.8 2 3.6 -4.4"/>' +
+        "</g>" +
+        '<g stroke="' + NAVY + '" stroke-width="2.6">' +
+          '<line x1="66" y1="70" x2="84" y2="70"/>' +
+          '<line x1="66" y1="85" x2="84" y2="85"/>' +
+          '<line x1="66" y1="100" x2="84" y2="100"/>' +
+        "</g>" +
+      "</g>" +
+      '<g transform="translate(142 66)">' +
+        '<g class="pi-gear-arrows" stroke="' + GREEN + '" stroke-width="2.4" fill="none">' +
+          '<path d="M-20 -5 A20 20 0 0 1 13 -14"/><path d="M13 -14 l-1 5 -5 -2"/>' +
+          '<path d="M20 5 A20 20 0 0 1 -13 14"/><path d="M-13 14 l1 -5 5 2"/>' +
+        "</g>" +
+        '<g class="pi-gear">' +
+          '<path d="' + gear(15, 10.5, 8) + '" fill="' + LBLUE + '" stroke="' + NAVY + '" stroke-width="2.6"/>' +
+          '<circle r="4.5" fill="' + WHITE + '" stroke="' + NAVY + '" stroke-width="2.4"/>' +
+        "</g>" +
+      "</g>" +
+      '<g class="pi-conveyor">' +
+        convBottle(112, 150, "pi-bottle pi-b1") +
+        convBottle(130, 150, "pi-bottle pi-b2") +
+        convBottle(148, 150, "pi-bottle pi-b3") +
+        '<rect x="94" y="150" width="74" height="15" rx="7.5" fill="' + LBLUE + '" stroke="' + NAVY + '" stroke-width="2.6"/>' +
+        '<g stroke="' + NAVY + '" stroke-width="1.8" fill="none">' +
+          '<circle cx="106" cy="157.5" r="2.4"/><circle cx="122" cy="157.5" r="2.4"/><circle cx="138" cy="157.5" r="2.4"/><circle cx="154" cy="157.5" r="2.4"/>' +
+        "</g>" +
+      "</g>" +
+      '<g class="pi-endcheck">' +
+        '<circle cx="176" cy="128" r="10" fill="' + WHITE + '" stroke="' + GREEN + '" stroke-width="2.6"/>' +
+        '<path class="pi-ck" pathLength="1" d="M171 128 l3.5 3.5 6.5 -8" stroke="' + GREEN + '" stroke-width="2.6" fill="none"/>' +
+      "</g>"
+    ),
+
+    /* 4 Partnership: two pieces snap together, hands meet */
+    4: wrap(
+      ring() +
+      '<g class="pi-spark" stroke="' + ORANGE + '" stroke-width="3">' +
+        '<line x1="100" y1="40" x2="100" y2="52"/>' +
+        '<line x1="83" y1="45" x2="89" y2="56"/>' +
+        '<line x1="117" y1="45" x2="111" y2="56"/>' +
+      "</g>" +
+      '<path class="pi-piece-l" d="M54 64 H92 V77 A8 8 0 0 1 92 93 V106 H54 V93 A8 8 0 0 0 54 77 Z" fill="' + BLUE + '" stroke="' + NAVY + '" stroke-width="3"/>' +
+      '<path class="pi-piece-r" d="M146 64 H108 V77 A8 8 0 0 0 108 93 V106 H146 V93 A8 8 0 0 1 146 77 Z" fill="' + GREENL + '" stroke="' + NAVY + '" stroke-width="3"/>' +
+      '<g class="pi-hands">' +
+        '<path d="M36 152 l26 -14 9 15 -26 15 Z" fill="' + BLUE + '" stroke="' + NAVY + '" stroke-width="2.6"/>' +
+        '<path d="M164 152 l-26 -14 -9 15 26 15 Z" fill="' + GREENL + '" stroke="' + NAVY + '" stroke-width="2.6"/>' +
+        '<path d="M66 142 q16 -7 34 3 q16 -9 34 1 q-5 13 -19 15 q-9 7 -19 1 q-17 1 -30 -20 Z" fill="' + WHITE + '" stroke="' + NAVY + '" stroke-width="2.6"/>' +
+        '<path d="M88 150 q7 4 14 2" stroke="' + NAVY + '" stroke-width="1.6" fill="none"/>' +
+      "</g>"
+    ),
+  };
+})();
