@@ -13,15 +13,32 @@
     { t: "1:00", label: "Open Q&A", desc: "Your pace", start: 780, end: 840, href: "/visit" }
   ];
 
-  /* Live day. Real clock on July 8, 2026, or ?now=MIN to preview. */
+  /* Live day. Real clock on July 8, 2026 in America/Los_Angeles,
+     or ?now=MIN to preview. */
+  function laParts() {
+    try {
+      var parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Los_Angeles",
+        year: "numeric", month: "numeric", day: "numeric",
+        hour: "numeric", minute: "numeric", hour12: false,
+      }).formatToParts(new Date());
+      var get = function (type) {
+        var p = parts.filter(function (x) { return x.type === type; })[0];
+        return p ? parseInt(p.value, 10) : 0;
+      };
+      return { y: get("year"), m: get("month"), d: get("day"), mins: (get("hour") % 24) * 60 + get("minute") };
+    } catch (err) {
+      var now = new Date();
+      return { y: now.getFullYear(), m: now.getMonth() + 1, d: now.getDate(), mins: now.getHours() * 60 + now.getMinutes() };
+    }
+  }
+
   function liveState() {
     var override = new URLSearchParams(location.search).get("now");
-    var now = new Date();
-    var isDay =
-      override !== null ||
-      (now.getFullYear() === 2026 && now.getMonth() === 6 && now.getDate() === 8);
+    var la = laParts();
+    var isDay = override !== null || (la.y === 2026 && la.m === 7 && la.d === 8);
     if (!isDay) return null;
-    var mins = override !== null ? parseInt(override, 10) : now.getHours() * 60 + now.getMinutes();
+    var mins = override !== null ? parseInt(override, 10) : la.mins;
     if (mins < blocks[0].start) {
       return { pre: true, wait: blocks[0].start - mins };
     }
@@ -59,11 +76,13 @@
   function paintLive() {
     var state = liveState();
     var stops = scheduleEl ? scheduleEl.querySelectorAll(".tl-stop") : [];
-    Array.prototype.forEach.call(stops, function (s) { s.classList.remove("is-now"); });
+    Array.prototype.forEach.call(stops, function (s) {
+      s.classList.remove("is-now", "is-past");
+      s.removeAttribute("data-live-tag");
+    });
 
     if (!state) {
       if (liveEl) liveEl.innerHTML = "";
-      if (stops[0]) stops[0].classList.remove("is-now");
       return;
     }
 
@@ -73,7 +92,10 @@
           '<a class="live-badge" href="/visit"><span class="breath-dot" aria-hidden="true"></span>' +
           "<b>Starts in " + state.wait + " min</b></a>";
       }
-      if (stops[0]) stops[0].classList.add("is-now");
+      if (stops[0]) {
+        stops[0].classList.add("is-now");
+        stops[0].setAttribute("data-live-tag", "Up next");
+      }
       return;
     }
 
@@ -84,7 +106,13 @@
         '<a class="live-badge" href="' + b.href + '"><span class="breath-dot" aria-hidden="true"></span>' +
         "<b>" + when + '</b> <span class="live-sep">·</span> ' + b.label + "</a>";
     }
-    if (stops[state.index]) stops[state.index].classList.add("is-now");
+    Array.prototype.forEach.call(stops, function (s, i) {
+      if (i < state.index) s.classList.add("is-past");
+    });
+    if (stops[state.index]) {
+      stops[state.index].classList.add("is-now");
+      stops[state.index].setAttribute("data-live-tag", state.inside ? "Happening now" : "Up next");
+    }
   }
 
   paintLive();

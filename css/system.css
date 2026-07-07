@@ -1707,3 +1707,42 @@ html.pres-mode .pres-tease-row {
   margin-top: clamp(14px, 3vmin, 26px);
   flex-wrap: wrap;
 }
+
+/* ============================================================
+   Site warmth pass. Live day tracker states, hero human line,
+   flight welcome aside.
+   ============================================================ */
+
+/* Home timeline on the day: dim what's done, tag what's happening */
+body.hub .tl-stop.is-past { opacity: 0.45; }
+body.hub .tl-stop[data-live-tag]::after {
+  content: attr(data-live-tag);
+  display: inline-block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--breath);
+  background: color-mix(in srgb, var(--breath) 12%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--breath) 35%, transparent);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+/* Hero human line above the schedule string */
+body.hub .hub-lead-human {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+  color: var(--ink-70);
+  margin: 0 0 6px;
+}
+
+/* Flight welcome, one light line */
+body.flight-body .flight-fun {
+  font-size: 0.88rem;
+  color: color-mix(in srgb, var(--paper, #f7fafc) 60%, transparent);
+  font-style: italic;
+  margin: 6px 0 0;
+}

@@ -87,6 +87,7 @@
       '<div class="flight-eyebrow">Blind tasting</div>' +
       "<h1>Flavor Flight Challenge</h1>" +
       '<p class="flight-lead">Taste five blind samples. Follow each screen and share your honest freshness feedback.</p>' +
+      '<p class="flight-fun">No pressure, but R&amp;D versus Procurement bragging rights are on the line.</p>' +
       '<div class="flight-sample-strip">' + labels.map(function (l) { return "<span>Sample " + l + "</span>"; }).join("") + "</div>" +
       button("Start flight", "data-next=\"1\"");
     wireCommon();
