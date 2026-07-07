@@ -42,19 +42,36 @@
           <button type="button" class="pres-hitzone prev" aria-label="Previous"></button>
           <button type="button" class="pres-hitzone next" aria-label="Next"></button>
 
-          <!-- 0 Cover -->
-          <section class="pres-slide cover active" data-i="0" data-chapter="cover">
+          <!-- 0 Cover, cinematic opening -->
+          <section class="pres-slide cover pres-cover active" data-i="0" data-chapter="cover">
             <div class="pres-slide-inner">
+              <div class="cine" aria-hidden="true">
+                <span class="cine-aurora cine-a1"></span>
+                <span class="cine-aurora cine-a2"></span>
+                <span class="cine-aurora cine-a3"></span>
+                <span class="cine-glow"></span>
+                <span class="cine-p" style="--x:8%;--s:6px;--d:0.2s;--t:11s;--o:0.5"></span>
+                <span class="cine-p" style="--x:17%;--s:9px;--d:2.4s;--t:14s;--o:0.35"></span>
+                <span class="cine-p" style="--x:26%;--s:4px;--d:1.1s;--t:9s;--o:0.6"></span>
+                <span class="cine-p" style="--x:34%;--s:11px;--d:3.6s;--t:16s;--o:0.28"></span>
+                <span class="cine-p" style="--x:43%;--s:5px;--d:0.8s;--t:10s;--o:0.55"></span>
+                <span class="cine-p" style="--x:52%;--s:8px;--d:2.9s;--t:13s;--o:0.4"></span>
+                <span class="cine-p" style="--x:60%;--s:5px;--d:4.4s;--t:12s;--o:0.5"></span>
+                <span class="cine-p" style="--x:68%;--s:10px;--d:1.7s;--t:15s;--o:0.3"></span>
+                <span class="cine-p" style="--x:76%;--s:4px;--d:3.1s;--t:9.5s;--o:0.6"></span>
+                <span class="cine-p" style="--x:84%;--s:7px;--d:0.5s;--t:12.5s;--o:0.45"></span>
+                <span class="cine-p" style="--x:91%;--s:6px;--d:2.1s;--t:11.5s;--o:0.5"></span>
+                <span class="cine-p" style="--x:96%;--s:9px;--d:3.9s;--t:14.5s;--o:0.32"></span>
+              </div>
               <div class="pres-slide-pad">
-                <span class="pres-logo">TFF</span>
-                <p class="pres-tag">The Flavor Factory · TheraBreath</p>
-                <h1>Breath of Innovation</h1>
-                <p class="pres-lead">Capabilities workshop · July 8, 2026 · Norco, California</p>
-                <div class="pres-pills"><span>Presentation · 9:30 AM</span><span>R&amp;D + Procurement</span><span>Open Q&amp;A</span></div>
-                <div class="pres-bottle-row pres-bottle-strip" aria-hidden="true">
-                  <img src="/assets/portfolio/production/clean-mint.jpg" alt="" width="120" height="160" decoding="async" />
-                  <img src="/assets/companies/therabreath/oxyd8-hero.jpg" alt="" width="120" height="160" decoding="async" />
-                  <img src="/assets/portfolio/production/invigorating-icy-mint.jpg" alt="" width="120" height="160" decoding="async" />
+                <p class="pres-tag cine-up" style="--i:0">The Flavor Factory · TheraBreath</p>
+                <h1 class="cine-title cine-up" style="--i:1"><span class="cine-title-text">Breath of Innovation</span></h1>
+                <p class="pres-lead cine-up" style="--i:2">Capabilities workshop · July 8, 2026 · Norco, California</p>
+                <div class="pres-pills cine-up" style="--i:3"><span>Presentation · 9:30 AM</span><span>R&amp;D + Procurement</span><span>Open Q&amp;A</span></div>
+                <div class="cine-logos cine-up" style="--i:4">
+                  <img class="cine-logo" src="/assets/companies/logos/therabreath-logo.svg" alt="TheraBreath" width="547" height="141" decoding="async" />
+                  <span class="cine-x" aria-hidden="true"></span>
+                  <img class="cine-logo" src="/assets/companies/logos/tff-logo.png" alt="The Flavor Factory" width="606" height="126" decoding="async" />
                 </div>
               </div>
             </div>

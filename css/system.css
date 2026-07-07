@@ -2011,3 +2011,165 @@ html.pres-mode .pres-slide.active .picon .pi-spark {
   html.pres-mode .pres-slide.active .picon .pi-piece-r,
   html.pres-mode .pres-slide.active .picon .pi-spark { animation: none; }
 }
+
+/* ============================================================
+   Cinematic cover. A luminous animated opening: drifting brand
+   aurora, a breathing glow, rising particles, a shimmer across
+   the title, and both company logos settling in. All motion is
+   gated by prefers-reduced-motion.
+   ============================================================ */
+html.pres-mode .pres-cover .pres-slide-inner {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 20% 12%, color-mix(in srgb, var(--breath) 14%, transparent), transparent 42%),
+    radial-gradient(circle at 84% 86%, color-mix(in srgb, #5fb832 12%, transparent), transparent 40%),
+    linear-gradient(165deg, #ffffff 0%, #f2f8fc 55%, #eef6f2 100%);
+}
+html.pres-mode .pres-cover .pres-slide-pad { position: relative; z-index: 2; }
+html.pres-mode .pres-cover .cine {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Drifting aurora blooms */
+html.pres-mode .cine-aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(46px);
+  opacity: 0.55;
+  will-change: transform;
+}
+html.pres-mode .cine-a1 {
+  width: 46%; height: 46%; left: -8%; top: 2%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--breath) 60%, transparent), transparent 70%);
+  animation: cine-drift-a 22s var(--ease-inout) infinite alternate;
+}
+html.pres-mode .cine-a2 {
+  width: 52%; height: 52%; right: -12%; bottom: -6%;
+  background: radial-gradient(circle, color-mix(in srgb, #5fb832 55%, transparent), transparent 70%);
+  animation: cine-drift-b 26s var(--ease-inout) infinite alternate;
+}
+html.pres-mode .cine-a3 {
+  width: 34%; height: 34%; right: 22%; top: -8%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--copper) 40%, transparent), transparent 70%);
+  opacity: 0.32;
+  animation: cine-drift-a 30s var(--ease-inout) infinite alternate-reverse;
+}
+@keyframes cine-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(8%, 6%, 0) scale(1.14); }
+}
+@keyframes cine-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.05); }
+  to { transform: translate3d(-7%, -5%, 0) scale(1.2); }
+}
+
+/* Breathing glow behind the title */
+html.pres-mode .cine-glow {
+  position: absolute;
+  left: 50%; top: 42%;
+  width: 60%; height: 42%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--breath) 24%, transparent), transparent 68%);
+  filter: blur(24px);
+  animation: cine-breathe 8s var(--ease-inout) infinite;
+}
+@keyframes cine-breathe {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+/* Rising breath particles */
+html.pres-mode .cine-p {
+  position: absolute;
+  left: var(--x);
+  bottom: -6%;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff, color-mix(in srgb, var(--breath) 70%, #ffffff));
+  opacity: 0;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--breath) 45%, transparent);
+  animation: cine-rise var(--t, 12s) linear var(--d, 0s) infinite;
+}
+@keyframes cine-rise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  12% { opacity: var(--o, 0.5); }
+  70% { opacity: var(--o, 0.5); }
+  100% { transform: translateY(-115vh) scale(1); opacity: 0; }
+}
+
+/* Staggered entrance for the text and logos */
+html.pres-mode .pres-cover .cine-up {
+  opacity: 0;
+  transform: translateY(18px);
+}
+html.pres-mode .pres-slide.active.pres-cover .cine-up {
+  animation: cine-enter 900ms var(--ease-out) both;
+  animation-delay: calc(160ms + var(--i) * 180ms);
+}
+@keyframes cine-enter {
+  from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Shimmer sweep across the title */
+html.pres-mode .cine-title { position: relative; }
+html.pres-mode .cine-title-text {
+  position: relative;
+  background: linear-gradient(120deg, var(--ink) 0%, var(--breath) 50%, var(--ink) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: cine-sheen 6s ease-in-out 1.2s infinite;
+}
+@keyframes cine-sheen {
+  0%, 70%, 100% { background-position: 140% 0; }
+  35% { background-position: -40% 0; }
+}
+
+/* Company logo lockup */
+html.pres-mode .cine-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 34px);
+  margin-top: clamp(18px, 3.4vmin, 34px);
+}
+html.pres-mode .cine-logo {
+  display: block;
+  width: auto;
+  height: clamp(24px, 3.6vmin, 38px);
+  max-width: 40%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 16px color-mix(in srgb, var(--ink) 16%, transparent));
+}
+html.pres-mode .cine-x {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--breath);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--breath) 18%, transparent);
+  animation: breath-pulse 8s var(--ease-inout) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.pres-mode .cine-aurora,
+  html.pres-mode .cine-glow,
+  html.pres-mode .cine-p,
+  html.pres-mode .cine-title-text,
+  html.pres-mode .cine-x { animation: none; }
+  html.pres-mode .cine-p { opacity: 0.4; }
+  html.pres-mode .pres-cover .cine-up { opacity: 1; transform: none; }
+  html.pres-mode .pres-slide.active.pres-cover .cine-up {
+    animation: cine-fade 500ms ease both;
+    animation-delay: calc(var(--i) * 60ms);
+  }
+  @keyframes cine-fade { from { opacity: 0; } to { opacity: 1; } }
+}
