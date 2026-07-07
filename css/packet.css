@@ -699,3 +699,146 @@ body {
     font-size: 8pt;
   }
 }
+/* ============================================================
+   Run of show. One block per slide, mirroring the deck exactly.
+   ============================================================ */
+.pkt-slide {
+  --accent: #0a1628;
+  margin: 0 0 14px;
+  padding: 14px 16px 12px;
+  border: 1px solid #e2e9ec;
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+  background: #fff;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.pkt-slide-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.pkt-slide-num {
+  font-family: "Sora", sans-serif;
+  font-weight: 800;
+  font-size: 9.5pt;
+  color: var(--accent);
+}
+.pkt-slide-badge {
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5c6678;
+  background: #f2f6f9;
+  border: 1px solid #e2e9ec;
+  border-radius: 999px;
+  padding: 2px 10px;
+  white-space: nowrap;
+}
+.pkt-slide-title {
+  margin: 0 0 8px;
+  font-family: "Sora", sans-serif;
+  font-size: 13pt;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #0a1628;
+}
+.pkt-block-do .pkt-label { color: #b8703d; }
+.pkt-block-do p { margin: 0 0 6px; font-size: 9.5pt; line-height: 1.5; color: #344054; }
+.pkt-block-do p:last-child { margin-bottom: 0; }
+
+/* Answer rows inside a pillar slide block */
+.pkt-rows { display: grid; gap: 8px; margin-top: 8px; }
+.pkt-row {
+  padding: 8px 10px;
+  border: 1px solid #e9eef2;
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  background: #fafcfd;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.pkt-row-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.pkt-row-press {
+  flex: none;
+  font-size: 7.5pt;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.pkt-row-q {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: #0a1628;
+}
+.pkt-row-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 4px 0 6px;
+}
+.pkt-row-chips span {
+  font-size: 8pt;
+  font-weight: 600;
+  color: #344054;
+  background: #eef4f8;
+  border: 1px solid #dde7ee;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.pkt-row-say {
+  margin: 0;
+  font-size: 9.5pt;
+  line-height: 1.55;
+  color: #344054;
+}
+
+/* Appendix map */
+.pkt-app-row {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 4px 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #edf1f5;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.pkt-app-num {
+  font-family: "Sora", sans-serif;
+  font-weight: 800;
+  font-size: 9.5pt;
+  color: #b8703d;
+}
+.pkt-app-title {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 10pt;
+  color: #0a1628;
+}
+.pkt-app-note {
+  grid-column: 2;
+  margin: 0;
+  font-size: 9pt;
+  line-height: 1.5;
+  color: #475467;
+}
+
+@media print {
+  .pkt-slide { box-shadow: none; }
+  .pkt-slide-discussion { background: #f6f9fb; }
+}

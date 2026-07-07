@@ -262,6 +262,53 @@ window.BOI = {
       why: "Reveals any remaining concerns and focuses attention on what matters most.",
     },
   ],
+  /* Deck structure shared by the presentation (present.js) and the
+     speaker packet (packet.js), so the packet always matches the
+     slides exactly. shortQ maps card.num to the short row question
+     shown on the composed pillar slides. appendixCards lists card
+     nums that live only in the appendix. */
+  deck: {
+    shortQ: {
+      1: "Volume doubles in 3 to 5 years?",
+      2: "A key supplier goes down?",
+      3: "A key person is out?",
+      4: "Quality at higher volume?",
+      5: "A major disruption hits?",
+      6: "How do we stay ahead of trends?",
+      7: "Beyond today's mouthrinse portfolio?",
+      8: "How do we approach innovation?",
+      9: "How do we prove sensory performance?",
+      10: "What excites us most?",
+      11: "What have we already invested?",
+      12: "How do we hold service levels?",
+      13: "How do we secure critical materials?",
+      17: "One site, or many?",
+      14: "Why the right long-term partner?",
+      15: "What makes working with us different?",
+      16: "What does success look like by year five?",
+    },
+    appendixCards: { 1: [3], 2: [8] },
+    stats: [
+      {
+        section: 2,
+        tag: "Pillar 2 · One number",
+        color: "#5fb832",
+        question: "How many flavors has TFF put in front of TheraBreath so far?",
+        value: 53,
+        suffix: "",
+        story: "14 in production, 29 presented concepts, 5 in today's flight, 5 Gen Alpha directions. The bench runs deep.",
+      },
+      {
+        section: 4,
+        tag: "Pillar 4 · One number",
+        color: "#0a1628",
+        question: "How many years of flavor experience set the standards here?",
+        value: 40,
+        suffix: "+",
+        story: "More than 40 years of flavor experience set the standards here, and it still leads from the bench when a project gets complicated.",
+      },
+    ],
+  },
   chapters: null,
   links: {
     therabreath: "/find",

@@ -55,26 +55,10 @@
 
 
   /* One composed slide per pillar. The question headline plus every
-     answer as a row that reveals on Space, one press per row. */
-  var SHORT_Q = {
-    1: "Volume doubles in 3 to 5 years?",
-    2: "A key supplier goes down?",
-    3: "A key person is out?",
-    4: "Quality at higher volume?",
-    5: "A major disruption hits?",
-    6: "How do we stay ahead of trends?",
-    7: "Beyond today's mouthrinse portfolio?",
-    8: "How do we approach innovation?",
-    9: "How do we prove sensory performance?",
-    10: "What excites us most?",
-    11: "What have we already invested?",
-    12: "How do we hold service levels?",
-    13: "How do we secure critical materials?",
-    17: "One site, or many?",
-    14: "Why the right long-term partner?",
-    15: "What makes working with us different?",
-    16: "What does success look like by year five?",
-  };
+     answer as a row that reveals on Space, one press per row.
+     Structure (short questions, appendix card list, stats) lives in
+     BOI.deck so the speaker packet mirrors the slides exactly. */
+  var SHORT_Q = (window.BOI && BOI.deck && BOI.deck.shortQ) || {};
 
   function pillarSlide(section) {
     var pillar = (window.BOI.pillars || []).filter(function (p) {
@@ -312,29 +296,10 @@
     );
   }
 
-  /* Guess then reveal numbers. Values derived from repo data:
-     53 = 14 production + 29 presented + 5 pipeline + 5 Gen Alpha (portfolio-data.js),
-     40 = the founder's years in flavor (tff-team.js). */
-  var STATS = [
-    {
-      section: 2,
-      tag: "Pillar 2 · One number",
-      color: "#5fb832",
-      question: "How many flavors has TFF put in front of TheraBreath so far?",
-      value: 53,
-      suffix: "",
-      story: "14 in production, 29 presented concepts, 5 in today's flight, 5 Gen Alpha directions. The bench runs deep.",
-    },
-    {
-      section: 4,
-      tag: "Pillar 4 · One number",
-      color: "#0a1628",
-      question: "How many years of flavor experience set the standards here?",
-      value: 40,
-      suffix: "+",
-      story: "More than 40 years of flavor experience set the standards here, and it still leads from the bench when a project gets complicated.",
-    },
-  ];
+  /* Guess then reveal numbers, defined in BOI.deck.stats. Values derived
+     from repo data: 53 = 14 production + 29 presented + 5 pipeline +
+     5 Gen Alpha (portfolio-data.js), 40 = years in flavor (tff-team.js). */
+  var STATS = (window.BOI && BOI.deck && BOI.deck.stats) || [];
 
   function statSlide(stat) {
     return makeSlide(
@@ -375,10 +340,8 @@
   }
 
   /* Supporting detail lives in the appendix, nothing is deleted.
-     Demoted Q&A cards by card.num, plus the facility photo slide and
-     the non-featured strategic questions. */
-  var APPENDIX_CARDS = { 1: [3], 2: [8] };
-  var FEATURED_STRATEGIC = [0, 9];
+     Demoted Q&A cards by card.num, defined in BOI.deck.appendixCards. */
+  var APPENDIX_CARDS = (window.BOI && BOI.deck && BOI.deck.appendixCards) || {};
 
   function buildDynamicSlides() {
     if (!viewport || !window.BOI) return;
