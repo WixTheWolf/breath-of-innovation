@@ -53,17 +53,36 @@
     );
   }
 
-  function pillarIntroSlide(section) {
+
+  /* One composed slide per pillar. The question headline plus every
+     answer as a row that reveals on Space, one press per row. */
+  var SHORT_Q = {
+    1: "Volume doubles in 3 to 5 years?",
+    2: "A key supplier goes down?",
+    3: "A key person is out?",
+    4: "Quality at higher volume?",
+    5: "A major disruption hits?",
+    6: "How do we stay ahead of trends?",
+    7: "Beyond today's mouthrinse portfolio?",
+    8: "How do we approach innovation?",
+    9: "How do we prove sensory performance?",
+    10: "What excites us most?",
+    11: "What have we already invested?",
+    12: "How do we hold service levels?",
+    13: "How do we secure critical materials?",
+    14: "Why the right long-term partner?",
+    15: "What makes working with us different?",
+    16: "What does success look like by year five?",
+  };
+
+  function pillarSlide(section) {
     var pillar = (window.BOI.pillars || []).filter(function (p) {
       return p.num === section.num;
     })[0];
-    var pills = pillar
-      ? '<div class="pres-pills pres-pills-left">' +
-        pillar.points.map(function (pt) { return "<span>" + esc(pt) + "</span>"; }).join("") +
-        "</div>"
-      : "";
-    var eyebrow = pillar ? esc(section.pillarShort) + " · " + esc(pillar.title) : esc(section.pillarShort);
-    /* One signature visual: the flavor journey strip lives on Operations */
+    var demoted = APPENDIX_CARDS[section.num] || [];
+    var kept = section.cards.filter(function (card) {
+      return demoted.indexOf(card.num) === -1;
+    });
     var journey = "";
     if (section.num === 3) {
       var stages = ["Brief", "Bench", "Pilot", "Production", "Shelf"];
@@ -80,17 +99,33 @@
           .join('<i class="pres-journey-line" aria-hidden="true"></i>') +
         "</div>";
     }
-    return makeSlide(
-      "pres-slide-intro",
+    var rows = kept
+      .map(function (card, c) {
+        return (
+          '<div class="pres-pillar-row" data-step="' + (c + 1) + '">' +
+          '<p class="pres-row-q">' + esc(SHORT_Q[card.num] || card.question) + "</p>" +
+          '<div class="pres-row-points">' +
+          card.points.map(function (pt) { return "<span>" + esc(pt) + "</span>"; }).join("") +
+          "</div></div>"
+        );
+      })
+      .join("");
+    var eyebrow = pillar ? esc(section.pillarShort) + " · " + esc(pillar.title) : esc(section.pillarShort);
+    var el = makeSlide(
+      "pres-slide-pillar",
       '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
+        '<span class="pres-pillar-ghost" aria-hidden="true">' + section.num + "</span>" +
         '<div class="pres-slide-pad">' +
         '<span class="pres-pillar-badge">' + eyebrow + "</span>" +
         "<h1>" + esc(section.questionTitle || section.pillar) + "</h1>" +
-        '<p class="pres-lead">' + esc(section.intro) + "</p>" +
         journey +
-        pills +
+        '<div class="pres-pillar-rows">' + rows + "</div>" +
+        '<p class="pres-step-hint mono">Space reveals each answer · detail lives in the appendix</p>' +
         "</div></div>"
     );
+    el.dataset.steps = String(kept.length);
+    el.dataset.step = "0";
+    return el;
   }
 
   /* Tasting anticipation: the deck's cliffhanger, lives in Innovation */
@@ -302,28 +337,11 @@
     var contrastSlide = viewport.querySelector(".pres-slide-contrast");
     if (!closeSlide || !overviewSlide || !contrastSlide) return;
 
-    var appendixSlides = [];
-
-    overviewSlide.parentNode.insertBefore(tagChapter(agendaSlide(), "today"), overviewSlide);
-
+    /* Tight main path: one composed slide per pillar plus the
+       signature moments. Every detail slide lives in the appendix. */
     var pillarFrag = document.createDocumentFragment();
     BOI.qaSections.forEach(function (section) {
-      var demoted = APPENDIX_CARDS[section.num] || [];
-      pillarFrag.appendChild(tagChapter(pillarIntroSlide(section), "pillar-" + section.num));
-      var kept = section.cards.filter(function (card) {
-        return demoted.indexOf(card.num) === -1;
-      });
-      kept.forEach(function (card, c) {
-        pillarFrag.appendChild(
-          tagChapter(qaSlide(section, card, c + 1, kept.length), "pillar-" + section.num)
-        );
-      });
-      section.cards.forEach(function (card) {
-        if (demoted.indexOf(card.num) === -1) return;
-        appendixSlides.push(
-          tagChapter(qaSlide(section, card, card.num, 0, { appendix: true }), "appendix")
-        );
-      });
+      pillarFrag.appendChild(tagChapter(pillarSlide(section), "pillar-" + section.num));
       STATS.forEach(function (stat) {
         if (stat.section === section.num) {
           pillarFrag.appendChild(tagChapter(statSlide(stat), "pillar-" + section.num));
@@ -336,37 +354,27 @@
     });
     contrastSlide.parentNode.insertBefore(pillarFrag, contrastSlide);
 
-    var closeFrag = document.createDocumentFragment();
-    closeFrag.appendChild(tagChapter(handoffSlide(), "close"));
-    closeFrag.appendChild(tagChapter(strategicIntroSlide(), "close"));
-    var strat = BOI.strategicQuestions || [];
-    var extraPos = 0;
-    strat.forEach(function (card, i) {
-      var fi = FEATURED_STRATEGIC.indexOf(i);
-      if (fi !== -1) {
-        closeFrag.appendChild(
-          tagChapter(
-            qaSlide({ pillarShort: "Strategic", color: "#6c5ce7" }, card, fi + 1, FEATURED_STRATEGIC.length, { strategic: true }),
-            "close"
-          )
-        );
-      } else {
-        extraPos += 1;
-        appendixSlides.push(
-          tagChapter(
-            qaSlide({ pillarShort: "Strategic", color: "#6c5ce7" }, card, extraPos, strat.length - FEATURED_STRATEGIC.length, { strategic: true }),
-            "appendix"
-          )
-        );
-      }
-    });
-    contrastSlide.parentNode.insertBefore(closeFrag, contrastSlide);
-
+    /* Appendix: agenda, facility, every Q&A card in full, all ten
+       strategic questions. Reached with A during open Q&A. */
     var appFrag = document.createDocumentFragment();
     appFrag.appendChild(tagChapter(appendixCoverSlide(), "appendix"));
+    appFrag.appendChild(tagChapter(agendaSlide(), "appendix"));
     appFrag.appendChild(tagChapter(facilitySlide(), "appendix"));
-    appendixSlides.forEach(function (s) {
-      appFrag.appendChild(s);
+    BOI.qaSections.forEach(function (section) {
+      section.cards.forEach(function (card, c) {
+        appFrag.appendChild(
+          tagChapter(qaSlide(section, card, c + 1, section.cards.length), "appendix")
+        );
+      });
+    });
+    appFrag.appendChild(tagChapter(strategicIntroSlide(), "appendix"));
+    (BOI.strategicQuestions || []).forEach(function (card, i) {
+      appFrag.appendChild(
+        tagChapter(
+          qaSlide({ pillarShort: "Strategic", color: "#6c5ce7" }, card, i + 1, (BOI.strategicQuestions || []).length, { strategic: true }),
+          "appendix"
+        )
+      );
     });
     closeSlide.parentNode.appendChild(appFrag);
 
@@ -528,6 +536,34 @@
     );
   }
 
+  /* Step slides: pillar slides disclose one answer row per press */
+  function isStepSlide(slide) {
+    return slide && slide.dataset.steps;
+  }
+
+  function stepsLeft(slide) {
+    return isStepSlide(slide) &&
+      parseInt(slide.dataset.step || "0", 10) < parseInt(slide.dataset.steps, 10);
+  }
+
+  function advanceStep(slide) {
+    var step = parseInt(slide.dataset.step || "0", 10) + 1;
+    slide.dataset.step = String(step);
+    var row = slide.querySelector('.pres-pillar-row[data-step="' + step + '"]');
+    if (row) row.classList.add("on");
+    if (!stepsLeft(slide)) slide.classList.add("steps-done");
+    updateMobileNextLabel();
+  }
+
+  function resetSteps(slide) {
+    if (!isStepSlide(slide)) return;
+    slide.dataset.step = "0";
+    slide.classList.remove("steps-done");
+    Array.prototype.forEach.call(slide.querySelectorAll(".pres-pillar-row"), function (row) {
+      row.classList.remove("on");
+    });
+  }
+
   function countUp(el) {
     var target = parseInt(el.dataset.value, 10) || 0;
     var suffix = el.dataset.suffix || "";
@@ -657,7 +693,7 @@
     if (!nextBtn || !isTouch) return;
     var slide = slides[index];
     nextBtn.textContent =
-      isRevealSlide(slide) && !isRevealed(slide) ? "Reveal" : "Next";
+      (isRevealSlide(slide) && !isRevealed(slide)) || stepsLeft(slide) ? "Reveal" : "Next";
   }
 
   function show(i) {
@@ -665,6 +701,7 @@
     var prev = slides[index];
     if (prev && prev !== slides[i]) {
       resetReveal(prev);
+      resetSteps(prev);
       if (prev.classList.contains("pres-slide-discussion")) resetTimer();
     }
 
@@ -704,6 +741,12 @@
 
   function handleAdvance() {
     var slide = slides[index];
+    if (stepsLeft(slide)) {
+      advanceStep(slide);
+      requestAnimationFrame(fitSlide);
+      flashChrome();
+      return;
+    }
     if (isRevealSlide(slide) && !isRevealed(slide)) {
       toggleReveal(slide);
       flashChrome();
@@ -940,7 +983,12 @@
       toggleFullscreen();
     } else if (e.key === "r" || e.key === "R") {
       e.preventDefault();
-      if (isRevealSlide(slides[index])) toggleReveal(slides[index]);
+      if (isStepSlide(slides[index])) {
+        resetSteps(slides[index]);
+        requestAnimationFrame(fitSlide);
+      } else if (isRevealSlide(slides[index])) {
+        toggleReveal(slides[index]);
+      }
       flashChrome();
     } else if (e.key === "t" || e.key === "T") {
       e.preventDefault();
@@ -976,7 +1024,11 @@
     var slide = slides[index];
 
     if (Math.abs(dx) < 36 && Math.abs(dy) < 36) {
-      if (isRevealSlide(slide) && !isRevealed(slide)) {
+      if (stepsLeft(slide)) {
+        advanceStep(slide);
+        requestAnimationFrame(fitSlide);
+        flashChrome();
+      } else if (isRevealSlide(slide) && !isRevealed(slide)) {
         toggleReveal(slide);
         flashChrome();
       }

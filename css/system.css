@@ -1746,3 +1746,102 @@ body.flight-body .flight-fun {
   font-style: italic;
   margin: 6px 0 0;
 }
+
+/* ============================================================
+   Composed pillar slide. One slide per pillar, answers reveal
+   one row at a time on Space. Replaces the scattered per
+   question slides in the main path.
+   ============================================================ */
+html.pres-mode .pres-slide-pillar .pres-slide-inner {
+  position: relative;
+  overflow: hidden;
+}
+html.pres-mode .pres-slide-pillar .pres-slide-pad {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2vmin, 18px);
+  min-height: min(66vh, 600px);
+  justify-content: center;
+}
+html.pres-mode .pres-pillar-ghost {
+  position: absolute;
+  right: -0.06em;
+  bottom: -0.24em;
+  z-index: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(16rem, 46vmin, 34rem);
+  line-height: 0.8;
+  color: var(--pillar-color, var(--ink));
+  opacity: 0.06;
+  pointer-events: none;
+  user-select: none;
+}
+html.pres-mode .pres-slide-pillar h1 {
+  max-width: 20ch;
+  margin: 0;
+}
+html.pres-mode .pres-pillar-rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.6vmin, 16px);
+  margin-top: clamp(4px, 1.4vmin, 12px);
+}
+html.pres-mode .pres-pillar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: clamp(12px, 2vmin, 18px) clamp(14px, 2.2vmin, 22px);
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--pillar-color, var(--breath));
+  background: color-mix(in srgb, var(--pillar-color, var(--breath)) 5%, var(--paper));
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 320ms var(--ease-out), transform 320ms var(--ease-out);
+}
+html.pres-mode .pres-pillar-row.on {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.pres-mode .pres-pillar-row {
+    transition: none;
+    transform: none;
+  }
+}
+html.pres-mode .pres-row-q {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 2.5vmin, 1.6rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+html.pres-mode .pres-row-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+html.pres-mode .pres-row-points span {
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 1.5vmin, 0.92rem);
+  letter-spacing: 0.01em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pillar-color, var(--breath)) 12%, var(--paper));
+  color: color-mix(in srgb, var(--pillar-color, var(--ink)) 78%, var(--ink));
+  border: 1px solid color-mix(in srgb, var(--pillar-color, var(--breath)) 24%, transparent);
+}
+html.pres-mode .pres-step-hint {
+  margin: clamp(6px, 1.4vmin, 12px) 0 0;
+  font-size: clamp(0.68rem, 1.3vmin, 0.82rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-55);
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+html.pres-mode .pres-slide-pillar.steps-done .pres-step-hint { opacity: 0; }
