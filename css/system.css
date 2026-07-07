@@ -268,6 +268,20 @@ body.hub .dip figcaption {
   border-top: 1px solid var(--breath);
   padding-top: 6px;
 }
+/* Company logo lockups as the diptych labels */
+body.hub .dip figcaption.dip-logo {
+  display: flex;
+  align-items: center;
+  min-height: 34px;
+  padding-top: 10px;
+}
+body.hub .dip figcaption.dip-logo img {
+  display: block;
+  width: auto;
+  height: clamp(20px, 3vw, 28px);
+  max-width: 100%;
+  object-fit: contain;
+}
 body.hub .dip .media { aspect-ratio: 3 / 2; }
 @media (min-width: 720px) {
   body.hub .hero-diptych { grid-template-columns: 1fr 1fr; }
