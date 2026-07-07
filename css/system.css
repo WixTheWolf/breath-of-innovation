@@ -272,13 +272,14 @@ body.hub .dip figcaption {
 body.hub .dip figcaption.dip-logo {
   display: flex;
   align-items: center;
-  min-height: 34px;
-  padding-top: 10px;
+  justify-content: center;
+  min-height: 44px;
+  padding-top: 12px;
 }
 body.hub .dip figcaption.dip-logo img {
   display: block;
   width: auto;
-  height: clamp(20px, 3vw, 28px);
+  height: clamp(28px, 4vw, 40px);
   max-width: 100%;
   object-fit: contain;
 }
