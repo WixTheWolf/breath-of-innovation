@@ -63,6 +63,23 @@
         "</div>"
       : "";
     var eyebrow = pillar ? esc(section.pillarShort) + " · " + esc(pillar.title) : esc(section.pillarShort);
+    /* One signature visual: the flavor journey strip lives on Operations */
+    var journey = "";
+    if (section.num === 3) {
+      var stages = ["Brief", "Bench", "Pilot", "Production", "Shelf"];
+      journey =
+        '<div class="pres-journey" aria-label="A flavor\'s journey from brief to shelf">' +
+        stages
+          .map(function (label, si) {
+            return (
+              '<span class="pres-journey-stage" style="--j:' + si + '">' +
+              '<i class="pres-journey-dot"></i>' +
+              '<span class="pres-journey-label mono">' + label + "</span></span>"
+            );
+          })
+          .join('<i class="pres-journey-line" aria-hidden="true"></i>') +
+        "</div>";
+    }
     return makeSlide(
       "pres-slide-intro",
       '<div class="pres-slide-inner" style="--pillar-color:' + section.color + '">' +
@@ -70,8 +87,28 @@
         '<span class="pres-pillar-badge">' + eyebrow + "</span>" +
         "<h1>" + esc(section.questionTitle || section.pillar) + "</h1>" +
         '<p class="pres-lead">' + esc(section.intro) + "</p>" +
+        journey +
         pills +
         "</div></div>"
+    );
+  }
+
+  /* Tasting anticipation: the deck's cliffhanger, lives in Innovation */
+  function teaseSlide() {
+    return makeSlide(
+      "pres-slide-tease",
+      '<div class="pres-slide-inner" style="--pillar-color:#f58220">' +
+        '<div class="pres-slide-pad">' +
+        '<p class="pres-tag">10:30 AM · coming up</p>' +
+        "<h1>In about 40 minutes, you taste five of these blind.</h1>" +
+        '<p class="pres-lead">Samples A to E. Start deciding what you think a next generation mint should be.</p>' +
+        '<div class="pres-tease-row">' +
+        '<a class="pres-handoff-card" href="/taste">' +
+        '<span class="pres-handoff-kicker">On your phone</span><strong>Flavor Flight</strong><span>Blind first, scores live in the room</span></a>' +
+        '<div class="pres-handoff-qr">' +
+        '<img src="/assets/qr/score-sm.png" alt="QR code for the tasting" width="88" height="88" />' +
+        "<span>Scan for tasting</span></div>" +
+        "</div></div></div>"
     );
   }
 
@@ -292,6 +329,9 @@
           pillarFrag.appendChild(tagChapter(statSlide(stat), "pillar-" + section.num));
         }
       });
+      if (section.num === 2) {
+        pillarFrag.appendChild(tagChapter(teaseSlide(), "pillar-2"));
+      }
       pillarFrag.appendChild(tagChapter(discussionSlide(section), "pillar-" + section.num));
     });
     contrastSlide.parentNode.insertBefore(pillarFrag, contrastSlide);

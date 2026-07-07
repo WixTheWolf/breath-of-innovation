@@ -1596,3 +1596,114 @@ html.pres-mode .pres-slide-stat.revealed .pres-qa-answer {
   transform: translateY(0) scale(1);
   overflow: visible;
 }
+
+/* ============================================================
+   Deck fun pass. Journey strip, micro motion, tasting tease.
+   ============================================================ */
+
+/* Slide transitions stay under 300ms */
+html.pres-mode .pres-slide { transition-duration: 280ms, 280ms, 280ms; }
+
+/* Reveal points rise and fade instead of the mask wipe */
+html.pres-mode .pres-qa-bullets li {
+  clip-path: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out);
+}
+html.pres-mode .pres-slide-qa.revealed .pres-qa-bullets li {
+  clip-path: none;
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.pres-mode .pres-qa-bullets li {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* The flavor journey: brief to shelf, stages light up in sequence */
+html.pres-mode .pres-journey {
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 1.4vmin, 14px);
+  margin: clamp(16px, 3.4vmin, 30px) 0 clamp(10px, 2vmin, 18px);
+  max-width: 720px;
+}
+html.pres-mode .pres-journey-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(6px);
+}
+html.pres-mode .pres-slide.active .pres-journey-stage {
+  animation: journey-in 420ms var(--ease-out) forwards;
+  animation-delay: calc(180ms + var(--j) * 200ms);
+}
+html.pres-mode .pres-journey-dot {
+  width: clamp(14px, 2.6vmin, 20px);
+  height: clamp(14px, 2.6vmin, 20px);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--pillar-color, var(--copper)) 85%, var(--ink));
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--pillar-color, var(--copper)) 16%, transparent);
+}
+html.pres-mode .pres-journey-label {
+  font-size: clamp(0.66rem, 1.4vmin, 0.8rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-70);
+}
+html.pres-mode .pres-journey-line {
+  flex: 1;
+  height: 2px;
+  min-width: 14px;
+  border-radius: 2px;
+  background: var(--line);
+  margin-bottom: 22px;
+}
+@keyframes journey-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.pres-mode .pres-journey-stage {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  html.pres-mode .pres-slide.active .pres-journey-stage { animation: none; }
+}
+
+/* Discussion beats: barely there gradient drift, cut under reduced motion */
+html.pres-mode .pres-slide-discussion .pres-slide-inner {
+  background: linear-gradient(
+    130deg,
+    var(--ink) 0%,
+    color-mix(in srgb, var(--ink) 88%, var(--breath)) 50%,
+    var(--ink) 100%
+  );
+  background-size: 220% 220%;
+  animation: discussion-drift 20s var(--ease-inout) infinite alternate;
+}
+@keyframes discussion-drift {
+  from { background-position: 0% 0%; }
+  to { background-position: 100% 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.pres-mode .pres-slide-discussion .pres-slide-inner {
+    background: var(--ink);
+    animation: none;
+  }
+}
+
+/* Tasting tease row */
+html.pres-mode .pres-tease-row {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(12px, 2.4vmin, 22px);
+  margin-top: clamp(14px, 3vmin, 26px);
+  flex-wrap: wrap;
+}
