@@ -2173,3 +2173,188 @@ html.pres-mode .cine-x {
   }
   @keyframes cine-fade { from { opacity: 0; } to { opacity: 1; } }
 }
+
+/* ============================================================
+   Life pass. Entrance choreography, micro motion, and small
+   magic details across the guest surfaces. Every animation is
+   gated by prefers-reduced-motion.
+   ============================================================ */
+
+/* Text selection carries the breath */
+::selection { background: color-mix(in srgb, var(--breath) 35%, transparent); }
+
+/* ---------- Home: hero entrance choreography ---------- */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+body.hub .hub-hero > .hub-eyebrow,
+body.hub .hub-hero > #hub-live,
+body.hub .hub-hero > .hub-title,
+body.hub .hub-hero > .hub-lead-human,
+body.hub .hub-hero > .hub-lead,
+body.hub .hub-hero > .hero-diptych,
+body.hub .hub-hero > .hub-hero-search,
+body.hub .hub-hero > .hub-cta {
+  animation: rise-in 640ms var(--ease-out) both;
+}
+body.hub .hub-hero > .hub-eyebrow { animation-delay: 60ms; }
+body.hub .hub-hero > #hub-live { animation-delay: 140ms; }
+body.hub .hub-hero > .hub-title { animation-delay: 200ms; }
+body.hub .hub-hero > .hub-lead-human { animation-delay: 330ms; }
+body.hub .hub-hero > .hub-lead { animation-delay: 400ms; }
+body.hub .hub-hero > .hero-diptych { animation-delay: 500ms; }
+body.hub .hub-hero > .hub-hero-search { animation-delay: 620ms; }
+body.hub .hub-hero > .hub-cta { animation-delay: 720ms; }
+
+/* The accent word shimmers once as it settles, then holds breath color */
+body.hub .hub-title-accent {
+  background: linear-gradient(100deg,
+    var(--breath) 0%, var(--breath) 38%,
+    color-mix(in srgb, var(--breath) 45%, #ffffff) 50%,
+    var(--breath) 62%, var(--breath) 100%);
+  background-size: 240% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: accent-shimmer 1.6s var(--ease-inout) 700ms both;
+}
+@keyframes accent-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
+
+/* Live badge glints so the room notices it is alive */
+body.hub .live-badge { position: relative; overflow: hidden; }
+body.hub .live-badge::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 40%;
+  left: -60%;
+  background: linear-gradient(100deg, transparent, color-mix(in srgb, #ffffff 55%, transparent), transparent);
+  animation: badge-glint 5s var(--ease-inout) 2s infinite;
+}
+@keyframes badge-glint {
+  0% { left: -60%; }
+  30%, 100% { left: 120%; }
+}
+
+/* Footer QR codes pop a little on hover */
+body.hub .hub-foot-qr figure { transition: transform var(--dur-fast) var(--ease-out); }
+body.hub .hub-foot-qr figure:hover { transform: translateY(-3px) scale(1.04); }
+
+/* ---------- Deck: headline word cascade ---------- */
+html.pres-mode .pres-slide h1 .w {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.35em);
+}
+html.pres-mode .pres-slide.active h1 .w {
+  animation: word-rise 460ms var(--ease-out) both;
+  animation-delay: calc(80ms + var(--wi) * 45ms);
+}
+@keyframes word-rise {
+  to { opacity: 1; transform: none; }
+}
+
+/* Ghost numeral breathes very slowly behind the pillar */
+html.pres-mode .pres-slide.active .pres-pillar-ghost {
+  animation: ghost-breathe 9s var(--ease-inout) infinite;
+}
+@keyframes ghost-breathe {
+  0%, 100% { opacity: 0.06; transform: translateY(0); }
+  50% { opacity: 0.09; transform: translateY(-6px); }
+}
+
+/* Stat number pops when the count up lands */
+html.pres-mode .pres-stat-number.landed {
+  animation: stat-pop 420ms var(--ease-out);
+}
+@keyframes stat-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* Contrast slide: the two futures rise in sequence */
+html.pres-mode .pres-slide-contrast .pres-contrast-col { opacity: 0; transform: translateY(12px); }
+html.pres-mode .pres-slide-contrast.active .pres-contrast-col { animation: rise-in 520ms var(--ease-out) both; }
+html.pres-mode .pres-slide-contrast.active .pres-contrast-col.is-today { animation-delay: 240ms; }
+html.pres-mode .pres-slide-contrast.active .pres-contrast-col.is-could { animation-delay: 560ms; }
+
+/* Close slide: seeded chips pop in one by one */
+html.pres-mode .pres-slide-close .pres-chip { opacity: 0; transform: translateY(8px) scale(0.96); }
+html.pres-mode .pres-slide-close.active .pres-chip { animation: chip-pop 420ms var(--ease-out) both; }
+html.pres-mode .pres-slide-close.active .pres-chip:nth-child(1) { animation-delay: 300ms; }
+html.pres-mode .pres-slide-close.active .pres-chip:nth-child(2) { animation-delay: 420ms; }
+html.pres-mode .pres-slide-close.active .pres-chip:nth-child(3) { animation-delay: 540ms; }
+@keyframes chip-pop {
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- Visit: the day cascades in ---------- */
+body.visit-page .boi-timeline li { animation: rise-in 520ms var(--ease-out) both; }
+body.visit-page .boi-timeline li:nth-child(1) { animation-delay: 120ms; }
+body.visit-page .boi-timeline li:nth-child(2) { animation-delay: 210ms; }
+body.visit-page .boi-timeline li:nth-child(3) { animation-delay: 300ms; }
+body.visit-page .boi-timeline li:nth-child(4) { animation-delay: 390ms; }
+body.visit-page .boi-timeline li:nth-child(5) { animation-delay: 480ms; }
+body.visit-page .boi-timeline li:nth-child(6) { animation-delay: 570ms; }
+
+/* ---------- Find: the palette breathes open ---------- */
+body.dir-page .dir-hero-in > * { animation: rise-in 560ms var(--ease-out) both; }
+body.dir-page .dir-hero-in > *:nth-child(1) { animation-delay: 60ms; }
+body.dir-page .dir-hero-in > *:nth-child(2) { animation-delay: 160ms; }
+body.dir-page .dir-hero-in > *:nth-child(3) { animation-delay: 260ms; }
+body.dir-page .dir-search { animation: rise-in 560ms var(--ease-out) 360ms both; }
+
+/* ---------- Portfolio: cards cascade on every render ---------- */
+body.port-mode .port-card { animation: rise-in 440ms var(--ease-out) both; }
+body.port-mode .port-card:nth-child(1) { animation-delay: 40ms; }
+body.port-mode .port-card:nth-child(2) { animation-delay: 90ms; }
+body.port-mode .port-card:nth-child(3) { animation-delay: 140ms; }
+body.port-mode .port-card:nth-child(4) { animation-delay: 190ms; }
+body.port-mode .port-card:nth-child(5) { animation-delay: 240ms; }
+body.port-mode .port-card:nth-child(6) { animation-delay: 290ms; }
+body.port-mode .port-card:nth-child(7) { animation-delay: 340ms; }
+body.port-mode .port-card:nth-child(8) { animation-delay: 390ms; }
+body.port-mode .port-card:nth-child(n+9) { animation-delay: 440ms; }
+
+/* ---------- Reduced motion: everything settles instantly ---------- */
+@media (prefers-reduced-motion: reduce) {
+  body.hub .hub-hero > .hub-eyebrow,
+  body.hub .hub-hero > #hub-live,
+  body.hub .hub-hero > .hub-title,
+  body.hub .hub-hero > .hub-lead-human,
+  body.hub .hub-hero > .hub-lead,
+  body.hub .hub-hero > .hero-diptych,
+  body.hub .hub-hero > .hub-hero-search,
+  body.hub .hub-hero > .hub-cta,
+  body.hub .hub-title-accent,
+  body.hub .live-badge::after,
+  html.pres-mode .pres-slide h1 .w,
+  html.pres-mode .pres-slide.active h1 .w,
+  html.pres-mode .pres-slide.active .pres-pillar-ghost,
+  html.pres-mode .pres-stat-number.landed,
+  html.pres-mode .pres-slide-contrast .pres-contrast-col,
+  html.pres-mode .pres-slide-contrast.active .pres-contrast-col,
+  html.pres-mode .pres-slide-close .pres-chip,
+  html.pres-mode .pres-slide-close.active .pres-chip,
+  body.visit-page .boi-timeline li,
+  body.dir-page .dir-hero-in > *,
+  body.dir-page .dir-search,
+  body.port-mode .port-card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  body.hub .hub-title-accent {
+    background: none;
+    color: var(--breath);
+    -webkit-text-fill-color: currentColor;
+  }
+  body.hub .live-badge::after { display: none; }
+}

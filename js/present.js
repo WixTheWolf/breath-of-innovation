@@ -584,14 +584,39 @@
       el.textContent = target.toLocaleString("en-US") + suffix;
       return;
     }
+    el.classList.remove("landed");
     var start = performance.now();
     function frame(now) {
       var t = Math.min(1, (now - start) / 900);
       var eased = 1 - Math.pow(1 - t, 3);
       el.textContent = Math.round(target * eased).toLocaleString("en-US") + (t >= 1 ? suffix : "");
       if (t < 1) requestAnimationFrame(frame);
+      else el.classList.add("landed");
     }
     requestAnimationFrame(frame);
+  }
+
+  /* Headline word cascade. Wrap each h1 word so CSS can stagger its
+     rise when the slide becomes active. The cinematic cover keeps its
+     own title treatment, and reduced motion skips the wrap entirely. */
+  function wrapHeadlines() {
+    if (reducedMotion) return;
+    slides.forEach(function (s) {
+      if (s.classList.contains("pres-cover") || s.classList.contains("cover")) return;
+      var h = s.querySelector("h1");
+      if (!h || h.dataset.wrapped || h.querySelector("*")) return;
+      var words = h.textContent.split(" ");
+      h.textContent = "";
+      words.forEach(function (word, i) {
+        var span = document.createElement("span");
+        span.className = "w";
+        span.style.setProperty("--wi", String(i));
+        span.textContent = word;
+        h.appendChild(span);
+        if (i < words.length - 1) h.appendChild(document.createTextNode(" "));
+      });
+      h.dataset.wrapped = "1";
+    });
   }
 
   function isRevealed(slide) {
@@ -1092,6 +1117,7 @@
 
   buildDynamicSlides();
   injectSketches();
+  wrapHeadlines();
   bindRevealButtons();
   bindPillarPicker();
   buildChapters();
