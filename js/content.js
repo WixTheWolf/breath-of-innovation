@@ -60,8 +60,8 @@ window.BOI = {
       num: 1,
       color: "#008fd3",
       intro: "Supply security, capacity, and continuity as TheraBreath grows.",
-      questionTitle: "Can we scale with you and absorb a shock?",
-      discussion: "When has a flavor supplier let you down, and what did it cost you?",
+      questionTitle: "How we scale with TheraBreath and absorb shocks.",
+      discussion: "Where do supplier risks show up for your team, and how can we help remove them?",
       cards: [
         {
           num: 1,
@@ -101,7 +101,7 @@ window.BOI = {
       num: 2,
       color: "#5fb832",
       intro: "Flavor development, sensory science, and what's next for oral care.",
-      questionTitle: "Where do new flavors actually come from?",
+      questionTitle: "How we build new flavor directions.",
       discussion: "What is the flavor request you have not made yet because you assumed the answer was no?",
       cards: [
         {
@@ -142,7 +142,7 @@ window.BOI = {
       num: 3,
       color: "#f58220",
       intro: "Investments, service levels, and securing critical materials.",
-      questionTitle: "Can you count on every order?",
+      questionTitle: "How we protect every TheraBreath order.",
       discussion: "What would make us the easiest supplier you work with?",
       cards: [
         {
@@ -177,7 +177,7 @@ window.BOI = {
       num: 4,
       color: "#0a1628",
       intro: "Why TFF is the right long-term partner, and what success looks like.",
-      questionTitle: "What does year five look like?",
+      questionTitle: "How we build toward year five.",
       discussion: "If this partnership doubled, what would have to be true?",
       cards: [
         {
@@ -271,20 +271,20 @@ window.BOI = {
      nums that live only in the appendix. */
   deck: {
     shortQ: {
-      1: "Volume doubles in 3 to 5 years?",
-      2: "A key supplier goes down?",
-      3: "A key person is out?",
-      4: "Quality at higher volume?",
-      5: "A major disruption hits?",
+      1: "How we scale when volume doubles.",
+      2: "How we cover a supplier going down.",
+      3: "How we cover a key person being out.",
+      4: "How we protect quality at higher volume.",
+      5: "How we respond when disruption hits.",
       6: "How do we stay ahead of trends?",
-      7: "Beyond today's mouthrinse portfolio?",
+      7: "How we go beyond today's mouthrinse portfolio.",
       8: "How do we approach innovation?",
       9: "How do we prove sensory performance?",
       10: "What excites us most?",
       11: "What have we already invested?",
       12: "How do we hold service levels?",
       13: "How do we secure critical materials?",
-      17: "One site, or many?",
+      17: "How one focused site supports control, speed, and accountability.",
       14: "Why the right long-term partner?",
       15: "What makes working with us different?",
       16: "What does success look like by year five?",
