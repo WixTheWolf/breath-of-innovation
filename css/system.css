@@ -2507,3 +2507,16 @@ a.media { display: block; }
 .flight-links a:focus-visible {
   text-decoration: underline;
 }
+
+/* Separators between the cover pills that only screen readers and
+   text parsers see. Absolutely positioned so they do not become
+   flex items and cannot change the chip layout. */
+.sr-sep {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  font-style: normal;
+}
