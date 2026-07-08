@@ -2520,3 +2520,43 @@ a.media { display: block; }
   white-space: nowrap;
   font-style: normal;
 }
+
+/* ============================================================
+   Phones and short screens: slides scroll instead of scaling.
+   Content stays at readable size and nothing is clipped; the
+   headline is always reachable at the top of the slide.
+   ============================================================ */
+@media (hover: none) and (pointer: coarse), (max-width: 768px), (max-height: 640px) {
+  html.pres-mode .pres-slide {
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* The inner sheet is the scroller (brand.css gives it height 100%
+     and overflow-y auto). The pillar slide overrides that to hidden
+     for the ghost numeral, which clipped revealed rows on phones.
+     Restore scrolling there. */
+  html.pres-mode .pres-slide-pillar .pres-slide-inner {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Centered pads clip their tops when content overflows a scroll
+     container. flex-start is the safe fallback; browsers that know
+     the safe keyword keep centering short content. */
+  html.pres-mode .pres-slide-pad {
+    justify-content: flex-start;
+    justify-content: safe center;
+    /* Let the pad's flow box grow with content so the scroller
+       measures the full height (flex 1 pinned it to the sheet). */
+    flex: 1 0 auto;
+  }
+  html.pres-mode .pres-slide-pillar .pres-slide-pad {
+    justify-content: flex-start;
+    min-height: 0;
+  }
+  html.pres-mode .pres-pillar-ghost {
+    font-size: clamp(7rem, 28vmin, 13rem);
+  }
+}
