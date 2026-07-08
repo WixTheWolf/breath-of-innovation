@@ -265,7 +265,8 @@ window.BOI = {
   ],
   /* Deck structure shared by the presentation (present.js) and the
      speaker packet (packet.js), so the packet always matches the
-     slides exactly. shortQ maps card.num to the short row question
+     slides exactly. Presentation and packet use this content. Keep
+     them synchronized. shortQ maps card.num to the short row question
      shown on the composed pillar slides. appendixCards lists card
      nums that live only in the appendix. */
   deck: {

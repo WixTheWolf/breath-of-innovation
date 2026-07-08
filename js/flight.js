@@ -86,8 +86,16 @@
     card.innerHTML =
       '<div class="flight-eyebrow">Blind tasting</div>' +
       "<h1>Flavor Flight Challenge</h1>" +
-      '<p class="flight-lead">Taste five blind samples. Follow each screen and share your honest freshness feedback.</p>' +
-      '<p class="flight-fun">No pressure, but R&amp;D versus Procurement bragging rights are on the line.</p>' +
+      '<p class="flight-lead">Taste blind first. Discuss openly after.</p>' +
+      '<p class="flight-intro">Score Samples A to E on impact, freshness, balance, cooling, and fit for the TheraBreath brand. After the blind pass, we reveal the platforms and talk through which direction deserves revision.</p>' +
+      '<ol class="flight-steps">' +
+      "<li>Taste Samples A to E blind.</li>" +
+      "<li>Score each sample quickly.</li>" +
+      "<li>Capture first impressions.</li>" +
+      "<li>Reveal the platforms.</li>" +
+      "<li>Pick the direction worth advancing.</li>" +
+      "</ol>" +
+      '<p class="flight-note">Feedback today is directional, not a launch decision.</p>' +
       '<div class="flight-sample-strip">' + labels.map(function (l) { return "<span>Sample " + l + "</span>"; }).join("") + "</div>" +
       button("Start flight", "data-next=\"1\"");
     wireCommon();
@@ -222,7 +230,7 @@
     card.innerHTML =
       '<div class="flight-eyebrow">Final choice</div>' +
       "<h1>Rank your top 3 samples</h1>" +
-      '<p class="flight-lead">Pick your favorites from the blind flight.</p>' +
+      '<p class="flight-lead">Rank the directions most worth advancing from the blind flight.</p>' +
       '<div class="flight-rank-grid">' +
       rankSelect("first", "1st place", state.ranking.first, state.ranking) +
       rankSelect("second", "2nd place", state.ranking.second, state.ranking) +
@@ -278,7 +286,8 @@
       '<div class="flight-eyebrow">Complete</div>' +
       "<h1>Thank you for helping shape the next generation of freshness.</h1>" +
       '<p class="flight-lead">Please return your tasting card/cup to the host.</p>' +
-      button("Start a new flight", "id=\"flight-reset\"");
+      button("Start a new flight", "id=\"flight-reset\"") +
+      '<div class="flight-links"><a href="/portfolio">Explore the portfolio</a><a href="/">Return to hub</a></div>';
     document.getElementById("flight-reset").addEventListener("click", function () {
       TFFStorage.remove(STORAGE_KEY);
       step = 0;

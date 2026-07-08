@@ -37,6 +37,16 @@ window.SiteDirectory = {
       items: [
         { href: "/portfolio", title: "Flavor portfolio", desc: "Production SKUs · pipeline · Gen Alpha directions", path: "/portfolio", keywords: "flavors portfolio gallery skus mint pipeline gen alpha", hot: true }
       ]
+    },
+    {
+      id: "support",
+      title: "Support",
+      desc: "Getting here and reaching us",
+      accent: "#5c6678",
+      items: [
+        { href: "https://maps.google.com/?q=2058+Second+Street,+Norco,+CA+92860", title: "Address and map", desc: "2058 Second Street, Norco, CA 92860", external: true, keywords: "address map directions parking norco location" },
+        { href: "tel:+19512739877", title: "Call The Flavor Factory", desc: "(951) 273-9877", keywords: "phone call contact help" }
+      ]
     }
   ]
 };

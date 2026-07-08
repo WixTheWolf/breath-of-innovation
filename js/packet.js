@@ -1,6 +1,7 @@
 /**
  * Speaker packet. A slide by slide run of show that mirrors the
- * presentation exactly. The deck structure (short row questions,
+ * presentation exactly. Presentation and packet use this content.
+ * Keep them synchronized. The deck structure (short row questions,
  * appendix card list, stat slides) comes from BOI.deck, the same
  * source present.js builds the slides from, so the two cannot drift.
  *
@@ -133,7 +134,7 @@
         badge: "Tasting tease",
         color: "#f58220",
         body:
-          sayBlock("Samples A to E. Start deciding what you think a next generation mint should be."),
+          sayBlock("Samples A to E. Start deciding what you think a next generation mint should be. Feedback is directional, not a launch decision."),
       });
     }
 
@@ -156,10 +157,10 @@
 
   /* 16 CTA */
   html += slide({
-    title: "Pick one prototype from today's flight.",
+    title: "Pick one direction worth advancing.",
     badge: "Close 2 of 3",
     body:
-      sayBlock("Pick your favorite from today and we'll go back to work tomorrow morning making it even better."),
+      sayBlock("Pick the direction worth advancing and we'll go back to work tomorrow morning making it even better. We'll move in weeks, not months."),
   });
 
   /* 17 Close */

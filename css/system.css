@@ -2456,3 +2456,54 @@ body.port-mode .port-card:nth-child(n+9) { animation-delay: 440ms; }
 
 /* Diptych photos are links to each company's site */
 a.media { display: block; }
+
+/* Tasting welcome: intro, steps, directional note, and finish links.
+   Also styles the static fallback markup in taste.html. */
+.flight-intro {
+  margin: 0 0 6px;
+  color: rgba(226, 241, 248, 0.78);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.flight-steps {
+  margin: 14px 0 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 7px;
+  color: rgba(226, 241, 248, 0.88);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.flight-steps li::marker {
+  color: #9edff8;
+  font-weight: 700;
+}
+.flight-note {
+  margin: 16px 0 4px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(158, 223, 248, 0.24);
+  background: rgba(158, 223, 248, 0.08);
+  color: #cfe8f5;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.flight-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  margin-top: 16px;
+}
+.flight-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #9edff8;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.flight-links a:hover,
+.flight-links a:focus-visible {
+  text-decoration: underline;
+}
