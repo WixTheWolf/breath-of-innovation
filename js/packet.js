@@ -95,7 +95,7 @@
     badge: "Cover",
     body:
       sayBlock("Welcome. While everyone settles, the screen is breathing on its own. Both logos are on it. Start when the room is ready.") +
-      doBlock("<p>Animated opening plays on its own. F for fullscreen before anyone walks in.</p>"),
+      doBlock("<p>A ten second opening plays when the page loads: flavor particles flow through glass pipes and form the TFF logo, then the tagline Crafting Flavor. Creating Impact. <strong>Reload the page as the room settles to replay it.</strong> F still works for fullscreen during the opening; any other key skips it.</p>"),
   });
 
   /* 2 Welcome */

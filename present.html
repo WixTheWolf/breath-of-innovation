@@ -199,8 +199,23 @@
       </div>
     </div>
 
+    <!-- The opening sequence: flavor particles flow through glass
+         pipes and converge into the real logo. Skipped on deep links
+         and under reduced motion. Any key or tap skips. -->
+    <div class="boi-open" id="boi-open" hidden>
+      <canvas id="boi-open-canvas" aria-hidden="true"></canvas>
+      <div class="boi-open-stage">
+        <div class="boi-open-logo">
+          <img src="/assets/companies/logos/tff-logo.png" alt="The Flavor Factory" width="606" height="126" decoding="async" />
+        </div>
+        <p class="boi-open-tag">Crafting Flavor. Creating Impact.</p>
+      </div>
+      <button type="button" class="boi-open-skip mono">Skip intro</button>
+    </div>
+
     <script src="/js/content.js"></script>
     <script src="/js/sketches.js"></script>
     <script src="/js/present.js"></script>
+    <script src="/js/opening.js"></script>
   </body>
 </html>

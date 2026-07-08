@@ -2358,3 +2358,98 @@ body.port-mode .port-card:nth-child(n+9) { animation-delay: 440ms; }
   }
   body.hub .live-badge::after { display: none; }
 }
+
+/* ============================================================
+   The opening sequence. A dark veil over the deck: particles
+   flow through glass pipes on the canvas, the real logo
+   materializes from them on a white plate, the tagline lands,
+   and the veil lifts onto the cover. JS drives the phases with
+   show-logo, show-tag, and done classes.
+   ============================================================ */
+.boi-open {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background:
+    radial-gradient(circle at 50% 42%, #10263e 0%, #0a1628 46%, #060d18 100%);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: opacity 650ms var(--ease-inout);
+}
+.boi-open[hidden] { display: none; }
+.boi-open.done { opacity: 0; pointer-events: none; }
+.boi-open canvas {
+  position: absolute;
+  inset: 0;
+}
+.boi-open-stage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: clamp(18px, 4vh, 34px);
+  padding: 0 24px;
+}
+.boi-open-logo {
+  padding: clamp(18px, 3.4vw, 34px) clamp(26px, 4.6vw, 52px);
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 30px 90px rgba(0, 0, 0, 0.55),
+    0 0 120px color-mix(in srgb, var(--breath) 22%, transparent);
+  opacity: 0;
+  transform: scale(0.94);
+  filter: blur(10px);
+}
+.boi-open.show-logo .boi-open-logo {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+  transition:
+    opacity 1100ms var(--ease-out),
+    transform 1100ms var(--ease-out),
+    filter 1100ms var(--ease-out);
+}
+.boi-open-logo img {
+  display: block;
+  width: min(66vw, 460px);
+  height: auto;
+}
+.boi-open-tag {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 3.2vw, 1.75rem);
+  letter-spacing: 0.01em;
+  color: #f7fafc;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translateY(10px);
+}
+.boi-open.show-tag .boi-open-tag {
+  opacity: 1;
+  transform: none;
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+}
+.boi-open-skip {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  z-index: 3;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(247, 250, 252, 0.55);
+  background: none;
+  border: 1px solid rgba(247, 250, 252, 0.22);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.boi-open-skip:hover { color: #f7fafc; border-color: rgba(247, 250, 252, 0.6); }
+@media (prefers-reduced-motion: reduce) {
+  .boi-open { display: none; }
+}
