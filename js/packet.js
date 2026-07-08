@@ -58,13 +58,6 @@
     );
   }
 
-  function doBlock(html) {
-    return (
-      '<div class="pkt-block pkt-block-do">' +
-      '<p class="pkt-label">Run it</p>' + html + "</div>"
-    );
-  }
-
   function pillarRows(section) {
     var demoted = APPENDIX_CARDS[section.num] || [];
     var kept = section.cards.filter(function (c) { return demoted.indexOf(c.num) === -1; });
@@ -94,8 +87,7 @@
     title: "Breath of Innovation",
     badge: "Cover",
     body:
-      sayBlock("Welcome. While everyone settles, the screen is breathing on its own. Both logos are on it. Start when the room is ready.") +
-      doBlock("<p>A ten second opening plays when the page loads: flavor particles flow through glass pipes and form the TFF logo, then the tagline Crafting Flavor. Creating Impact. <strong>Reload the page as the room settles to replay it.</strong> F still works for fullscreen during the opening; any other key skips it.</p>"),
+      sayBlock("Welcome. While everyone settles, the screen is breathing on its own. Both logos are on it. Start when the room is ready."),
   });
 
   /* 2 Welcome */
@@ -103,8 +95,7 @@
     title: "You just stood where your flavors are made.",
     badge: "Cold open",
     body:
-      sayBlock("The next 45 minutes are a working session, not a pitch. Interrupt us. The best version of this morning is the one where you steer.") +
-      doBlock("<p>Make eye contact, not screen contact. This slide is one sentence, let it land.</p>"),
+      sayBlock("The next 45 minutes are a working session, not a pitch. Interrupt us. The best version of this morning is the one where you steer."),
   });
 
   /* 3 Roadmap */
@@ -112,8 +103,7 @@
     title: "Four pillars. Honest answers.",
     badge: "Roadmap",
     body:
-      sayBlock("Your email gave us four pillars, so that is exactly how we built the morning: resiliency, innovation, operations, partnership. We can walk in order or jump to what matters most.") +
-      doBlock("<p>The four cells are tappable, click one to jump straight to that pillar if the room wants to reorder.</p>"),
+      sayBlock("Your email gave us four pillars, so that is exactly how we built the morning: resiliency, innovation, operations, partnership. We can walk in order or jump to what matters most."),
   });
 
   /* Pillars, matching buildDynamicSlides order exactly */
@@ -123,9 +113,7 @@
       badge: section.pillarShort + " · " + section.pillar,
       color: section.color,
       kind: "pillar",
-      body:
-        doBlock("<p><strong>Space reveals one row at a time.</strong> Read the row question, let the chips land, then expand with the Say line. R resets the rows.</p>") +
-        '<div class="pkt-rows">' + pillarRows(section) + "</div>",
+      body: '<div class="pkt-rows">' + pillarRows(section) + "</div>",
     });
 
     STATS.forEach(function (stat) {
@@ -135,9 +123,7 @@
         badge: "One number · guess then reveal",
         color: stat.color,
         kind: "stat",
-        body:
-          doBlock("<p><strong>Ask for guesses out loud first.</strong> Take two or three, then press Space. The number counts up to <strong>" + stat.value + esc(stat.suffix || "") + "</strong>.</p>") +
-          sayBlock(stat.story),
+        body: sayBlock(stat.story),
       });
     });
 
@@ -147,8 +133,7 @@
         badge: "Tasting tease",
         color: "#f58220",
         body:
-          sayBlock("Samples A to E. Start deciding what you think a next generation mint should be.") +
-          doBlock("<p>Point at the QR. This is the cliffhanger for 10:30, keep it under a minute.</p>"),
+          sayBlock("Samples A to E. Start deciding what you think a next generation mint should be."),
       });
     }
 
@@ -157,11 +142,7 @@
       badge: "Your turn · 2 min",
       color: section.color,
       kind: "discussion",
-      body:
-        doBlock(
-          "<p><strong>T starts the silent two minute timer</strong> (T again pauses, T again resets). Seed the first answer yourself if the room is quiet, then hand it over.</p>" +
-          "<p>Park anything big for open Q&amp;A with <strong>P</strong>, it reappears on the final slide.</p>"
-        ),
+      body: sayBlock("Anyone can start. We genuinely want the honest version, this shapes what we build next."),
     });
   });
 
@@ -170,8 +151,7 @@
     title: "Today, and what could be.",
     badge: "Close 1 of 3",
     body:
-      sayBlock("Today: 14 SKUs in production, a dedicated room, full traceability, a direct line to leadership. What could be: kids, gummies, powders, wellness, seasonal, a shared pipeline with structured sensory validation, and capacity planned for double the volume.") +
-      doBlock("<p>Left column is the present, right column is the invitation. Slow down here.</p>"),
+      sayBlock("Today: 14 SKUs in production, a dedicated room, full traceability, a direct line to leadership. What could be: kids, gummies, powders, wellness, seasonal, a shared pipeline with structured sensory validation, and capacity planned for double the volume."),
   });
 
   /* 16 CTA */
@@ -179,19 +159,14 @@
     title: "Pick one prototype from today's flight.",
     badge: "Close 2 of 3",
     body:
-      sayBlock("Tell us which one, and we will have a revision on your bench in weeks, not months.") +
-      doBlock("<p>One ask, one sentence. Do not stack extra asks on this slide.</p>"),
+      sayBlock("Tell us which one, and we will have a revision on your bench in weeks, not months."),
   });
 
   /* 17 Close */
   html += slide({
     title: "The floor is yours.",
     badge: "Close 3 of 3",
-    body:
-      doBlock(
-        "<p>Three seeded chips break silence: <strong>the PG shortage</strong>, <strong>what we would do differently</strong>, <strong>Gen Alpha</strong>. Tap one and answer it yourself if nobody starts.</p>" +
-        "<p>Parked questions from earlier render here automatically. <strong>A</strong> jumps to the appendix when a detail question lands, A again comes back.</p>"
-      ),
+    body: sayBlock("Open discussion. Your questions, your pace. Thank you for spending the morning with us."),
   });
 
   rosEl.innerHTML = html;

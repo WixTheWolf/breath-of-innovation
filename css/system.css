@@ -2453,3 +2453,6 @@ body.port-mode .port-card:nth-child(n+9) { animation-delay: 440ms; }
 @media (prefers-reduced-motion: reduce) {
   .boi-open { display: none; }
 }
+
+/* Diptych photos are links to each company's site */
+a.media { display: block; }

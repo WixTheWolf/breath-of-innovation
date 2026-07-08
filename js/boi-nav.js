@@ -19,7 +19,7 @@
 
   slot.className = "boi-nav";
   slot.innerHTML =
-    '<a class="boi-brand" href="/visit"><span class="boi-mark">TFF</span> Breath of Innovation</a>' +
+    '<a class="boi-brand" href="/"><span class="boi-mark">TFF</span> Breath of Innovation</a>' +
     '<div class="boi-nav-links">' +
     links +
     ext +
