@@ -312,29 +312,19 @@ window.BOIPillarIcons = (function () {
       "</g>"
     ),
 
-    /* 4 Partnership: two hands come together in a handshake, a spark
-       on contact. The right arm slides in from the right (under hand
-       plus thumb), the left arm from the left (over hand with
-       knuckles), on the shared piece animation. */
+    /* 4 Partnership: two puzzle pieces slide together and lock, a
+       spark on contact. Both pieces trace the exact same seam edge
+       (knob and socket share one arc), so they align and interlock
+       perfectly when the slide animation lands. */
     4: wrap(
       ring() +
       '<g class="pi-spark" stroke="' + ORANGE + '" stroke-width="3">' +
-        '<line x1="100" y1="46" x2="100" y2="58"/>' +
-        '<line x1="83" y1="51" x2="89" y2="62"/>' +
-        '<line x1="117" y1="51" x2="111" y2="62"/>' +
+        '<line x1="100" y1="38" x2="100" y2="50"/>' +
+        '<line x1="84" y1="43" x2="90" y2="54"/>' +
+        '<line x1="116" y1="43" x2="110" y2="54"/>' +
       "</g>" +
-      '<g class="pi-piece-r">' +
-        '<path d="M150 96 L118 96 Q103 96 93 106 L78 118 Q72 124 77 130 Q83 136 90 130 L101 122 Q109 129 121 129 L150 129 Z" fill="' + WHITE + '" stroke="' + NAVY + '" stroke-width="3"/>' +
-        '<path d="M124 98 Q116 87 103 90 Q106 99 118 102 Q122 101 124 98 Z" fill="' + WHITE + '" stroke="' + NAVY + '" stroke-width="3"/>' +
-        '<rect x="148" y="88" width="42" height="42" rx="7" fill="' + GREENL + '" stroke="' + NAVY + '" stroke-width="3"/>' +
-        '<circle cx="158" cy="109" r="2.6" fill="' + NAVY + '"/>' +
-      "</g>" +
-      '<g class="pi-piece-l">' +
-        '<path d="M50 100 L84 100 Q97 100 106 108 L121 120 Q126 125 121 130 Q115 136 108 130 L96 121 Q88 127 76 127 L50 127 Z" fill="' + WHITE + '" stroke="' + NAVY + '" stroke-width="3"/>' +
-        '<path d="M96 112 q4 -5 8 0 M103 117 q4 -5 8 0 M110 122 q4 -5 8 0" stroke="' + NAVY + '" stroke-width="2" fill="none"/>' +
-        '<rect x="10" y="88" width="42" height="42" rx="7" fill="' + BLUE + '" stroke="' + NAVY + '" stroke-width="3"/>' +
-        '<circle cx="42" cy="109" r="2.6" fill="' + NAVY + '"/>' +
-      "</g>" +
+      '<path class="pi-piece-l" d="M47 72 H59 A10 10 0 1 1 81 72 H100 V90 A12 12 0 1 1 100 114 V132 H47 Q40 132 40 125 V79 Q40 72 47 72 Z" fill="' + BLUE + '" stroke="' + NAVY + '" stroke-width="3"/>' +
+      '<path class="pi-piece-r" d="M100 72 H119 A10 10 0 1 1 141 72 H153 Q160 72 160 79 V125 Q160 132 153 132 H100 V114 A12 12 0 1 0 100 90 Z" fill="' + GREENL + '" stroke="' + NAVY + '" stroke-width="3"/>' +
       '<path d="M62 152 q38 8 76 0" stroke="' + BLUE + '" stroke-width="2.4" fill="none"/>'
     ),
   };
