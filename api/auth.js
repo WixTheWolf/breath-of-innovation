@@ -33,6 +33,16 @@ module.exports = async function handler(req, res) {
     }
   }
 
+  if (req.method === "GET") {
+    var raw = req.headers.cookie || "";
+    var authed = raw.split(";").some(function (part) {
+      var pair = part.trim().split("=");
+      return pair[0] === "tff-auth" && pair.slice(1).join("=") === TOKEN;
+    });
+    if (authed) return res.status(200).json({ ok: true });
+    return res.status(401).json({ ok: false });
+  }
+
   if (req.method === "DELETE") {
     res.setHeader("Set-Cookie", "tff-auth=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0");
     return res.status(200).json({ ok: true });

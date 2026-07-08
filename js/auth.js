@@ -42,10 +42,33 @@
       .catch(function () { return false; });
   }
 
+  /* Ask the server whether the auth cookie is valid. The cookie is
+     the source of truth; sessionStorage is only a fast-path cache. */
+  function verify() {
+    return fetch("/api/auth", { method: "GET", credentials: "same-origin" })
+      .then(function (res) { return res.ok; })
+      .catch(function () { return false; });
+  }
+
+  /* For gated pages: resolve true when the visitor is authed, first
+     from the cache, otherwise by checking the cookie. Redirect to the
+     gate only when both fail, so blocked or cleared sessionStorage
+     cannot bounce a validly signed-in visitor. */
+  function ensureAuthed(returnPath) {
+    if (isAuthed()) return Promise.resolve(true);
+    return verify().then(function (ok) {
+      if (ok) { setAuthed(); return true; }
+      global.location.replace("/gate?return=" + encodeURIComponent(returnPath || global.location.pathname));
+      return false;
+    });
+  }
+
   global.TFF = {
     isAuthed: isAuthed,
     login: login,
     logout: logout,
+    verify: verify,
+    ensureAuthed: ensureAuthed,
     getReturnUrl: getReturnUrl
   };
 })(window);

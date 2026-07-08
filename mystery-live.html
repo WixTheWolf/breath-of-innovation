@@ -45,7 +45,7 @@
 
     <script src="/js/auth.js"></script>
     <script>
-      if (!TFF.isAuthed()) location.replace("/gate?return=" + encodeURIComponent("/mystery-live"));
+      TFF.ensureAuthed("/mystery-live");
       document.getElementById("tm-signout").addEventListener("click", function () { TFF.logout(); });
 
       var meta = document.getElementById("live-meta");

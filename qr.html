@@ -58,7 +58,7 @@
     </div>
     <script src="/js/auth.js"></script>
     <script>
-      if (!TFF.isAuthed()) location.replace("/gate?return=" + encodeURIComponent("/qr"));
+      TFF.ensureAuthed("/qr");
       document.getElementById("tm-signout").addEventListener("click", function () { TFF.logout(); });
     </script>
   </body>

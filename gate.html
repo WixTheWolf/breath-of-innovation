@@ -111,8 +111,14 @@
     </div>
     <script src="/js/auth.js"></script>
     <script>
+      /* Only leave the gate when the server confirms the cookie.
+         A stale sessionStorage flag used to redirect into a loop
+         that never showed the password field. */
       if (TFF.isAuthed()) {
-        location.replace(TFF.getReturnUrl("/team"));
+        TFF.verify().then(function (ok) {
+          if (ok) location.replace(TFF.getReturnUrl("/team"));
+          else try { sessionStorage.removeItem("tff-session-v1"); } catch (e) {}
+        });
       }
       document.getElementById("gate-form").addEventListener("submit", function (e) {
         e.preventDefault();

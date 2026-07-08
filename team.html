@@ -99,7 +99,7 @@
 
     <script src="/js/auth.js"></script>
     <script>
-      if (!TFF.isAuthed()) location.replace("/gate?return=" + encodeURIComponent("/team"));
+      TFF.ensureAuthed("/team");
       document.getElementById("tm-signout").addEventListener("click", function () { TFF.logout(); });
 
       /* Church and Dwight document scans.

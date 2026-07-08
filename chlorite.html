@@ -90,7 +90,7 @@
 
     <script src="/js/auth.js"></script>
     <script>
-      if (!TFF.isAuthed()) location.replace("/gate?return=" + encodeURIComponent("/chlorite"));
+      TFF.ensureAuthed("/chlorite");
       document.getElementById("tm-signout").addEventListener("click", function () { TFF.logout(); });
     </script>
   </body>
