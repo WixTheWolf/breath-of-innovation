@@ -17,6 +17,7 @@ window.BOI = {
     { time: "10:30", end: "11:15", title: "Tasting", desc: "Five prototypes · blind then score", accent: "#f58220" },
     { time: "11:30", end: "1:00", title: "Lunch off site", desc: "Your hosts take the group", accent: "#5b6b8a" },
     { time: "1:00 PM+", end: "", title: "Open Q&A", desc: "Your topics · your pace", accent: "#006da3" },
+    { time: "5:00 PM", end: "", title: "Dinner", desc: "Evening with your hosts", accent: "#9028ab" },
   ],
   pillars: [
     {

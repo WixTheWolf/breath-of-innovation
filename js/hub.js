@@ -10,7 +10,8 @@
     { t: "10:15", label: "Break", desc: "Reset", start: 615, end: 630, href: "/visit" },
     { t: "10:30", label: "Tasting", desc: "Blind map, score", start: 630, end: 675, href: "/taste" },
     { t: "11:30", label: "Lunch", desc: "Off site", start: 690, end: 780, href: "/visit" },
-    { t: "1:00", label: "Open Q&A", desc: "Your pace", start: 780, end: 840, href: "/visit" }
+    { t: "1:00", label: "Open Q&A", desc: "Your pace", start: 780, end: 840, href: "/visit" },
+    { t: "5:00", label: "Dinner", desc: "With your hosts", start: 1020, end: 1140, href: "/visit" }
   ];
 
   /* Live day. Real clock on July 8, 2026 in America/Los_Angeles,
@@ -100,7 +101,8 @@
     }
 
     var b = state.block;
-    var when = state.inside ? "Now, " + b.t + " AM" : "Next, " + b.t + " AM";
+    var mer = b.start < 720 ? " AM" : " PM";
+    var when = (state.inside ? "Now, " : "Next, ") + b.t + mer;
     if (liveEl) {
       liveEl.innerHTML =
         '<a class="live-badge" href="' + b.href + '"><span class="breath-dot" aria-hidden="true"></span>' +

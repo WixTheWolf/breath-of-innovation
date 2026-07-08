@@ -8,7 +8,7 @@ window.SiteDirectory = {
       accent: "#008fd3",
       items: [
         { href: "/", title: "Workshop hub", desc: "Landing page · schedule · quick links", path: "/", keywords: "home index hub agenda landing" },
-        { href: "/visit", title: "Your day", desc: "Day-of timeline, tour, tasting, lunch, Q&A", path: "/visit", keywords: "schedule your day timeline agenda tour lunch" }
+        { href: "/visit", title: "Your day", desc: "Day-of timeline, tour, tasting, lunch, Q&A, dinner", path: "/visit", keywords: "schedule your day timeline agenda tour lunch dinner" }
       ]
     },
     {
