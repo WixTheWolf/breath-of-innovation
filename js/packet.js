@@ -95,7 +95,7 @@
     title: "You just stood where your flavors are made.",
     badge: "Cold open",
     body:
-      sayBlock("The next 45 minutes are a working session, not a pitch. Interrupt us. The best version of this morning is the one where you steer."),
+      sayBlock("You guys didn't ask for a presentation. You asked us to take an honest look at whether we're built for where TheraBreath is going. That's exactly what this morning is about. Ask questions, interrupt us, push us where you want to go."),
   });
 
   /* 3 Roadmap */
@@ -103,7 +103,7 @@
     title: "Four pillars. Honest answers.",
     badge: "Roadmap",
     body:
-      sayBlock("Your email gave us four pillars, so that is exactly how we built the morning: resiliency, innovation, operations, partnership. We can walk in order or jump to what matters most."),
+      sayBlock("When your team sent over the four areas you wanted to discuss, we took that pretty literally. So everything today fits into those buckets: resiliency, innovation, operations, and partnership."),
   });
 
   /* Pillars, matching buildDynamicSlides order exactly */
@@ -151,7 +151,7 @@
     title: "Today, and what could be.",
     badge: "Close 1 of 3",
     body:
-      sayBlock("Today: 14 SKUs in production, a dedicated room, full traceability, a direct line to leadership. What could be: kids, gummies, powders, wellness, seasonal, a shared pipeline with structured sensory validation, and capacity planned for double the volume."),
+      sayBlock("Today we're making flavors together. Five years from now we'd love to be helping shape where the entire category goes next."),
   });
 
   /* 16 CTA */
@@ -159,14 +159,14 @@
     title: "Pick one prototype from today's flight.",
     badge: "Close 2 of 3",
     body:
-      sayBlock("Tell us which one, and we will have a revision on your bench in weeks, not months."),
+      sayBlock("Pick your favorite from today and we'll go back to work tomorrow morning making it even better."),
   });
 
   /* 17 Close */
   html += slide({
     title: "The floor is yours.",
     badge: "Close 3 of 3",
-    body: sayBlock("Open discussion. Your questions, your pace. Thank you for spending the morning with us."),
+    body: sayBlock("We've talked enough about us. Let's talk about where you want to go next."),
   });
 
   rosEl.innerHTML = html;
